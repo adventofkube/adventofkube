@@ -38,7 +38,7 @@ export const DAYS = [
   {
     day: 1,
     title: 'Broken Deployment',
-    description: 'A Deployment is failing to roll out. There are 3 things wrong with it. Diagnose each issue, fix them, and extract the flag from the running pod.',
+    description: 'A Deployment is failing to roll out. There are 3 things wrong with it. Diagnose each issue and fix them. Once the pod is running, check its logs for the flag.',
     flagHash: '3d9822e477d0414cc8c153847fbb667394143b9301c816e2b9eb0efb8bb737e4',
     chartUrl: 'https://example.com/charts/day01.tgz',
     setup: [
@@ -48,6 +48,8 @@ export const DAYS = [
       '<code>helm install day01 adventofkube/day01</code>',
       'Start investigating:',
       '<code>kubectl get pods -n day01</code>',
+      'Once all issues are fixed and the pod is running, get the flag:',
+      '<code>kubectl logs -n day01 -l app=day01</code>',
     ],
     hints: [
       'Run <code>kubectl describe pod -n day01</code> and look at the Events section. What does it say about the image?',
