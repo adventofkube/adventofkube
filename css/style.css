@@ -6,30 +6,32 @@
 }
 
 :root {
-  --bg: #0f0f23;
-  --bg-light: #1a1a2e;
-  --text: #cccccc;
-  --text-bright: #e0e0e0;
-  --green: #00cc00;
-  --green-dim: #009900;
-  --gold: #ffff66;
-  --gold-dim: #cccc00;
-  --link: #00cc00;
-  --link-hover: #99ff99;
-  --locked: #555555;
-  --border: #333340;
-  --success: #00cc00;
-  --error: #ff4444;
+  --bg: #ffffff;
+  --bg-light: #f7f8fa;
+  --text: #3d4752;
+  --text-bright: #1a1a1a;
+  --primary: #326ce5;
+  --primary-dark: #2856b8;
+  --primary-light: #e8eef8;
+  --completed: #1a8a3f;
+  --completed-light: #e6f4ea;
+  --locked: #9aa5b1;
+  --locked-light: #f0f1f3;
+  --link: #326ce5;
+  --link-hover: #2856b8;
+  --border: #dce1e6;
+  --success: #1a8a3f;
+  --error: #d93025;
 }
 
 body {
-  font-family: "Source Code Pro", "Courier New", Consolas, monospace;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 a {
@@ -39,7 +41,6 @@ a {
 
 a:hover {
   color: var(--link-hover);
-  text-shadow: 0 0 5px var(--green);
 }
 
 /* === Main Content === */
@@ -63,19 +64,19 @@ a:hover {
 /* === Landing Page === */
 .landing-hero {
   text-align: center;
-  padding: 4rem 0 2rem;
+  padding: 3rem 0 1.5rem;
 }
 
 .landing-hero h1 {
   font-size: 2.5rem;
-  color: var(--green);
-  text-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
+  color: var(--primary);
   margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 .landing-hero .tagline {
   font-size: 1.1rem;
-  color: var(--gold);
+  color: var(--text);
   margin-bottom: 2rem;
 }
 
@@ -99,7 +100,7 @@ a:hover {
 .landing-how {
   padding: 1.5rem;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   background: var(--bg-light);
 }
 
@@ -119,32 +120,32 @@ a:hover {
 }
 
 .landing-how li code {
-  color: var(--green);
-  background: rgba(0, 204, 0, 0.1);
-  padding: 0.1rem 0.4rem;
-  border-radius: 2px;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
 }
 
 .cta-button {
   display: inline-block;
   padding: 0.75rem 2rem;
-  background: var(--green-dim);
-  color: var(--bg);
+  background: var(--primary);
+  color: #ffffff;
   font-family: inherit;
   font-size: 1rem;
-  font-weight: bold;
-  border: 1px solid var(--green);
-  border-radius: 4px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
   transition: background 0.2s, box-shadow 0.2s;
 }
 
 .cta-button:hover {
-  background: var(--green);
-  color: var(--bg);
-  box-shadow: 0 0 15px rgba(0, 204, 0, 0.4);
-  text-shadow: none;
+  background: var(--primary-dark);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.3);
 }
 
 /* === Challenges List === */
@@ -164,34 +165,32 @@ a:hover {
   gap: 1rem;
   padding: 0.75rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   margin-bottom: 0.5rem;
   text-decoration: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .challenge-row.unlocked {
-  border-color: var(--green-dim);
+  border-color: var(--primary);
+  background: var(--primary-light);
 }
 
 .challenge-row.unlocked:hover {
-  border-color: var(--green);
-  box-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
-  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.15);
 }
 
 .challenge-row.completed {
-  border-color: var(--gold-dim);
+  border-color: var(--completed);
+  background: var(--completed-light);
 }
 
 .challenge-row.completed:hover {
-  border-color: var(--gold);
-  box-shadow: 0 0 10px rgba(255, 255, 102, 0.3);
-  text-shadow: none;
+  box-shadow: 0 2px 8px rgba(26, 138, 63, 0.15);
 }
 
 .challenge-day {
-  font-weight: bold;
+  font-weight: 600;
   color: var(--text-bright);
   min-width: 3.5rem;
 }
@@ -203,12 +202,14 @@ a:hover {
 
 .challenge-status {
   font-size: 0.7rem;
-  font-weight: bold;
-  color: var(--green);
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .challenge-row.completed .challenge-status {
-  color: var(--gold);
+  color: var(--completed);
 }
 
 /* === Calendar Grid === */
@@ -218,7 +219,7 @@ a:hover {
 }
 
 .calendar-header h1 {
-  color: var(--green);
+  color: var(--primary);
   font-size: 1.8rem;
 }
 
@@ -235,9 +236,9 @@ a:hover {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: default;
   transition: border-color 0.2s, box-shadow 0.2s;
   text-decoration: none;
@@ -249,42 +250,42 @@ a:hover {
 }
 
 .day-tile .day-status {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   margin-top: 0.25rem;
-  font-weight: normal;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Locked */
 .day-tile.locked {
   color: var(--locked);
-  background: var(--bg);
+  background: var(--locked-light);
   border-color: var(--border);
 }
 
 /* Unlocked */
 .day-tile.unlocked {
-  color: var(--text-bright);
-  background: var(--bg-light);
-  border-color: var(--green-dim);
+  color: var(--primary);
+  background: var(--primary-light);
+  border-color: var(--primary);
   cursor: pointer;
 }
 
 .day-tile.unlocked:hover {
-  border-color: var(--green);
-  box-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.2);
 }
 
 /* Completed */
 .day-tile.completed {
-  color: var(--gold);
-  background: var(--bg-light);
-  border-color: var(--gold-dim);
+  color: var(--completed);
+  background: var(--completed-light);
+  border-color: var(--completed);
   cursor: pointer;
 }
 
 .day-tile.completed:hover {
-  border-color: var(--gold);
-  box-shadow: 0 0 10px rgba(255, 255, 102, 0.3);
+  box-shadow: 0 2px 8px rgba(26, 138, 63, 0.2);
 }
 
 /* === Day Zero Row === */
@@ -296,31 +297,31 @@ a:hover {
   aspect-ratio: auto;
   flex-direction: row;
   gap: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   width: 100%;
   font-size: 1rem;
 }
 
 .day-tile.day-zero .day-number {
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .day-tile.day-zero .day-title {
   flex: 1;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: normal;
   color: var(--text);
 }
 
 .day-tile.day-zero .day-status {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   margin-top: 0;
 }
 
 /* === Day Page === */
 .day-page h1 {
-  color: var(--green);
+  color: var(--primary);
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
 }
@@ -334,26 +335,26 @@ a:hover {
 .day-page .chart-link {
   display: inline-block;
   padding: 0.5rem 1.25rem;
-  background: var(--bg-light);
-  border: 1px solid var(--green-dim);
-  border-radius: 4px;
-  color: var(--green);
+  background: var(--primary-light);
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+  color: var(--primary);
+  font-weight: 500;
   margin-bottom: 1.5rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
 .day-page .chart-link:hover {
-  border-color: var(--green);
-  box-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
-  text-shadow: none;
+  background: var(--primary);
+  color: #ffffff;
 }
 
 /* === Setup & Hints === */
 .setup-section {
   margin-bottom: 1.5rem;
-  padding: 1rem 1.25rem;
+  padding: 1.25rem 1.5rem;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   background: var(--bg-light);
 }
 
@@ -369,11 +370,12 @@ a:hover {
 
 .setup-steps code {
   display: block;
-  background: var(--bg);
-  color: var(--green);
-  padding: 0.4rem 0.75rem;
-  border-radius: 3px;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
   margin: 0.25rem 0 0.75rem;
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
   font-size: 0.85rem;
   overflow-x: auto;
 }
@@ -390,7 +392,7 @@ a:hover {
 
 .hint-item {
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   margin-bottom: 0.5rem;
   background: var(--bg-light);
 }
@@ -398,13 +400,13 @@ a:hover {
 .hint-item summary {
   padding: 0.5rem 0.75rem;
   cursor: pointer;
-  color: var(--gold);
-  font-weight: bold;
+  color: var(--primary);
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
 .hint-item summary:hover {
-  color: var(--gold-dim);
+  color: var(--primary-dark);
 }
 
 .hint-item p {
@@ -414,21 +416,23 @@ a:hover {
 }
 
 .hint-item code {
-  background: var(--bg);
-  color: var(--green);
-  padding: 0.1rem 0.4rem;
-  border-radius: 2px;
-  font-size: 0.85rem;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-size: 0.85em;
 }
 
 .stopwatch {
-  font-size: 1.2rem;
-  color: var(--gold);
+  font-size: 1.1rem;
+  color: var(--primary);
   margin-bottom: 1.5rem;
   padding: 0.75rem;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   background: var(--bg-light);
+  font-weight: 500;
 }
 
 .flag-section {
@@ -439,6 +443,7 @@ a:hover {
   display: block;
   margin-bottom: 0.5rem;
   color: var(--text-bright);
+  font-weight: 500;
 }
 
 .flag-input-row {
@@ -454,7 +459,7 @@ a:hover {
   padding: 0.5rem 0.75rem;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--text-bright);
   font-family: inherit;
   font-size: 0.9rem;
@@ -462,52 +467,53 @@ a:hover {
 
 .flag-input-row input[type="text"]:focus {
   outline: none;
-  border-color: var(--green);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(50, 108, 229, 0.1);
 }
 
 .flag-input-row button {
   padding: 0.5rem 1.25rem;
-  background: var(--green-dim);
-  color: var(--bg);
-  border: 1px solid var(--green);
-  border-radius: 4px;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
   font-family: inherit;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .flag-input-row button:hover {
-  background: var(--green);
+  background: var(--primary-dark);
 }
 
 .flag-result {
   margin-top: 1rem;
   padding: 0.75rem;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: 8px;
+  font-weight: 600;
 }
 
 .flag-result.success {
   color: var(--success);
   border: 1px solid var(--success);
-  background: rgba(0, 204, 0, 0.1);
+  background: var(--completed-light);
 }
 
 .flag-result.error {
   color: var(--error);
   border: 1px solid var(--error);
-  background: rgba(255, 68, 68, 0.1);
+  background: #fce8e6;
 }
 
 .day-completed-banner {
   padding: 1rem;
   margin-bottom: 1.5rem;
-  border: 1px solid var(--gold-dim);
-  border-radius: 4px;
-  background: rgba(255, 255, 102, 0.05);
-  color: var(--gold);
-  font-weight: bold;
+  border: 1px solid var(--completed);
+  border-radius: 8px;
+  background: var(--completed-light);
+  color: var(--completed);
+  font-weight: 600;
 }
 
 .back-link {
@@ -519,21 +525,21 @@ a:hover {
 .start-btn {
   display: inline-block;
   padding: 0.6rem 1.5rem;
-  background: var(--green-dim);
-  color: var(--bg);
-  border: 1px solid var(--green);
-  border-radius: 4px;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
   font-family: inherit;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   margin-bottom: 1.5rem;
   transition: background 0.2s, box-shadow 0.2s;
 }
 
 .start-btn:hover {
-  background: var(--green);
-  box-shadow: 0 0 15px rgba(0, 204, 0, 0.4);
+  background: var(--primary-dark);
+  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.3);
 }
 
 /* === Responsive === */
@@ -558,7 +564,7 @@ a:hover {
   }
 
   .day-tile .day-status {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
   }
 
   .landing-hero h1 {
@@ -567,9 +573,5 @@ a:hover {
 
   #app {
     padding: 1rem;
-  }
-
-  .top-nav {
-    padding: 0.75rem 1rem;
   }
 }
