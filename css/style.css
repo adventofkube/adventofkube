@@ -6,22 +6,22 @@
 }
 
 :root {
-  --bg: #ffffff;
-  --bg-light: #f7f8fa;
-  --text: #3d4752;
-  --text-bright: #1a1a1a;
-  --primary: #326ce5;
-  --primary-dark: #2856b8;
-  --primary-light: #e8eef8;
-  --completed: #1a8a3f;
-  --completed-light: #e6f4ea;
-  --locked: #9aa5b1;
-  --locked-light: #f0f1f3;
-  --link: #326ce5;
-  --link-hover: #2856b8;
-  --border: #dce1e6;
-  --success: #1a8a3f;
-  --error: #d93025;
+  --bg: #0f1923;
+  --bg-light: #162231;
+  --text: #b0bec5;
+  --text-bright: #e1e8ed;
+  --primary: #4d8ae5;
+  --primary-dark: #3a6fc2;
+  --primary-light: rgba(77, 138, 229, 0.12);
+  --completed: #43a047;
+  --completed-light: rgba(67, 160, 71, 0.12);
+  --locked: #546e7a;
+  --locked-light: rgba(84, 110, 122, 0.1);
+  --link: #4d8ae5;
+  --link-hover: #7aabf0;
+  --border: #263545;
+  --success: #43a047;
+  --error: #ef5350;
 }
 
 body {
@@ -131,7 +131,7 @@ a:hover {
   display: inline-block;
   padding: 0.75rem 2rem;
   background: var(--primary);
-  color: #ffffff;
+  color: var(--text-bright);
   font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
@@ -144,7 +144,7 @@ a:hover {
 
 .cta-button:hover {
   background: var(--primary-dark);
-  color: #ffffff;
+  color: var(--text-bright);
   box-shadow: 0 2px 8px rgba(50, 108, 229, 0.3);
 }
 
@@ -346,7 +346,7 @@ a:hover {
 
 .day-page .chart-link:hover {
   background: var(--primary);
-  color: #ffffff;
+  color: var(--text-bright);
 }
 
 /* === Setup & Hints === */
@@ -474,7 +474,7 @@ a:hover {
 .flag-input-row button {
   padding: 0.5rem 1.25rem;
   background: var(--primary);
-  color: #ffffff;
+  color: var(--text-bright);
   border: none;
   border-radius: 6px;
   font-family: inherit;
@@ -503,7 +503,7 @@ a:hover {
 .flag-result.error {
   color: var(--error);
   border: 1px solid var(--error);
-  background: #fce8e6;
+  background: rgba(239, 83, 80, 0.12);
 }
 
 .day-completed-banner {
@@ -526,7 +526,7 @@ a:hover {
   display: inline-block;
   padding: 0.6rem 1.5rem;
   background: var(--primary);
-  color: #ffffff;
+  color: var(--text-bright);
   border: none;
   border-radius: 6px;
   font-family: inherit;
