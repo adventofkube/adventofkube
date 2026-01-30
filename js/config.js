@@ -7,8 +7,8 @@ export const DAYS = [
   {
     day: 0,
     title: 'Setup',
-    description: 'Set up your local environment: install Docker, kind, kubectl, and Helm. Once everything is installed, create a cluster and verify it works.',
-    flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    description: 'Set up your local environment, deploy a test chart, and retrieve the flag from the pod logs.',
+    flagHash: '1c015e563e5e30188378f8516b89cfa5c6c14ba00f9efd5a878a570e383e2e03',
     chartUrl: 'https://example.com/charts/day00.tgz',
     setup: [
       '<strong>1. Install Docker</strong> (<a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener">docs</a>)',
@@ -21,14 +21,18 @@ export const DAYS = [
       '<code>helm version</code>',
       '<strong>5. Create a kind cluster</strong>',
       '<code>kind create cluster --name adventofkube</code>',
-      '<strong>6. Verify it works</strong>',
-      '<code>kubectl cluster-info --context kind-adventofkube</code>',
-      '<code>kubectl get nodes</code>',
+      '<strong>6. Add the Advent of Kube Helm repo</strong>',
+      '<code>helm repo add adventofkube https://adventofkube.github.io/adventofkube/charts</code>',
+      '<strong>7. Install the Day 0 chart</strong>',
+      '<code>helm install day00 adventofkube/day00</code>',
+      '<strong>8. Get the flag from the pod logs</strong>',
+      '<code>kubectl logs -n day00 setup-check</code>',
     ],
     hints: [
       'Make sure Docker is running before creating the kind cluster.',
       'If <code>kind create cluster</code> fails, try <code>docker ps</code> to check that Docker is responsive.',
       'On Linux, you may need to run Docker commands with <code>sudo</code> or add your user to the <code>docker</code> group.',
+      'If the pod isn\'t showing logs yet, run <code>kubectl get pods -n day00</code> and wait for it to complete.',
     ],
   },
   {

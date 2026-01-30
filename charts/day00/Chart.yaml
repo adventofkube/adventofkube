@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day00
+description: "Day 0: Setup verification — confirm your cluster is working"
+version: 0.1.0
+type: application
