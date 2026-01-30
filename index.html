@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advent of Kube - Day 1</title>
+<style>
+  body { font-family: sans-serif; padding: 2rem; background: #f5f5f5; }
+  #chart-link { margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem; background: #1a73e8; color: white; text-decoration: none; border-radius: 4px; }
+  #chart-link.disabled { background: gray; pointer-events: none; }
+  #timer { font-weight: bold; margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>Advent of Kube - Day 1</h1>
+<p>Step 1: Reveal your Helm chart to start the exercise.</p>
+
+<button id="reveal-btn">Reveal Helm Chart</button>
+
+<div id="chart-container" style="display:none;">
+  <a href="https://example.com/day01-chart.tgz" id="chart-link" target="_blank">Download Helm Chart</a>
+  <div id="timer">Time remaining: 60:00</div>
+</div>
+
+<script>
+const TIMER_KEY = 'day1TimerStart';
+const DURATION = 60 * 60 * 1000; // 1 hour in ms
+
+const revealBtn = document.getElementById('reveal-btn');
+const chartContainer = document.getElementById('chart-container');
+const chartLink = document.getElementById('chart-link');
+const timerEl = document.getElementById('timer');
+
+function startTimer(startTime) {
+  function update() {
+    const now = Date.now();
+    const elapsed = now - startTime;
+    const remaining = DURATION - elapsed;
+
+    if (remaining <= 0) {
+      timerEl.textContent = "Time's up!";
+      chartLink.classList.add('disabled');
+      clearInterval(interval);
+      return;
+    }
+
+    const minutes = Math.floor(remaining / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+    timerEl.textContent = `Time remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  update();
+  const interval = setInterval(update, 1000);
+}
+
+// Check if timer already started
+let startTime = localStorage.getItem(TIMER_KEY);
+if (startTime) {
+  startTime = parseInt(startTime, 10);
+  chartContainer.style.display = 'block';
+  startTimer(startTime);
+}
+
+// Reveal button handler
+revealBtn.addEventListener('click', () => {
+  startTime = Date.now();
+  localStorage.setItem(TIMER_KEY, startTime);
+  chartContainer.style.display = 'block';
+  startTimer(startTime);
+  revealBtn.disabled = true;
+});
+</script>
+
+</body>
+</html>
+
