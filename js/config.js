@@ -15,7 +15,7 @@ export const DAYS = [
     day: 1,
     title: 'Broken Deployment',
     description: 'A Deployment is failing to roll out. Find the misconfiguration, fix it, and extract the flag from the running pod.',
-    flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    flagHash: '3d9822e477d0414cc8c153847fbb667394143b9301c816e2b9eb0efb8bb737e4',
     chartUrl: 'https://example.com/charts/day01.tgz',
   },
   {

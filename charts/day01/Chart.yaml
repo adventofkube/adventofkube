@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day01
+description: "Day 1: Broken Deployment — diagnose and fix a failing Deployment"
+version: 0.1.0
+type: application

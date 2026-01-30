@@ -1,0 +1,5 @@
+image:
+  repository: ghcr.io/sjsu-mahmood/adventofkube-day01
+  tag: v2  # BUG: only v1 exists in the registry
+
+appKey: "advent-of-kube-2026"
