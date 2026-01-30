@@ -39,7 +39,7 @@ export const DAYS = [
     chartUrl: 'https://example.com/charts/day01.tgz',
     setup: [
       'Add the Advent of Kube Helm repo:',
-      '<code>helm repo add adventofkube https://muhammedhmahmood.github.io/adventofkube/charts</code>',
+      '<code>helm repo add adventofkube https://adventofkube.github.io/adventofkube/charts</code>',
       'Install the chart:',
       '<code>helm install day01 adventofkube/day01</code>',
       'Start investigating:',
