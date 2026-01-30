@@ -70,7 +70,7 @@ export function renderDay(app, params) {
 
   if (state === 'locked') {
     app.innerHTML = `
-      <a href="/calendar" class="back-link" data-link>&larr; Back to Calendar</a>
+      <a href="/" class="back-link" data-link>&larr; Back to Home</a>
       <div class="day-page">
         <h1>Day ${dayNumber}: ${dayConfig.title}</h1>
         <p>This challenge is not yet unlocked.</p>
@@ -92,7 +92,7 @@ export function renderDay(app, params) {
   }
 
   app.innerHTML = `
-    <a href="/calendar" class="back-link" data-link>&larr; Back to Calendar</a>
+    <a href="/" class="back-link" data-link>&larr; Back to Home</a>
     <div class="day-page">
       <h1>Day ${dayNumber}: ${dayConfig.title}</h1>
       ${bannerHtml}

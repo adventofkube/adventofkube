@@ -42,34 +42,10 @@ a:hover {
   text-shadow: 0 0 5px var(--green);
 }
 
-/* === Navigation === */
-.top-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-brand {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--green);
-}
-
-.nav-brand:hover {
-  color: var(--link-hover);
-}
-
-.nav-links a {
-  margin-left: 1.5rem;
-  font-size: 0.9rem;
-}
-
 /* === Main Content === */
 #app {
   flex: 1;
-  max-width: 960px;
+  max-width: 1100px;
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
@@ -103,8 +79,24 @@ a:hover {
   margin-bottom: 2rem;
 }
 
+.landing-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.landing-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.landing-right {
+  flex-shrink: 0;
+  width: 340px;
+}
+
 .landing-how {
-  margin: 2rem 0;
   padding: 1.5rem;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -233,9 +225,7 @@ a:hover {
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
+  gap: 0.5rem;
 }
 
 .day-tile {
@@ -299,8 +289,7 @@ a:hover {
 
 /* === Day Zero Row === */
 .day-zero-row {
-  max-width: 600px;
-  margin: 0 auto 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .day-tile.day-zero {
@@ -548,6 +537,16 @@ a:hover {
 }
 
 /* === Responsive === */
+@media (max-width: 768px) {
+  .landing-layout {
+    flex-direction: column;
+  }
+
+  .landing-right {
+    width: 100%;
+  }
+}
+
 @media (max-width: 600px) {
   .calendar-grid {
     grid-template-columns: repeat(5, 1fr);
