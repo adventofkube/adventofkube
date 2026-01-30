@@ -1,6 +1,6 @@
 // Set the start date for day unlocking.
 // Day 1 unlocks on START_DATE, Day 2 on START_DATE + 1 day, etc.
-export const START_DATE = new Date('2026-01-30T00:00:00');
+export const START_DATE = new Date('2026-01-05T00:00:00');
 
 // Per-day configuration. flagHash is the SHA-256 hex digest of the correct flag.
 export const DAYS = [
