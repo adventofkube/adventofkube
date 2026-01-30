@@ -295,6 +295,79 @@ a:hover {
   text-shadow: none;
 }
 
+/* === Setup & Hints === */
+.setup-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-light);
+}
+
+.setup-section h2 {
+  color: var(--text-bright);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.setup-steps {
+  line-height: 1.8;
+}
+
+.setup-steps code {
+  display: block;
+  background: var(--bg);
+  color: var(--green);
+  padding: 0.4rem 0.75rem;
+  border-radius: 3px;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.hints-section {
+  margin-bottom: 1.5rem;
+}
+
+.hints-section h2 {
+  color: var(--text-bright);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.hint-item {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  background: var(--bg-light);
+}
+
+.hint-item summary {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  color: var(--gold);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.hint-item summary:hover {
+  color: var(--gold-dim);
+}
+
+.hint-item p {
+  padding: 0.5rem 0.75rem 0.75rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.hint-item code {
+  background: var(--bg);
+  color: var(--green);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  font-size: 0.85rem;
+}
+
 .stopwatch {
   font-size: 1.2rem;
   color: var(--gold);

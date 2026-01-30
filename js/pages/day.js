@@ -95,7 +95,25 @@ export function renderDay(app, params) {
       <p class="day-description">${dayConfig.description}</p>
       ${!hasStarted && !isCompleted ? `<button class="start-btn" id="start-btn">Start Challenge</button>` : ''}
       <div id="challenge-area" style="${hasStarted || isCompleted ? '' : 'display:none'}">
-        <a href="${dayConfig.chartUrl}" class="chart-link" target="_blank" rel="noopener">Download Helm Chart</a>
+        ${dayConfig.setup ? `
+          <div class="setup-section">
+            <h2>Setup</h2>
+            <div class="setup-steps">${dayConfig.setup.join('\n')}</div>
+          </div>
+        ` : `
+          <a href="${dayConfig.chartUrl}" class="chart-link" target="_blank" rel="noopener">Download Helm Chart</a>
+        `}
+        ${dayConfig.hints ? `
+          <div class="hints-section">
+            <h2>Hints</h2>
+            ${dayConfig.hints.map((hint, i) => `
+              <details class="hint-item">
+                <summary>Hint ${i + 1}</summary>
+                <p>${hint}</p>
+              </details>
+            `).join('')}
+          </div>
+        ` : ''}
         <div class="stopwatch" id="stopwatch">Elapsed: 0:00</div>
         ${!isCompleted ? `
           <div class="flag-section">

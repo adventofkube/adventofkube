@@ -23,6 +23,7 @@ func main() {
 		fmt.Fprintln(w, "ok")
 	})
 
+	log.Println("App is ready! Flag: AOK{d3ploy_and_d3bug}")
 	log.Println("Listening on :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -14,9 +14,24 @@ export const DAYS = [
   {
     day: 1,
     title: 'Broken Deployment',
-    description: 'A Deployment is failing to roll out. Find the misconfiguration, fix it, and extract the flag from the running pod.',
+    description: 'A Deployment is failing to roll out. There are 3 things wrong with it. Diagnose each issue, fix them, and extract the flag from the running pod.',
     flagHash: '3d9822e477d0414cc8c153847fbb667394143b9301c816e2b9eb0efb8bb737e4',
     chartUrl: 'https://example.com/charts/day01.tgz',
+    setup: [
+      'Add the Advent of Kube Helm repo:',
+      '<code>helm repo add adventofkube https://muhammedhmahmood.github.io/adventofkube/charts</code>',
+      'Install the chart:',
+      '<code>helm install day01 adventofkube/day01</code>',
+      'Start investigating:',
+      '<code>kubectl get pods -n day01</code>',
+    ],
+    hints: [
+      'Run <code>kubectl describe pod -n day01</code> and look at the Events section. What does it say about the image?',
+      'The image tag in the Deployment doesn\'t exist in the registry. Check what tags are actually available and fix the tag.',
+      'After fixing the image, the pod starts but crashes. Run <code>kubectl logs -n day01 &lt;pod-name&gt;</code> to see why.',
+      'The app needs an environment variable. There\'s a ConfigMap in the namespace that has the right value — wire it into the Deployment.',
+      'The pod is running but you can\'t reach the app. Compare the <code>containerPort</code> in the Deployment with the port the app actually listens on.',
+    ],
   },
   {
     day: 2,
