@@ -1,0 +1,407 @@
+/* === Base Reset & Theme === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f0f23;
+  --bg-light: #1a1a2e;
+  --text: #cccccc;
+  --text-bright: #e0e0e0;
+  --green: #00cc00;
+  --green-dim: #009900;
+  --gold: #ffff66;
+  --gold-dim: #cccc00;
+  --link: #00cc00;
+  --link-hover: #99ff99;
+  --locked: #555555;
+  --border: #333340;
+  --success: #00cc00;
+  --error: #ff4444;
+}
+
+body {
+  font-family: "Source Code Pro", "Courier New", Consolas, monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-shadow: 0 0 5px var(--green);
+}
+
+/* === Navigation === */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--green);
+}
+
+.nav-brand:hover {
+  color: var(--link-hover);
+}
+
+.nav-links a {
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* === Main Content === */
+#app {
+  flex: 1;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* === Footer === */
+.site-footer {
+  text-align: center;
+  padding: 1rem 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--locked);
+}
+
+/* === Landing Page === */
+.landing-hero {
+  text-align: center;
+  padding: 4rem 0 2rem;
+}
+
+.landing-hero h1 {
+  font-size: 2.5rem;
+  color: var(--green);
+  text-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.landing-hero .tagline {
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+
+.landing-how {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-light);
+}
+
+.landing-how h2 {
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.landing-how ol {
+  padding-left: 1.5rem;
+}
+
+.landing-how li {
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.landing-how li code {
+  color: var(--green);
+  background: rgba(0, 204, 0, 0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: var(--green-dim);
+  color: var(--bg);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.cta-button:hover {
+  background: var(--green);
+  color: var(--bg);
+  box-shadow: 0 0 15px rgba(0, 204, 0, 0.4);
+  text-shadow: none;
+}
+
+/* === Calendar Grid === */
+.calendar-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.calendar-header h1 {
+  color: var(--green);
+  font-size: 1.8rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.day-tile {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: default;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  position: relative;
+}
+
+.day-tile .day-number {
+  font-size: 1.5rem;
+}
+
+.day-tile .day-status {
+  font-size: 0.65rem;
+  margin-top: 0.25rem;
+  font-weight: normal;
+}
+
+/* Locked */
+.day-tile.locked {
+  color: var(--locked);
+  background: var(--bg);
+  border-color: var(--border);
+}
+
+/* Unlocked */
+.day-tile.unlocked {
+  color: var(--text-bright);
+  background: var(--bg-light);
+  border-color: var(--green-dim);
+  cursor: pointer;
+}
+
+.day-tile.unlocked:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
+}
+
+/* Completed */
+.day-tile.completed {
+  color: var(--gold);
+  background: var(--bg-light);
+  border-color: var(--gold-dim);
+  cursor: pointer;
+}
+
+.day-tile.completed:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 10px rgba(255, 255, 102, 0.3);
+}
+
+/* === Day Page === */
+.day-page h1 {
+  color: var(--green);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.day-page .day-description {
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.day-page .chart-link {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: var(--bg-light);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  color: var(--green);
+  margin-bottom: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.day-page .chart-link:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
+  text-shadow: none;
+}
+
+.stopwatch {
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-light);
+}
+
+.flag-section {
+  margin-top: 1rem;
+}
+
+.flag-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-bright);
+}
+
+.flag-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flag-input-row input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-bright);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.flag-input-row input[type="text"]:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+.flag-input-row button {
+  padding: 0.5rem 1.25rem;
+  background: var(--green-dim);
+  color: var(--bg);
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.flag-input-row button:hover {
+  background: var(--green);
+}
+
+.flag-result {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.flag-result.success {
+  color: var(--success);
+  border: 1px solid var(--success);
+  background: rgba(0, 204, 0, 0.1);
+}
+
+.flag-result.error {
+  color: var(--error);
+  border: 1px solid var(--error);
+  background: rgba(255, 68, 68, 0.1);
+}
+
+.day-completed-banner {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  background: rgba(255, 255, 102, 0.05);
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.start-btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: var(--green-dim);
+  color: var(--bg);
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.start-btn:hover {
+  background: var(--green);
+  box-shadow: 0 0 15px rgba(0, 204, 0, 0.4);
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .calendar-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
+
+  .day-tile {
+    font-size: 1.1rem;
+  }
+
+  .day-tile .day-status {
+    font-size: 0.55rem;
+  }
+
+  .landing-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  #app {
+    padding: 1rem;
+  }
+
+  .top-nav {
+    padding: 0.75rem 1rem;
+  }
+}

@@ -1,112 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advent of Kube - Day 1</title>
-<style>
-  body { font-family: sans-serif; padding: 2rem; background: #f5f5f5; }
-  #chart-link { margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem; background: #1a73e8; color: white; text-decoration: none; border-radius: 4px; }
-  #timer { font-weight: bold; margin-top: 1rem; }
-  #flag-form { margin-top: 1rem; }
-  input[type=text] { padding: 0.5rem; width: 200px; }
-  button { padding: 0.5rem 1rem; margin-left: 0.5rem; }
-  #result { margin-top: 1rem; font-weight: bold; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advent of Kube</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <nav class="top-nav">
+    <a href="/" class="nav-brand" data-link>Advent of Kube</a>
+    <div class="nav-links">
+      <a href="/calendar" data-link>Calendar</a>
+    </div>
+  </nav>
 
-<h1>Advent of Kube - Day 1</h1>
-<p>Step 1: Reveal your Helm chart to start the exercise.</p>
+  <main id="app"></main>
 
-<button id="reveal-btn">Reveal Helm Chart</button>
+  <footer class="site-footer">
+    <p>Advent of Kube &mdash; Learn Kubernetes one challenge at a time.</p>
+  </footer>
 
-<div id="chart-container" style="display:none;">
-  <a href="https://example.com/day01-chart.tgz" id="chart-link" target="_blank">Download Helm Chart</a>
-  <div id="timer">Elapsed time: 0:00</div>
-
-  <form id="flag-form">
-    <label for="flag-input">Enter your flag:</label>
-    <input type="text" id="flag-input" placeholder="Paste your flag" required>
-    <button type="submit">Submit</button>
-  </form>
-  <div id="result"></div>
-</div>
-
-<script>
-const TIMER_KEY = 'day1StopwatchStart';
-const FLAG_API_URL = 'https://your-worker-domain.example.com/day1-verify'; // update with your Worker URL
-
-const revealBtn = document.getElementById('reveal-btn');
-const chartContainer = document.getElementById('chart-container');
-const timerEl = document.getElementById('timer');
-const flagForm = document.getElementById('flag-form');
-const flagInput = document.getElementById('flag-input');
-const resultEl = document.getElementById('result');
-
-let startTime = localStorage.getItem(TIMER_KEY);
-let interval = null;
-
-// Stopwatch
-function startStopwatch(startTime) {
-  function update() {
-    const now = Date.now();
-    const elapsedMs = now - startTime;
-    const totalSeconds = Math.floor(elapsedMs / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    timerEl.textContent = `Elapsed time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-  }
-  update();
-  return setInterval(update, 1000);
-}
-
-// Initialize if already started
-if (startTime) {
-  startTime = parseInt(startTime, 10);
-  chartContainer.style.display = 'block';
-  interval = startStopwatch(startTime);
-  revealBtn.disabled = true;
-}
-
-// Reveal button
-revealBtn.addEventListener('click', () => {
-  startTime = Date.now();
-  localStorage.setItem(TIMER_KEY, startTime);
-  chartContainer.style.display = 'block';
-  interval = startStopwatch(startTime);
-  revealBtn.disabled = true;
-});
-
-// Flag submission
-flagForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const flag = flagInput.value.trim();
-  if (!flag) return;
-
-  const elapsedMs = Date.now() - startTime;
-
-  try {
-    const resp = await fetch(FLAG_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ flag, elapsedMs })
-    });
-
-    const data = await resp.json();
-    if (data.success) {
-      resultEl.textContent = `✅ Correct! Time: ${Math.floor(elapsedMs/1000)}s`;
-      flagInput.disabled = true;
-      flagForm.querySelector('button').disabled = true;
-    } else {
-      resultEl.textContent = '❌ Incorrect flag. Try again.';
-    }
-  } catch (err) {
-    resultEl.textContent = '⚠ Error submitting flag. Try again later.';
-  }
-});
-</script>
-
+  <script type="module" src="/js/app.js"></script>
 </body>
 </html>
-
