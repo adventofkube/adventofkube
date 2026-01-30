@@ -320,16 +320,38 @@ a:hover {
 }
 
 /* === Day Page === */
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
 .day-page h1 {
   color: var(--primary);
   font-size: 1.6rem;
-  margin-bottom: 0.5rem;
 }
 
 .day-page .day-description {
   color: var(--text);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   line-height: 1.6;
+}
+
+.day-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.day-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.day-right {
+  flex-shrink: 0;
+  width: 280px;
 }
 
 .day-page .chart-link {
@@ -351,8 +373,8 @@ a:hover {
 
 /* === Setup & Hints === */
 .setup-section {
-  margin-bottom: 1.5rem;
-  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--bg-light);
@@ -381,7 +403,7 @@ a:hover {
 }
 
 .hints-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .hints-section h2 {
@@ -518,8 +540,19 @@ a:hover {
 
 .back-link {
   display: inline-block;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-light);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 .start-btn {
@@ -549,6 +582,14 @@ a:hover {
   }
 
   .landing-right {
+    width: 100%;
+  }
+
+  .day-layout {
+    flex-direction: column;
+  }
+
+  .day-right {
     width: 100%;
   }
 }

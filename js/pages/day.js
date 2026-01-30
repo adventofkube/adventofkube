@@ -92,43 +92,51 @@ export function renderDay(app, params) {
   }
 
   app.innerHTML = `
-    <a href="/" class="back-link" data-link>&larr; Back to Home</a>
     <div class="day-page">
-      <h1>Day ${dayNumber}: ${dayConfig.title}</h1>
+      <div class="day-header">
+        <a href="/" class="back-link" data-link>Home</a>
+        <h1>Day ${dayNumber}: ${dayConfig.title}</h1>
+      </div>
       ${bannerHtml}
       <p class="day-description">${dayConfig.description}</p>
       ${!hasStarted && !isCompleted ? `<button class="start-btn" id="start-btn">Start Challenge</button>` : ''}
       <div id="challenge-area" style="${hasStarted || isCompleted ? '' : 'display:none'}">
-        ${dayConfig.setup ? `
-          <div class="setup-section">
-            <h2>Setup</h2>
-            <div class="setup-steps">${dayConfig.setup.join('\n')}</div>
+        <div class="day-layout">
+          <div class="day-left">
+            ${dayConfig.setup ? `
+              <div class="setup-section">
+                <h2>Setup</h2>
+                <div class="setup-steps">${dayConfig.setup.join('\n')}</div>
+              </div>
+            ` : `
+              <a href="${dayConfig.chartUrl}" class="chart-link" target="_blank" rel="noopener">Download Helm Chart</a>
+            `}
           </div>
-        ` : `
-          <a href="${dayConfig.chartUrl}" class="chart-link" target="_blank" rel="noopener">Download Helm Chart</a>
-        `}
-        ${dayConfig.hints ? `
-          <div class="hints-section">
-            <h2>Hints</h2>
-            ${dayConfig.hints.map((hint, i) => `
-              <details class="hint-item">
-                <summary>Hint ${i + 1}</summary>
-                <p>${hint}</p>
-              </details>
-            `).join('')}
+          <div class="day-right">
+            ${dayConfig.hints ? `
+              <div class="hints-section">
+                <h2>Hints</h2>
+                ${dayConfig.hints.map((hint, i) => `
+                  <details class="hint-item">
+                    <summary>Hint ${i + 1}</summary>
+                    <p>${hint}</p>
+                  </details>
+                `).join('')}
+              </div>
+            ` : ''}
+            <div class="stopwatch" id="stopwatch">Elapsed: 0:00</div>
+            ${!isCompleted ? `
+              <div class="flag-section">
+                <label for="flag-input">Enter your flag:</label>
+                <div class="flag-input-row">
+                  <input type="text" id="flag-input" placeholder="AOK{...}" />
+                  <button id="flag-submit">Submit</button>
+                </div>
+                <div id="flag-result"></div>
+              </div>
+            ` : ''}
           </div>
-        ` : ''}
-        <div class="stopwatch" id="stopwatch">Elapsed: 0:00</div>
-        ${!isCompleted ? `
-          <div class="flag-section">
-            <label for="flag-input">Enter your flag:</label>
-            <div class="flag-input-row">
-              <input type="text" id="flag-input" placeholder="flag{...}" />
-              <button id="flag-submit">Submit</button>
-            </div>
-            <div id="flag-result"></div>
-          </div>
-        ` : ''}
+        </div>
       </div>
     </div>
   `;
