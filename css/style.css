@@ -233,6 +233,38 @@ a:hover {
   box-shadow: 0 0 10px rgba(255, 255, 102, 0.3);
 }
 
+/* === Day Zero Row === */
+.day-zero-row {
+  max-width: 600px;
+  margin: 0 auto 1rem;
+}
+
+.day-tile.day-zero {
+  aspect-ratio: auto;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.day-tile.day-zero .day-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.day-tile.day-zero .day-title {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--text);
+}
+
+.day-tile.day-zero .day-status {
+  font-size: 0.65rem;
+  margin-top: 0;
+}
+
 /* === Day Page === */
 .day-page h1 {
   color: var(--green);

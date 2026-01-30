@@ -5,6 +5,13 @@ export const START_DATE = new Date('2026-01-30T00:00:00');
 // Per-day configuration. flagHash is the SHA-256 hex digest of the correct flag.
 export const DAYS = [
   {
+    day: 0,
+    title: 'Setup',
+    description: 'Set up your local environment: install Docker, kind, kubectl, and helm. Then deploy a test chart to verify everything works.',
+    flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    chartUrl: 'https://example.com/charts/day00.tgz',
+  },
+  {
     day: 1,
     title: 'Hello Kube',
     description: 'Deploy your first pod and find the hidden flag in its logs.',

@@ -4,6 +4,7 @@ let stopwatchInterval = null;
 
 function getDayState(dayNumber) {
   if (localStorage.getItem(`day${dayNumber}_completed`)) return 'completed';
+  if (dayNumber === 0) return 'unlocked';
   const unlockDate = new Date(START_DATE);
   unlockDate.setDate(unlockDate.getDate() + dayNumber - 1);
   return new Date() >= unlockDate ? 'unlocked' : 'locked';
@@ -51,12 +52,16 @@ export function renderDay(app, params) {
   }
 
   const dayNumber = parseInt(params.n, 10);
-  if (isNaN(dayNumber) || dayNumber < 1 || dayNumber > 25) {
+  if (isNaN(dayNumber) || dayNumber < 0 || dayNumber > 25) {
     app.innerHTML = '<p>Invalid day.</p>';
     return;
   }
 
-  const dayConfig = DAYS[dayNumber - 1];
+  const dayConfig = DAYS.find(d => d.day === dayNumber);
+  if (!dayConfig) {
+    app.innerHTML = '<p>Invalid day.</p>';
+    return;
+  }
   const state = getDayState(dayNumber);
 
   if (state === 'locked') {
