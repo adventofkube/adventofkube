@@ -3,8 +3,12 @@ import { START_DATE, DAYS } from '../config.js';
 let stopwatchInterval = null;
 
 function getDayState(dayNumber) {
+  const dayConfig = DAYS.find(d => d.day === dayNumber);
+  if (dayConfig && !dayConfig.enabled) return 'locked';
+
   if (localStorage.getItem(`day${dayNumber}_completed`)) return 'completed';
   if (dayNumber === 0) return 'unlocked';
+
   const unlockDate = new Date(START_DATE);
   unlockDate.setDate(unlockDate.getDate() + dayNumber - 1);
   return new Date() >= unlockDate ? 'unlocked' : 'locked';

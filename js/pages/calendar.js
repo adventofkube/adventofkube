@@ -1,21 +1,15 @@
 import { START_DATE, DAYS } from '../config.js';
 
 function getDayState(dayNumber) {
-  // Check if completed in localStorage
-  const completed = localStorage.getItem(`day${dayNumber}_completed`);
-  if (completed) return 'completed';
+  const dayConfig = DAYS.find(d => d.day === dayNumber);
+  if (dayConfig && !dayConfig.enabled) return 'locked';
 
-  // Day 0 is always unlocked
+  if (localStorage.getItem(`day${dayNumber}_completed`)) return 'completed';
   if (dayNumber === 0) return 'unlocked';
 
-  // Check if unlocked based on date
   const unlockDate = new Date(START_DATE);
   unlockDate.setDate(unlockDate.getDate() + dayNumber - 1);
-
-  const now = new Date();
-  if (now >= unlockDate) return 'unlocked';
-
-  return 'locked';
+  return new Date() >= unlockDate ? 'unlocked' : 'locked';
 }
 
 export function renderCalendar(app, navigate) {

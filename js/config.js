@@ -6,6 +6,7 @@ export const START_DATE = new Date('2026-01-05T00:00:00');
 export const DAYS = [
   {
     day: 0,
+    enabled: true,
     title: 'Setup',
     description: 'Set up your local environment, deploy a test chart, and retrieve the flag from the pod logs.',
     flagHash: '1c015e563e5e30188378f8516b89cfa5c6c14ba00f9efd5a878a570e383e2e03',
@@ -37,6 +38,7 @@ export const DAYS = [
   },
   {
     day: 1,
+    enabled: true,
     title: 'Broken Deployment',
     description: 'A Deployment is failing to roll out. There are 3 things wrong with it. Diagnose each issue and fix them. Once the pod is running, check its logs for the flag.',
     flagHash: '3d9822e477d0414cc8c153847fbb667394143b9301c816e2b9eb0efb8bb737e4',
@@ -64,10 +66,12 @@ export const DAYS = [
     title: 'CrashLoop Detective',
     description: 'A pod is stuck in CrashLoopBackOff. Investigate the logs and fix the underlying issue to reveal the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    enabled: false,
     chartUrl: 'https://example.com/charts/day02.tgz',
   },
   {
     day: 3,
+    enabled: false,
     title: 'Service Wiring',
     description: 'Two services need to communicate but can\'t. Fix the selectors, ports, and DNS to get the flag flowing.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -75,6 +79,7 @@ export const DAYS = [
   },
   {
     day: 4,
+    enabled: false,
     title: 'Secret Rotation',
     description: 'A deployment references a Secret that has been rotated. The old key no longer works. Update the Secret and restart the pods to get the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -82,6 +87,7 @@ export const DAYS = [
   },
   {
     day: 5,
+    enabled: false,
     title: 'Resource Quota Squeeze',
     description: 'A namespace has a ResourceQuota and your deployment exceeds it. Right-size the resource requests to fit within the quota and deploy successfully.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -89,6 +95,7 @@ export const DAYS = [
   },
   {
     day: 6,
+    enabled: false,
     title: 'Multi-Container Debug',
     description: 'A pod with a sidecar and main container has a shared volume misconfiguration. Fix the volume mounts so both containers can communicate and reveal the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -96,6 +103,7 @@ export const DAYS = [
   },
   {
     day: 7,
+    enabled: false,
     title: 'Ingress Maze',
     description: 'Multiple Ingress rules are conflicting. Fix the routing so traffic reaches the correct backend service to return the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -103,6 +111,7 @@ export const DAYS = [
   },
   {
     day: 8,
+    enabled: false,
     title: 'Job Failure Analysis',
     description: 'A Job keeps failing after 3 attempts. Diagnose why it fails, fix the issue, and let it run to completion to output the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -110,6 +119,7 @@ export const DAYS = [
   },
   {
     day: 9,
+    enabled: false,
     title: 'RBAC Lockdown',
     description: 'A ServiceAccount can\'t read the Secret containing the flag. Create the right Role and RoleBinding to grant access.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -117,6 +127,7 @@ export const DAYS = [
   },
   {
     day: 10,
+    enabled: false,
     title: 'NetworkPolicy Firewall',
     description: 'A pod has the flag but a NetworkPolicy is blocking all traffic to it. Write a policy that allows only your debug pod to reach it.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -124,6 +135,7 @@ export const DAYS = [
   },
   {
     day: 11,
+    enabled: false,
     title: 'Node Affinity Puzzle',
     description: 'A pod is stuck Pending because of node affinity rules that don\'t match any node. Fix the affinity or label the nodes correctly to schedule the pod.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -131,6 +143,7 @@ export const DAYS = [
   },
   {
     day: 12,
+    enabled: false,
     title: 'PV Reclaim',
     description: 'A PersistentVolume has the flag on disk but its reclaim policy and claim are misconfigured. Fix the PV/PVC binding to mount the data.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -138,6 +151,7 @@ export const DAYS = [
   },
   {
     day: 13,
+    enabled: false,
     title: 'ConfigMap Surgery',
     description: 'Multiple deployments share a ConfigMap but one needs different values. Refactor without breaking the others, then roll out to get the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -145,6 +159,7 @@ export const DAYS = [
   },
   {
     day: 14,
+    enabled: false,
     title: 'Probes Gone Wrong',
     description: 'Liveness and readiness probes are misconfigured, causing a pod to restart endlessly or never receive traffic. Fix the probes to stabilize the deployment and get the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -152,6 +167,7 @@ export const DAYS = [
   },
   {
     day: 15,
+    enabled: false,
     title: 'Taint Toleration',
     description: 'The only node with available resources is tainted. Add the right tolerations to your pod spec to schedule it and retrieve the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -159,6 +175,7 @@ export const DAYS = [
   },
   {
     day: 16,
+    enabled: false,
     title: 'HPA Tuning',
     description: 'An HPA is scaling a deployment to max replicas but the pods are crashing under load. Fix the resource configuration and scaling thresholds so the app stabilizes and serves the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -166,6 +183,7 @@ export const DAYS = [
   },
   {
     day: 17,
+    enabled: false,
     title: 'Namespace Isolation',
     description: 'The flag is in a pod in a locked-down namespace. You have access to a different namespace. Use RBAC and NetworkPolicies to reach across and extract the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -173,6 +191,7 @@ export const DAYS = [
   },
   {
     day: 18,
+    enabled: false,
     title: 'Webhook Blocker',
     description: 'A ValidatingWebhookConfiguration is rejecting your deployments. Understand the webhook\'s rules and craft a deployment that passes validation to get the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -180,6 +199,7 @@ export const DAYS = [
   },
   {
     day: 19,
+    enabled: false,
     title: 'Priority Preemption',
     description: 'Critical system pods are consuming all resources. Use PriorityClasses to preempt lower-priority workloads and schedule your pod to get the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -187,6 +207,7 @@ export const DAYS = [
   },
   {
     day: 20,
+    enabled: false,
     title: 'Init Container Chain',
     description: 'A pod has three init containers that must run in sequence, each producing output for the next. One is broken. Fix the chain to produce the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -194,6 +215,7 @@ export const DAYS = [
   },
   {
     day: 21,
+    enabled: false,
     title: 'CRD Operator',
     description: 'A custom operator watches a CRD. Create the correct custom resource spec to trigger the operator to generate a Secret containing the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -201,6 +223,7 @@ export const DAYS = [
   },
   {
     day: 22,
+    enabled: false,
     title: 'Pod Security Standards',
     description: 'A namespace enforces restricted Pod Security Standards. Your deployment violates them. Fix the security context to comply while keeping the app functional and revealing the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -208,6 +231,7 @@ export const DAYS = [
   },
   {
     day: 23,
+    enabled: false,
     title: 'Ephemeral Debug',
     description: 'A distroless pod has no shell but contains the flag on its filesystem. Use ephemeral debug containers to attach and extract it.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -215,6 +239,7 @@ export const DAYS = [
   },
   {
     day: 24,
+    enabled: false,
     title: 'Cert Manager',
     description: 'A TLS certificate has expired and the Ingress is refusing HTTPS connections. Fix the Certificate resource and trigger renewal to restore access and get the flag.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
@@ -222,6 +247,7 @@ export const DAYS = [
   },
   {
     day: 25,
+    enabled: false,
     title: 'Grand Finale',
     description: 'A multi-namespace environment is completely broken: RBAC is wrong, NetworkPolicies block everything, pods are misconfigured, and the flag is split across three services. Fix it all.',
     flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
