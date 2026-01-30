@@ -25,9 +25,10 @@ export function renderLanding(app) {
     <div class="landing-how">
       <h2>How It Works</h2>
       <ol>
-        <li>Install the Helm chart for the challenge</li>
-        <li>Investigate the cluster to find and fix issues</li>
-        <li>Find the flag and submit it to complete the day</li>
+        <li>Set up a local Kubernetes cluster with <a href="https://kind.sigs.k8s.io/" target="_blank" rel="noopener">kind</a></li>
+        <li>Install the challenge Helm chart</li>
+        <li>Debug the cluster — diagnose and fix the issues</li>
+        <li>Find the flag and submit it</li>
       </ol>
     </div>
 
