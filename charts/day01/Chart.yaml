@@ -1,5 +1,5 @@
 apiVersion: v2
 name: day01
-description: "Day 1: Broken Deployment — diagnose and fix a failing Deployment"
+description: "Day 1 — Broken Pod"
 version: 0.1.0
 type: application

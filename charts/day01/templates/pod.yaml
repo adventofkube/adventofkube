@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.podName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  restartPolicy: Never
+  containers:
+    - name: broken
+      image: {{ .Values.image }}
+      command: ["sh", "-c", "echo {{ .Values.flag }}"]

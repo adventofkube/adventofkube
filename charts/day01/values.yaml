@@ -1,5 +1,5 @@
-image:
-  repository: ghcr.io/adventofkube/day01
-  tag: v2  # BUG: only v1 exists in the registry
-
-appKey: "advent-of-kube-2026"
+namespace: day01
+podName: day01-pod
+# Intentional typo: busyb0x (zero instead of letter o)
+image: busyb0x
+flag: "AOK{first_p0d_fixed}"
