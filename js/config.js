@@ -56,11 +56,11 @@ export const DAYS = [
       '<code>kubectl logs -n day01 -l app=day01</code>',
     ],
     hints: [
-      'Run <code>kubectl describe pod -n day01</code> and look at the Events section. What does it say about the image?',
-      'The image tag in the Deployment doesn\'t exist in the registry. Check what tags are actually available and fix the tag.',
-      'After fixing the image, the pod starts but crashes. Run <code>kubectl logs -n day01 &lt;pod-name&gt;</code> to see why.',
-      'The app needs an environment variable. There\'s a ConfigMap in the namespace that has the right value — wire it into the Deployment.',
-      'The pod is running but you can\'t reach the app. Compare the <code>containerPort</code> in the Deployment with the port the app actually listens on.',
+      'Check the pod status and events:<code>kubectl get pods -n day01\nkubectl describe pod -n day01 -l app=day01</code>Look at the Events section — what does it say about the image?',
+      'The image tag <code>v2</code> doesn\'t exist. Edit the Deployment to fix it:<code>kubectl edit deployment day01 -n day01</code>Change the image tag to one that exists. Try <code>v1</code>.',
+      'After fixing the image, the pod crashes. Check the logs:<code>kubectl logs -n day01 -l app=day01</code>The error message tells you exactly what\'s missing.',
+      'The app needs <code>APP_KEY</code>. There\'s a ConfigMap with the value:<code>kubectl get configmap -n day01\nkubectl describe configmap day01-config -n day01</code>Add an <code>envFrom</code> or <code>env</code> block to the Deployment referencing the ConfigMap.',
+      'The pod is running but the port is wrong. Compare:<code>kubectl get deployment day01 -n day01 -o jsonpath=\'{.spec.template.spec.containers[0].ports}\'</code>The app listens on <code>8080</code>, not <code>80</code>. Fix <code>containerPort</code> in the Deployment.',
     ],
     docs: [
       { title: 'Deployments', url: 'https://kubernetes.io/docs/concepts/workloads/controllers/deployment/' },

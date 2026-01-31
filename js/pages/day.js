@@ -114,16 +114,6 @@ export function renderDay(app, params) {
             ` : `
               <a href="${dayConfig.chartUrl}" class="chart-link" target="_blank" rel="noopener">Download Helm Chart</a>
             `}
-            ${dayConfig.docs ? `
-              <div class="docs-section">
-                <h2>Relevant Docs</h2>
-                <ul class="docs-list">
-                  ${dayConfig.docs.map(d => `<li><a href="${d.url}" target="_blank" rel="noopener">${d.title}</a></li>`).join('')}
-                </ul>
-              </div>
-            ` : ''}
-          </div>
-          <div class="day-right">
             ${dayConfig.hints ? `
               <div class="hints-section">
                 <h2>Hints</h2>
@@ -133,6 +123,16 @@ export function renderDay(app, params) {
                     <p>${hint}</p>
                   </details>
                 `).join('')}
+              </div>
+            ` : ''}
+          </div>
+          <div class="day-right">
+            ${dayConfig.docs ? `
+              <div class="docs-section">
+                <h2>Relevant Docs</h2>
+                <ul class="docs-list">
+                  ${dayConfig.docs.map(d => `<li><a href="${d.url}" target="_blank" rel="noopener">${d.title}</a></li>`).join('')}
+                </ul>
               </div>
             ` : ''}
             <div class="stopwatch" id="stopwatch">Elapsed: 0:00</div>
