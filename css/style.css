@@ -419,6 +419,33 @@ a:hover {
   overflow-x: auto;
 }
 
+.docs-section {
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-light);
+}
+
+.docs-section h2 {
+  color: var(--text-bright);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.docs-list {
+  list-style: none;
+  padding: 0;
+}
+
+.docs-list li {
+  padding: 0.25rem 0;
+}
+
+.docs-list a {
+  font-size: 0.9rem;
+}
+
 .hints-section {
   margin-bottom: 1rem;
   padding: 1rem 1.25rem;

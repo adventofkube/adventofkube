@@ -33,6 +33,12 @@ export const DAYS = [
       'On Linux, you may need to run Docker commands with <code>sudo</code> or add your user to the <code>docker</code> group.',
       'If the pod isn\'t showing logs yet, run <code>kubectl get pods -n day00</code> and wait for it to complete.',
     ],
+    docs: [
+      { title: 'Install kubectl', url: 'https://kubernetes.io/docs/tasks/tools/' },
+      { title: 'kind Quick Start', url: 'https://kind.sigs.k8s.io/docs/user/quick-start/' },
+      { title: 'Install Helm', url: 'https://helm.sh/docs/intro/install/' },
+      { title: 'kubectl Cheat Sheet', url: 'https://kubernetes.io/docs/reference/kubectl/cheatsheet/' },
+    ],
   },
   {
     day: 1,
@@ -55,6 +61,13 @@ export const DAYS = [
       'After fixing the image, the pod starts but crashes. Run <code>kubectl logs -n day01 &lt;pod-name&gt;</code> to see why.',
       'The app needs an environment variable. There\'s a ConfigMap in the namespace that has the right value — wire it into the Deployment.',
       'The pod is running but you can\'t reach the app. Compare the <code>containerPort</code> in the Deployment with the port the app actually listens on.',
+    ],
+    docs: [
+      { title: 'Deployments', url: 'https://kubernetes.io/docs/concepts/workloads/controllers/deployment/' },
+      { title: 'ConfigMaps', url: 'https://kubernetes.io/docs/concepts/configuration/configmap/' },
+      { title: 'Container Ports', url: 'https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports' },
+      { title: 'kubectl describe', url: 'https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/' },
+      { title: 'kubectl logs', url: 'https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/' },
     ],
   },
   {
