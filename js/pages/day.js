@@ -99,6 +99,7 @@ export function renderDay(app, params) {
       <div class="day-header">
         <a href="/" class="back-link" data-link title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
         <h1>Day ${dayNumber}: ${dayConfig.title}</h1>
+        <span class="stopwatch" id="stopwatch"></span>
       </div>
       ${bannerHtml}
       <p class="day-description">${dayConfig.description}</p>
@@ -135,7 +136,6 @@ export function renderDay(app, params) {
                 </ul>
               </div>
             ` : ''}
-            <div class="stopwatch" id="stopwatch">Elapsed: 0:00</div>
             ${!isCompleted ? `
               <div class="flag-section">
                 <label for="flag-input">Enter your flag:</label>
@@ -219,4 +219,23 @@ export function renderDay(app, params) {
       }
     });
   }
+
+  // Add copy buttons to all code blocks
+  document.querySelectorAll('.setup-steps code, .hint-item code').forEach(block => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block';
+    block.parentNode.insertBefore(wrapper, block);
+    wrapper.appendChild(block);
+
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(block.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+    wrapper.appendChild(btn);
+  });
 }

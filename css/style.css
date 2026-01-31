@@ -411,12 +411,13 @@ a:hover {
   display: block;
   background: #1e293b;
   color: #e2e8f0;
-  padding: 0.35rem 0.65rem;
-  border-radius: 4px;
-  margin: 0.15rem 0 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin: 0.25rem 0 0.75rem;
   font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   overflow-x: auto;
+  white-space: pre;
 }
 
 .docs-section {
@@ -495,18 +496,64 @@ a:hover {
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
   font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
-  font-size: 0.85em;
+  font-size: 0.82em;
+}
+
+.hint-item .code-block code {
+  padding-right: 3.5rem;
+  white-space: pre;
 }
 
 .stopwatch {
-  font-size: 1rem;
+  margin-left: auto;
+  font-size: 0.85rem;
   color: var(--primary);
-  margin-bottom: 0.75rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.6rem;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: var(--bg-light);
   font-weight: 500;
+  white-space: nowrap;
+}
+
+.code-block {
+  position: relative;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.code-block code {
+  display: block;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  padding-right: 3.5rem;
+  border-radius: 6px;
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.copy-btn:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .flag-section {
