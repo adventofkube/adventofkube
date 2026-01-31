@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.podName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  restartPolicy: Always
+  containers:
+    - name: checker
+      image: {{ .Values.image }}
+      command: ["sh", "-c"]
+      args:
+        - |
+          if [ -z "$FLAG_VALUE" ]; then
+            echo "Error: FLAG_VALUE environment variable is not set."
+            echo "Check the pod's configuration and ensure the correct ConfigMap is referenced."
+            exit 1
+          fi
+          echo "Success! Here is your flag:"
+          echo "$FLAG_VALUE"
+          sleep 3600
+      envFrom:
+        - configMapRef:
+            name: {{ .Values.configMapRef }}
