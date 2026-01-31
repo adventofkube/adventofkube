@@ -29,6 +29,7 @@ export class Router {
       const match = this._match(route.path, path);
       if (match) {
         route.handler(match.params);
+        window.scrollTo(0, 0);
         return;
       }
     }

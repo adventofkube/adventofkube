@@ -160,20 +160,20 @@ export function renderDay(app, params) {
       startBtn.remove();
       const area = document.getElementById('challenge-area');
       area.style.display = '';
-      startStopwatch(dayNumber, document.getElementById('stopwatch'));
+      const sw = document.getElementById('stopwatch');
+      sw.style.display = '';
+      startStopwatch(dayNumber, sw);
     });
   }
 
   // Stopwatch
+  const timerEl = document.getElementById('stopwatch');
   if (hasStarted && !isCompleted) {
-    startStopwatch(dayNumber, document.getElementById('stopwatch'));
+    startStopwatch(dayNumber, timerEl);
   } else if (isCompleted) {
-    const timerEl = document.getElementById('stopwatch');
-    if (completedTime) {
-      timerEl.textContent = `Final time: ${completedTime}`;
-    } else {
-      timerEl.textContent = 'Completed';
-    }
+    timerEl.style.display = 'none';
+  } else {
+    timerEl.style.display = 'none';
   }
 
   // Flag submission
@@ -204,8 +204,7 @@ export function renderDay(app, params) {
         resultEl.textContent = `Correct! Completed in ${timeStr}`;
         flagInput.disabled = true;
         submitBtn.disabled = true;
-
-        document.getElementById('stopwatch').textContent = `Final time: ${timeStr}`;
+        document.getElementById('stopwatch').style.display = 'none';
       } else {
         resultEl.className = 'flag-result error';
         resultEl.textContent = 'Incorrect flag. Try again.';
@@ -220,8 +219,15 @@ export function renderDay(app, params) {
     });
   }
 
-  // Add copy buttons to all code blocks
+  // Add copy buttons to block-level code (commands), skip short inline snippets
   document.querySelectorAll('.setup-steps code, .hint-item code').forEach(block => {
+    const text = block.textContent;
+    const isBlock = text.includes('\n') || text.length > 30;
+    if (!isBlock) {
+      block.classList.add('inline-code');
+      return;
+    }
+
     const wrapper = document.createElement('div');
     wrapper.className = 'code-block';
     block.parentNode.insertBefore(wrapper, block);
@@ -231,7 +237,7 @@ export function renderDay(app, params) {
     btn.className = 'copy-btn';
     btn.textContent = 'Copy';
     btn.addEventListener('click', () => {
-      navigator.clipboard.writeText(block.textContent).then(() => {
+      navigator.clipboard.writeText(text).then(() => {
         btn.textContent = 'Copied!';
         setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
       });
