@@ -205,6 +205,25 @@ export function renderDay(app, params) {
         flagInput.disabled = true;
         submitBtn.disabled = true;
         document.getElementById('stopwatch').style.display = 'none';
+
+        // Submit to leaderboard if logged in
+        try {
+          const { getSession, submitFlag } = await import('../supabase.js');
+          const session = await getSession();
+          if (session) {
+            const lbResult = await submitFlag(dayNumber, flag, elapsed);
+            if (lbResult.recorded) {
+              resultEl.textContent += lbResult.improved === false
+                ? ' (leaderboard: kept your faster time)'
+                : ' Recorded to leaderboard!';
+            }
+          } else {
+            resultEl.insertAdjacentHTML('afterend',
+              '<p class="lb-login-prompt">Sign in with GitHub to record your time on the leaderboard.</p>');
+          }
+        } catch {
+          // Supabase unavailable — silent fallback
+        }
       } else {
         resultEl.className = 'flag-result error';
         resultEl.textContent = 'Incorrect flag. Try again.';

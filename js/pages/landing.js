@@ -82,5 +82,18 @@ export function renderLanding(app) {
         ${renderCalendarGrid()}
       </div>
     </div>
+
+    <section class="landing-leaderboard">
+      <h2>Leaderboard</h2>
+      <div id="landing-lb"></div>
+    </section>
   `;
+
+  // Render leaderboard widget (async, non-blocking)
+  import('../leaderboard.js').then(({ renderLeaderboardWidget }) => {
+    const lbContainer = document.getElementById('landing-lb');
+    if (lbContainer) renderLeaderboardWidget(lbContainer, { compact: true });
+  }).catch(() => {
+    // Leaderboard unavailable — silent fallback
+  });
 }
