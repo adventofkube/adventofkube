@@ -16,7 +16,7 @@ async function hashFlag(flag) {
 
 export async function onRequestPost(context) {
   const SUPABASE_URL = context.env.SUPABASE_URL;
-  const SUPABASE_SERVICE_ROLE_KEY = context.env.SUPABASE_SERVICE_ROLE_KEY;
+  const SUPABASE_SECRET_KEY = context.env.SUPABASE_SECRET_KEY;
 
   let body;
   try {
@@ -51,7 +51,7 @@ export async function onRequestPost(context) {
   const userRes = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
     headers: {
       Authorization: `Bearer ${access_token}`,
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      apikey: SUPABASE_SECRET_KEY,
     },
   });
 
@@ -62,13 +62,12 @@ export async function onRequestPost(context) {
   const user = await userRes.json();
   const userId = user.id;
 
-  // Call the upsert_submission RPC
+  // Call the upsert_submission RPC (secret key in apikey header only, not Authorization)
   const rpcRes = await fetch(`${SUPABASE_URL}/rest/v1/rpc/upsert_submission`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      apikey: SUPABASE_SECRET_KEY,
       Prefer: 'return=representation',
     },
     body: JSON.stringify({

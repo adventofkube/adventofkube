@@ -13,8 +13,8 @@ async function init() {
       fetch('/api/config'),
       import('https://esm.sh/@supabase/supabase-js@2'),
     ]);
-    const { supabaseUrl, supabaseAnonKey } = await configRes.json();
-    _supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const { supabaseUrl, supabasePublishableKey } = await configRes.json();
+    _supabase = createClient(supabaseUrl, supabasePublishableKey);
     return _supabase;
   })();
 
