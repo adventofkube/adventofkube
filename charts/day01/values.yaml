@@ -1,5 +1,4 @@
 namespace: day01
 podName: day01-pod
-# Intentional typo: busyb0x (zero instead of letter o)
-image: busyb0x
-flag: "AOK{first_p0d_fixed}"
+# Intentional typo: daay01 instead of day01
+image: ghcr.io/adventofkube/daay01:v0.1.0

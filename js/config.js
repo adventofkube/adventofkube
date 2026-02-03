@@ -49,7 +49,7 @@ export const DAYS = [
     chartUrl: 'https://example.com/charts/day01.tgz',
     setup: [
       'Install the chart:',
-      '<code>helm install day01 oci://ghcr.io/adventofkube/charts/day01 --version 0.1.0</code>',
+      '<code>helm install day01 oci://ghcr.io/adventofkube/charts/day01 --version 0.2.0</code>',
       'Start investigating:',
       '<code>kubectl get pods -n day01</code>',
       'Once the pod is running, get the flag:',
@@ -58,7 +58,7 @@ export const DAYS = [
     hints: [
       'Check the pod status and events:<code>kubectl get pods -n day01\nkubectl describe pod day01-pod -n day01</code>Look at the Events section at the bottom.',
       'The Events mention a failed image pull. Look closely at the image name — does it look right?',
-      'The image is <code>busyb0x</code> (with a zero). It should be <code>busybox</code> (with the letter o). Delete the pod and recreate it with the correct image:<code>kubectl get pod day01-pod -n day01 -o yaml > fix.yaml\n# Edit fix.yaml: change busyb0x to busybox\nkubectl delete pod day01-pod -n day01\nkubectl apply -f fix.yaml</code>',
+      'The image name is <code>daay01</code> (with two a\'s). It should be <code>day01</code>. Delete the pod and recreate it with the correct image:<code>kubectl get pod day01-pod -n day01 -o yaml > fix.yaml\n# Edit fix.yaml: change daay01 to day01\nkubectl delete pod day01-pod -n day01\nkubectl apply -f fix.yaml</code>',
     ],
     docs: [
       { title: 'kubectl get', url: 'https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/' },

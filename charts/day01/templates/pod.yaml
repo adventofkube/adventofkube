@@ -6,6 +6,5 @@ metadata:
 spec:
   restartPolicy: Never
   containers:
-    - name: broken
+    - name: app
       image: {{ .Values.image }}
-      command: ["sh", "-c", "echo {{ .Values.flag }}"]
