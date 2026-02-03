@@ -15,7 +15,7 @@
 | 0 | Setup | Environment verification | Done |
 | 1 | Broken Pod | Image pull error (typo in image name) | Done |
 | 2 | CrashLoop Detective | ConfigMap reference mismatch | Done |
-| 3 | Label Mismatch | Service can't find pods (selector mismatch) | TODO |
+| 3 | Label Mismatch | Service can't find pods (selector mismatch) | Done |
 | 4 | Secret Rotation | App needs a Secret that's missing/wrong key | Planned |
 | 5 | Resource Squeeze | Pod pending due to resource requests vs limits | Planned |
 
