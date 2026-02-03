@@ -137,13 +137,13 @@ a:hover {
 }
 
 .landing-left {
-  flex-shrink: 0;
-  width: 340px;
+  flex: 1;
+  min-width: 0;
 }
 
 .landing-right {
-  flex: 1;
-  min-width: 0;
+  flex-shrink: 0;
+  width: 340px;
 }
 
 .landing-how {
