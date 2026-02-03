@@ -115,6 +115,24 @@ export async function fetchUserSubmissions(userId) {
   return data;
 }
 
+export async function deleteSubmission(day) {
+  const user = await getUser();
+  if (!user) return { error: 'Not logged in' };
+
+  const supabase = await init();
+  const { error } = await supabase
+    .from('submissions')
+    .delete()
+    .eq('user_id', user.id)
+    .eq('day', day);
+
+  if (error) {
+    console.error('deleteSubmission error:', error);
+    return { error: error.message };
+  }
+  return { deleted: true };
+}
+
 export async function syncProgressFromServer() {
   const user = await getUser();
   if (!user) return;

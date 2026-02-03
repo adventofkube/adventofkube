@@ -102,9 +102,21 @@ const router = new Router([
 router.resolve();
 
 // Debug: reset a day's progress (call from console: resetDay(2))
-window.resetDay = (n) => {
+window.resetDay = async (n) => {
   localStorage.removeItem(`day${n}_completed`);
   localStorage.removeItem(`day${n}_completedTime`);
   localStorage.removeItem(`day${n}_startTime`);
-  console.log(`Day ${n} reset. Refresh the page.`);
+
+  // Also delete server-side submission if logged in
+  try {
+    const { deleteSubmission } = await import('./supabase.js');
+    const result = await deleteSubmission(n);
+    if (result.deleted) {
+      console.log(`Day ${n} reset (local + server). Refresh the page.`);
+    } else if (result.error) {
+      console.log(`Day ${n} reset (local only). Server: ${result.error}`);
+    }
+  } catch {
+    console.log(`Day ${n} reset (local only). Refresh the page.`);
+  }
 };
