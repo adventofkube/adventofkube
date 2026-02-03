@@ -108,47 +108,26 @@ a:hover {
 /* === Landing Page === */
 .landing-hero {
   text-align: center;
-  padding: 3rem 0 1.5rem;
-}
-
-.landing-hero.compact {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  text-align: left;
-  padding: 1.5rem 0 1rem;
-}
-
-.landing-hero.compact .landing-logo {
-  margin-bottom: 0;
-}
-
-.landing-hero.compact h1 {
-  margin-bottom: 0.25rem;
-}
-
-.landing-hero.compact .tagline {
-  margin-bottom: 0;
+  padding: 2rem 0 1.5rem;
 }
 
 .landing-logo {
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   margin-bottom: 0.75rem;
 }
 
 .landing-hero h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: var(--primary);
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
 .landing-hero .tagline {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--text);
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .landing-layout {
@@ -1017,11 +996,6 @@ a:hover {
 
   .landing-left {
     width: 100%;
-  }
-
-  .landing-hero.compact {
-    flex-direction: column;
-    text-align: center;
   }
 
   .day-layout {

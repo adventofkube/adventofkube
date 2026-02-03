@@ -60,12 +60,10 @@ function renderCalendarGrid() {
 
 export function renderLanding(app) {
   app.innerHTML = `
-    <div class="landing-hero compact">
+    <div class="landing-hero">
       <img src="/logo.svg" alt="Advent of Kube" class="landing-logo" />
-      <div class="hero-text">
-        <h1>Advent of Kube</h1>
-        <p class="tagline">Kubernetes challenges. Debug clusters, find flags.</p>
-      </div>
+      <h1>Advent of Kube</h1>
+      <p class="tagline">Kubernetes challenges. Debug clusters, find flags.</p>
     </div>
 
     <div class="landing-layout">
