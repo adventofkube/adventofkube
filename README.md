@@ -28,46 +28,46 @@
 25 days of challenges progressing from beginner to expert, covering core Kubernetes and real-world DevOps tooling.
 
 ### Beginner (Days 0-5) — "I'm learning Kubernetes"
-| Day | Title | Topic |
-|-----|-------|-------|
-| 0 | Setup | Environment |
-| 1 | Broken Pod | Pods, Images |
-| 2 | CrashLoop Detective | ConfigMaps |
-| 3 | Label Mismatch | Labels, Selectors |
-| 4 | Secret Rotation | Secrets |
-| 5 | Resource Squeeze | Resources |
+| Day | Title | Topic | Status |
+|-----|-------|-------|--------|
+| 0 | Setup | Environment | ✅ |
+| 1 | Broken Pod | Pods, Images | ✅ |
+| 2 | CrashLoop Detective | ConfigMaps | ✅ |
+| 3 | Label Mismatch | Labels, Selectors | ✅ |
+| 4 | Secret Rotation | Secrets | ✅ |
+| 5 | Resource Squeeze | Resources | 🚧 |
 
 ### Intermediate (Days 6-12) — "I work with Kubernetes"
-| Day | Title | Topic |
-|-----|-------|-------|
-| 6 | Broken Deployment | Deployments |
-| 7 | Service Wiring | Services |
-| 8 | Probe Pitfall | Probes |
-| 9 | RBAC Lockdown | RBAC |
-| 10 | NetworkPolicy Firewall | NetworkPolicies |
-| 11 | PV/PVC Binding | Storage |
-| 12 | Rolling Update Stuck | Rollouts |
+| Day | Title | Topic | Status |
+|-----|-------|-------|--------|
+| 6 | Broken Deployment | Deployments | 🚧 |
+| 7 | Service Wiring | Services | |
+| 8 | Probe Pitfall | Probes | |
+| 9 | RBAC Lockdown | RBAC | |
+| 10 | NetworkPolicy Firewall | NetworkPolicies | |
+| 11 | PV/PVC Binding | Storage | |
+| 12 | Rolling Update Stuck | Rollouts | |
 
 ### Advanced (Days 13-19) — "I run production clusters"
-| Day | Title | Topic |
-|-----|-------|-------|
-| 13 | Metrics Missing | Prometheus |
-| 14 | Dashboard Down | Grafana |
-| 15 | Logs Lost | Loki |
-| 16 | Ingress + TLS | Ingress, cert-manager |
-| 17 | HPA Not Scaling | Autoscaling |
-| 18 | Node Affinity | Scheduling |
-| 19 | Taint Toleration | Scheduling |
+| Day | Title | Topic | Status |
+|-----|-------|-------|--------|
+| 13 | Metrics Missing | Prometheus | |
+| 14 | Dashboard Down | Grafana | |
+| 15 | Logs Lost | Loki | |
+| 16 | Ingress + TLS | Ingress, cert-manager | |
+| 17 | HPA Not Scaling | Autoscaling | |
+| 18 | Node Affinity | Scheduling | |
+| 19 | Taint Toleration | Scheduling | |
 
 ### Expert (Days 20-25) — "I'm an SRE/Platform Engineer"
-| Day | Title | Topic |
-|-----|-------|-------|
-| 20 | GitOps Drift | ArgoCD |
-| 21 | Policy Blocked | Kyverno/OPA |
-| 22 | Init Container Chain | Init Containers |
-| 23 | Ephemeral Debug | Debugging |
-| 24 | Webhook Woes | Admission Webhooks |
-| 25 | Grand Finale | Everything |
+| Day | Title | Topic | Status |
+|-----|-------|-------|--------|
+| 20 | GitOps Drift | ArgoCD | |
+| 21 | Policy Blocked | Kyverno/OPA | |
+| 22 | Init Container Chain | Init Containers | |
+| 23 | Ephemeral Debug | Debugging | |
+| 24 | Webhook Woes | Admission Webhooks | |
+| 25 | Grand Finale | Everything | |
 
 ### Tools by Difficulty
 
