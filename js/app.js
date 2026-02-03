@@ -85,3 +85,11 @@ const router = new Router([
 
 // Initial resolve
 router.resolve();
+
+// Debug: reset a day's progress (call from console: resetDay(2))
+window.resetDay = (n) => {
+  localStorage.removeItem(`day${n}_completed`);
+  localStorage.removeItem(`day${n}_completedTime`);
+  localStorage.removeItem(`day${n}_startTime`);
+  console.log(`Day ${n} reset. Refresh the page.`);
+};
