@@ -1,6 +1,18 @@
 # Advent of Kube
 
-Kubernetes debugging challenges. Solve broken clusters, find flags, compete on the leaderboard.
+<p align="center">
+  <img src="logo.svg" alt="Advent of Kube" width="120" />
+</p>
+
+<p align="center">
+  <strong>Kubernetes debugging challenges. Solve broken clusters, find flags, compete on the leaderboard.</strong>
+</p>
+
+<p align="center">
+  <a href="https://adventofkube.com">Play Now</a>
+</p>
+
+---
 
 ## How It Works
 
@@ -9,7 +21,66 @@ Kubernetes debugging challenges. Solve broken clusters, find flags, compete on t
 3. Debug the cluster — diagnose and fix the issues
 4. Find the flag and submit it
 
-## Leaderboard Architecture
+---
+
+## Challenge Roadmap
+
+25 days of challenges progressing from beginner to expert, covering core Kubernetes and real-world DevOps tooling.
+
+### Beginner (Days 0-5) — "I'm learning Kubernetes"
+| Day | Title | Topic |
+|-----|-------|-------|
+| 0 | Setup | Environment |
+| 1 | Broken Pod | Pods, Images |
+| 2 | CrashLoop Detective | ConfigMaps |
+| 3 | Label Mismatch | Labels, Selectors |
+| 4 | Secret Rotation | Secrets |
+| 5 | Resource Squeeze | Resources |
+
+### Intermediate (Days 6-12) — "I work with Kubernetes"
+| Day | Title | Topic |
+|-----|-------|-------|
+| 6 | Broken Deployment | Deployments |
+| 7 | Service Wiring | Services |
+| 8 | Probe Pitfall | Probes |
+| 9 | RBAC Lockdown | RBAC |
+| 10 | NetworkPolicy Firewall | NetworkPolicies |
+| 11 | PV/PVC Binding | Storage |
+| 12 | Rolling Update Stuck | Rollouts |
+
+### Advanced (Days 13-19) — "I run production clusters"
+| Day | Title | Topic |
+|-----|-------|-------|
+| 13 | Metrics Missing | Prometheus |
+| 14 | Dashboard Down | Grafana |
+| 15 | Logs Lost | Loki |
+| 16 | Ingress + TLS | Ingress, cert-manager |
+| 17 | HPA Not Scaling | Autoscaling |
+| 18 | Node Affinity | Scheduling |
+| 19 | Taint Toleration | Scheduling |
+
+### Expert (Days 20-25) — "I'm an SRE/Platform Engineer"
+| Day | Title | Topic |
+|-----|-------|-------|
+| 20 | GitOps Drift | ArgoCD |
+| 21 | Policy Blocked | Kyverno/OPA |
+| 22 | Init Container Chain | Init Containers |
+| 23 | Ephemeral Debug | Debugging |
+| 24 | Webhook Woes | Admission Webhooks |
+| 25 | Grand Finale | Everything |
+
+### Tools by Difficulty
+
+| Days | Tools Required |
+|------|----------------|
+| 0-12 | kind, kubectl, helm |
+| 13-15 | + Prometheus, Grafana, Loki |
+| 16-17 | + cert-manager, metrics-server |
+| 20+ | + ArgoCD, Kyverno |
+
+---
+
+## Architecture
 
 ```mermaid
 sequenceDiagram
@@ -43,17 +114,14 @@ sequenceDiagram
     Supabase-->>Browser: Leaderboard data (RLS: public read)
 ```
 
-## Development
+---
 
-Static SPA deployed on Cloudflare Pages. No build step — vanilla JS modules.
+## Tech Stack
 
-### Environment Variables (Cloudflare Pages)
-
-| Variable | Description |
-|----------|-------------|
-| `SUPABASE_URL` | Supabase project URL |
-| `SUPABASE_PUBLISHABLE_KEY` | Public key for browser client |
-| `SUPABASE_SECRET_KEY` | Secret key for server-side functions (encrypt) |
+- **Frontend**: Vanilla JS (no build step), CSS
+- **Hosting**: Cloudflare Pages + Functions
+- **Auth & Database**: Supabase (Postgres + GitHub OAuth)
+- **Challenges**: Helm charts + custom container images on GHCR
 
 ### Project Structure
 
@@ -73,6 +141,20 @@ Static SPA deployed on Cloudflare Pages. No build step — vanilla JS modules.
 ├── functions/              # Cloudflare Pages Functions
 │   ├── api/config.js       # Serves public Supabase config
 │   └── submit-flag.js      # Server-side flag validation
-└── charts/                 # Helm charts for each day
-    └── day00/, day01/, ...
+├── charts/                 # Helm charts for each day
+│   └── day00/, day01/, ...
+└── images/                 # Container image sources
+    └── day01/, day03/, ...
 ```
+
+---
+
+## Contributing
+
+This is a personal project, but if you have ideas for challenges or find bugs, feel free to open an issue.
+
+---
+
+## License
+
+All rights reserved. You may view the source code but not redistribute or create derivative works without permission.
