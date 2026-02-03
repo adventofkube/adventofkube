@@ -10,18 +10,19 @@
   --bg-light: #162231;
   --text: #b0bec5;
   --text-bright: #e1e8ed;
-  --primary: #4d8ae5;
-  --primary-dark: #3a6fc2;
-  --primary-light: rgba(77, 138, 229, 0.12);
+  --primary: #38bdf8;
+  --primary-dark: #0ea5e9;
+  --primary-light: rgba(56, 189, 248, 0.12);
   --completed: #43a047;
   --completed-light: rgba(67, 160, 71, 0.12);
   --locked: #7b919c;
   --locked-light: rgba(84, 110, 122, 0.1);
-  --link: #4d8ae5;
-  --link-hover: #7aabf0;
+  --link: #38bdf8;
+  --link-hover: #7dd3fc;
   --border: #263545;
   --success: #43a047;
   --error: #ef5350;
+  --snow: #38bdf8;
 }
 
 body {
@@ -32,6 +33,49 @@ body {
   display: flex;
   flex-direction: column;
   line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* === Snowflake Background === */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, var(--snow), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 90px 40px, var(--snow), transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 160px 120px, var(--snow), transparent),
+    radial-gradient(2px 2px at 200px 50px, rgba(125,211,252,0.5), transparent),
+    radial-gradient(1px 1px at 250px 160px, var(--snow), transparent),
+    radial-gradient(2px 2px at 280px 90px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 310px 200px, var(--snow), transparent),
+    radial-gradient(2px 2px at 350px 130px, rgba(125,211,252,0.4), transparent),
+    radial-gradient(1px 1px at 380px 60px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 420px 180px, var(--snow), transparent),
+    radial-gradient(1px 1px at 460px 100px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(2px 2px at 500px 220px, var(--snow), transparent);
+  background-size: 520px 250px;
+  animation: snowflake-twinkle 4s ease-in-out infinite alternate;
+  opacity: 0.6;
+}
+
+@keyframes snowflake-twinkle {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.5; }
+}
+
+#site-header, #app, .site-footer {
+  position: relative;
+  z-index: 1;
 }
 
 a {
