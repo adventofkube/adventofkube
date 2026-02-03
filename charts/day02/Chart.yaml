@@ -1,5 +1,5 @@
 apiVersion: v2
 name: day02
-description: "Day 2 — CrashLoop Detective"
-version: 0.1.0
+description: "Day 2 — Missing ConfigMap"
+version: 0.2.0
 type: application

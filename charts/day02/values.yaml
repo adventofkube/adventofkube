@@ -1,7 +1,7 @@
 namespace: day02
 podName: day02-pod
 image: busybox
-flag: "AOK{crash_l00p_conquered}"
+flag: "AOK{c0nfigmap_c0nnected}"
 configMapName: day02-config
 # BUG: pod references this wrong name instead of configMapName
 configMapRef: day02-settings

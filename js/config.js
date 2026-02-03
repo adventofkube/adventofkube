@@ -72,11 +72,11 @@ export const DAYS = [
     enabled: true,
     title: 'Missing ConfigMap',
     description: 'A pod won\'t start — it\'s stuck in CreateContainerConfigError. Investigate the configuration and fix the issue to reveal the flag.',
-    flagHash: '8c857417f96462d860c62550a7741cbfcb5f97c2b68ddb09bc5fc8332e43ddab',
+    flagHash: '5b43f80414de6df30a6ae54f681052e5c5e35cb9cfa57cc24f169422fb315003',
     chartUrl: 'https://example.com/charts/day02.tgz',
     setup: [
       'Install the chart:',
-      '<code>helm install day02 oci://ghcr.io/adventofkube/charts/day02 --version 0.1.0</code>',
+      '<code>helm install day02 oci://ghcr.io/adventofkube/charts/day02 --version 0.2.0</code>',
       'Start investigating:',
       '<code>kubectl get pods -n day02</code>',
       'Check the pod logs:',
