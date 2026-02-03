@@ -1,22 +1,16 @@
 <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
   <circle cx="150" cy="150" r="140" fill="#1e293b"/>
 
-  <circle cx="150" cy="150" r="110" fill="none" stroke="#38bdf8" stroke-width="10" />
+  <circle cx="150" cy="150" r="110" fill="none" stroke="#38bdf8" stroke-width="12" />
 
-  <g stroke-width="10" stroke-linecap="round">
-    <g stroke="#38bdf8">
-      <line x1="150" y1="20"  x2="150" y2="60" />
-      <line x1="150" y1="240" x2="150" y2="280" />
-      <line x1="20"  y1="150" x2="60"  y2="150" />
-      <line x1="240" y1="150" x2="280"  y2="150" />
-    </g>
-    
-    <g stroke="#ffffff">
-      <line x1="58" y1="58" x2="90" y2="90" />
-      <line x1="210" y1="210" x2="242" y2="242" />
-      <line x1="210" y1="90" x2="242" y2="58" />
-      <line x1="58" y1="242" x2="90" y2="214" />
-    </g>
+  <g fill="#ffffff">
+    <path d="M145,10 L155,10 L159,55 L141,55 Z" transform="rotate(0, 150, 150)" />
+    <path d="M145,10 L155,10 L159,55 L141,55 Z" transform="rotate(51.4, 150, 150)" />
+    <path d="M145,10 L155,10 L159,55 L141,55 Z" transform="rotate(102.8, 150, 150)" />
+    <path d="M145,10 L155,10 L159,55 L141,55 Z" transform="rotate(154.2, 150, 150)" />
+    <path d="M145,10 L155,10 L159,55 L141,55 Z" transform="rotate(205.6, 150, 150)" />
+    <path d="M145,10 L155,10 L159,55 L141,55 Z" transform="rotate(257, 150, 150)" />
+    <path d="M145,10 L155,10 L159,55 L141,55 Z" transform="rotate(308.4, 150, 150)" />
   </g>
 
   <circle cx="150" cy="150" r="65" fill="#0f172a" />
