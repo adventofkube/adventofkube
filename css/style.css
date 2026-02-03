@@ -137,13 +137,13 @@ a:hover {
 }
 
 .landing-left {
-  flex: 1;
-  min-width: 0;
+  flex-shrink: 0;
+  width: 340px;
 }
 
 .landing-right {
-  flex-shrink: 0;
-  width: 340px;
+  flex: 1;
+  min-width: 0;
 }
 
 .landing-how {
@@ -987,14 +987,14 @@ a:hover {
 /* === Responsive === */
 @media (max-width: 768px) {
   .landing-layout {
-    flex-direction: column-reverse;
-  }
-
-  .landing-right {
-    width: 100%;
+    flex-direction: column;
   }
 
   .landing-left {
+    width: 100%;
+  }
+
+  .landing-right {
     width: 100%;
   }
 
