@@ -708,6 +708,241 @@ a:hover {
   font-size: 0.82em;
 }
 
+/* === Site Nav === */
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.nav-brand:hover {
+  color: var(--link-hover);
+}
+
+.nav-logo {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.nav-username {
+  color: var(--text-bright);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.nav-login,
+.nav-logout {
+  padding: 0.35rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  border: none;
+}
+
+.nav-login {
+  background: var(--primary);
+  color: var(--text-bright);
+}
+
+.nav-login:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.3);
+}
+
+.nav-logout {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.nav-logout:hover {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+/* === Leaderboard Widget === */
+.landing-leaderboard {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.landing-leaderboard h2 {
+  color: var(--text-bright);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.lb-widget {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-light);
+  overflow: hidden;
+}
+
+.lb-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.lb-tab {
+  padding: 0.6rem 1.1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.lb-tab:hover {
+  color: var(--text-bright);
+}
+
+.lb-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.lb-content {
+  padding: 1rem;
+}
+
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.lb-table thead {
+  border-bottom: 1px solid var(--border);
+}
+
+.lb-table th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lb-table td {
+  padding: 0.5rem 0.75rem;
+  color: var(--text-bright);
+}
+
+.lb-table tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.lb-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.lb-table tbody tr:hover {
+  background: rgba(77, 138, 229, 0.05);
+}
+
+.lb-table .lb-rank {
+  width: 2.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.lb-table .lb-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lb-table th.lb-user {
+  display: table-cell;
+}
+
+.lb-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.lb-table tr.lb-self {
+  background: var(--primary-light);
+}
+
+.lb-table tr.lb-self td {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.lb-empty,
+.lb-loading {
+  color: var(--text);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.lb-login-prompt {
+  margin-top: 0.75rem;
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+/* Compact mode for landing page embed */
+.lb-compact .lb-table {
+  font-size: 0.82rem;
+}
+
+.lb-compact .lb-tab {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.78rem;
+}
+
+.lb-compact .lb-content {
+  padding: 0.75rem;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
   .landing-layout {
@@ -724,6 +959,14 @@ a:hover {
 
   .day-right {
     width: 100%;
+  }
+
+  .site-nav {
+    padding: 0.6rem 1rem;
+  }
+
+  .nav-username {
+    display: none;
   }
 }
 
@@ -747,5 +990,9 @@ a:hover {
 
   #app {
     padding: 1rem;
+  }
+
+  .nav-brand span {
+    display: none;
   }
 }
