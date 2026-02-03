@@ -111,30 +111,50 @@ a:hover {
   padding: 3rem 0 1.5rem;
 }
 
+.landing-hero.compact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: left;
+  padding: 1.5rem 0 1rem;
+}
+
+.landing-hero.compact .landing-logo {
+  margin-bottom: 0;
+}
+
+.landing-hero.compact h1 {
+  margin-bottom: 0.25rem;
+}
+
+.landing-hero.compact .tagline {
+  margin-bottom: 0;
+}
+
 .landing-logo {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   margin-bottom: 0.75rem;
 }
 
 .landing-hero h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--primary);
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
 .landing-hero .tagline {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text);
   margin-bottom: 2rem;
 }
 
 .landing-layout {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   align-items: flex-start;
-  margin-top: 2rem;
 }
 
 .landing-left {
@@ -836,15 +856,13 @@ a:hover {
 
 /* === Leaderboard Widget === */
 .landing-leaderboard {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  margin-top: 0;
 }
 
 .landing-leaderboard h2 {
   color: var(--text-bright);
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
 }
 
 .lb-widget {
@@ -990,11 +1008,20 @@ a:hover {
 /* === Responsive === */
 @media (max-width: 768px) {
   .landing-layout {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .landing-right {
     width: 100%;
+  }
+
+  .landing-left {
+    width: 100%;
+  }
+
+  .landing-hero.compact {
+    flex-direction: column;
+    text-align: center;
   }
 
   .day-layout {

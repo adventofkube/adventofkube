@@ -60,33 +60,25 @@ function renderCalendarGrid() {
 
 export function renderLanding(app) {
   app.innerHTML = `
-    <div class="landing-hero">
+    <div class="landing-hero compact">
       <img src="/logo.svg" alt="Advent of Kube" class="landing-logo" />
-      <h1>Advent of Kube</h1>
-      <p class="tagline">Kubernetes challenges. Debug clusters, find flags.</p>
+      <div class="hero-text">
+        <h1>Advent of Kube</h1>
+        <p class="tagline">Kubernetes challenges. Debug clusters, find flags.</p>
+      </div>
     </div>
 
     <div class="landing-layout">
       <div class="landing-left">
-        <div class="landing-how">
-          <h2>How It Works</h2>
-          <ol>
-            <li>Set up a local Kubernetes cluster with <a href="https://kind.sigs.k8s.io/" target="_blank" rel="noopener">kind</a></li>
-            <li>Install the challenge Helm chart</li>
-            <li>Debug the cluster — diagnose and fix the issues</li>
-            <li>Find the flag and submit it</li>
-          </ol>
-        </div>
+        <section class="landing-leaderboard">
+          <h2>Leaderboard</h2>
+          <div id="landing-lb"></div>
+        </section>
       </div>
       <div class="landing-right">
         ${renderCalendarGrid()}
       </div>
     </div>
-
-    <section class="landing-leaderboard">
-      <h2>Leaderboard</h2>
-      <div id="landing-lb"></div>
-    </section>
   `;
 
   // Render leaderboard widget (async, non-blocking)
