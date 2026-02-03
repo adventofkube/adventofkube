@@ -32,7 +32,7 @@
 |-----|-------|-------|--------|
 | 0 | Setup | Environment | Done |
 | 1 | Broken Pod | Pods, Images | Done |
-| 2 | CrashLoop Detective | ConfigMaps | Done |
+| 2 | Missing ConfigMap | ConfigMaps | Done |
 | 3 | Label Mismatch | Labels, Selectors | Done |
 | 4 | Secret Rotation | Secrets | Done |
 | 5 | Resource Squeeze | Resources | Planned |

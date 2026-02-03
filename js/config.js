@@ -70,8 +70,8 @@ export const DAYS = [
   {
     day: 2,
     enabled: true,
-    title: 'CrashLoop Detective',
-    description: 'A pod is stuck in CrashLoopBackOff. Investigate the logs and fix the underlying issue to reveal the flag.',
+    title: 'Missing ConfigMap',
+    description: 'A pod won\'t start — it\'s stuck in CreateContainerConfigError. Investigate the configuration and fix the issue to reveal the flag.',
     flagHash: '8c857417f96462d860c62550a7741cbfcb5f97c2b68ddb09bc5fc8332e43ddab',
     chartUrl: 'https://example.com/charts/day02.tgz',
     setup: [
@@ -85,7 +85,7 @@ export const DAYS = [
       '<code>kubectl logs -n day02 day02-pod</code>',
     ],
     hints: [
-      'Run <code>kubectl logs -n day02 day02-pod</code> to see why the pod is crashing. The error message should point you in the right direction.',
+      'The pod can\'t start. Describe it to see why:<code>kubectl describe pod day02-pod -n day02</code>Look at the Events section for the error.',
       'The logs say <code>FLAG_VALUE</code> is not set. The pod loads env vars from a ConfigMap via <code>envFrom</code>. Check which ConfigMap is referenced:<code>kubectl get pod day02-pod -n day02 -o yaml | grep configMapRef -A 1</code>',
       'The pod references <code>day02-settings</code>, but the actual ConfigMap is named <code>day02-config</code>:<code>kubectl get configmap -n day02</code>Export the pod, fix the reference, delete and recreate:<code>kubectl get pod day02-pod -n day02 -o yaml > fix.yaml\n# Edit fix.yaml: change day02-settings to day02-config\nkubectl delete pod day02-pod -n day02\nkubectl apply -f fix.yaml</code>',
     ],
