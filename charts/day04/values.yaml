@@ -1,0 +1,9 @@
+namespace: day04
+appName: secret-app
+
+image: ghcr.io/adventofkube/day04:v0.1.0
+
+# Secret has wrong key name: "api-key" instead of "API_KEY"
+secretName: app-credentials
+secretKey: api-key
+secretValue: supersecret123

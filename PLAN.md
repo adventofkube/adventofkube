@@ -16,7 +16,7 @@
 | 1 | Broken Pod | Pods, Images | Image pull error (typo in image name) | Done |
 | 2 | CrashLoop Detective | ConfigMaps | ConfigMap reference mismatch | Done |
 | 3 | Label Mismatch | Labels, Selectors | Service can't find pods (selector mismatch) | Done |
-| 4 | Secret Rotation | Secrets | App needs a Secret that's missing/wrong key | Planned |
+| 4 | Secret Rotation | Secrets | App needs a Secret that's missing/wrong key | Done |
 | 5 | Resource Squeeze | Resources | Pod pending due to resource requests vs limits | Planned |
 
 ### Intermediate (Days 6-12) — "I work with Kubernetes"
@@ -74,13 +74,13 @@ For tool-heavy days, provide pre-configured kind configs or setup scripts:
 
 ---
 
-## Next Up: Day 4 — Secret Rotation
+## Next Up: Day 5 — Resource Squeeze
 
-**Concept**: An app requires an environment variable from a Secret, but the Secret has the wrong key name or is missing entirely.
+**Concept**: A Pod is stuck Pending because its resource requests exceed available cluster resources or namespace quota.
 
 **Setup**:
-- Deployment references Secret key `API_KEY`
-- Secret exists but has key `api-key` (wrong format) or is missing
-- User must fix the Secret or the Deployment's env reference
+- ResourceQuota limits the namespace to small amounts (e.g., 500m CPU, 256Mi memory)
+- Pod requests more than quota allows
+- User must reduce resource requests to fit within quota
 
-**Flag**: Baked into the app image, printed to logs once the env var is correctly set.
+**Flag**: Baked into the app image, printed to logs once the pod runs.

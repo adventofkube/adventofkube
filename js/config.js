@@ -126,11 +126,29 @@ export const DAYS = [
   },
   {
     day: 4,
-    enabled: false,
+    enabled: true,
     title: 'Secret Rotation',
-    description: 'A deployment references a Secret that has been rotated. The old key no longer works. Update the Secret and restart the pods to get the flag.',
-    flagHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    description: 'An app is crashing because it can\'t find the Secret key it needs. The Secret exists, but something is off. Fix it to get the flag.',
+    flagHash: 'f42b4a89a4b7f81ddd3d30e30746e6d6fca8a5819c7dd3c4309a0c4adf0b310d',
     chartUrl: 'https://example.com/charts/day04.tgz',
+    setup: [
+      'Install the chart:',
+      '<code>helm install day04 oci://ghcr.io/adventofkube/charts/day04 --version 0.1.0</code>',
+      'Check the pod status:',
+      '<code>kubectl get pods -n day04</code>',
+      'Once the pod completes successfully, get the flag from the logs:',
+      '<code>kubectl logs -n day04 secret-app</code>',
+    ],
+    hints: [
+      'The pod is in CreateContainerConfigError. Describe it to see why:<code>kubectl describe pod secret-app -n day04</code>Look for errors about Secret keys.',
+      'The error says key <code>API_KEY</code> not found in Secret. Check what keys the Secret actually has:<code>kubectl get secret app-credentials -n day04 -o jsonpath=\'{.data}\'</code>The key names are base64 encoded in the output, but you can see them.',
+      'The Secret has key <code>api-key</code> but the Pod expects <code>API_KEY</code>. Edit the Secret to fix the key name:<code>kubectl get secret app-credentials -n day04 -o yaml > fix.yaml\n# Edit fix.yaml: rename the key from api-key to API_KEY\nkubectl apply -f fix.yaml</code>Then delete and recreate the pod, or just delete it (it will restart).',
+    ],
+    docs: [
+      { title: 'Secrets', url: 'https://kubernetes.io/docs/concepts/configuration/secret/' },
+      { title: 'Using Secrets as Environment Variables', url: 'https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables' },
+      { title: 'kubectl describe', url: 'https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/' },
+    ],
   },
   {
     day: 5,
