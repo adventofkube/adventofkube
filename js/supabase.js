@@ -100,3 +100,42 @@ export async function submitFlag(day, flag, elapsedMs) {
 
   return res.json();
 }
+
+export async function fetchUserSubmissions(userId) {
+  const supabase = await init();
+  const { data, error } = await supabase
+    .from('submissions')
+    .select('day, elapsed_ms')
+    .eq('user_id', userId);
+
+  if (error) {
+    console.error('fetchUserSubmissions error:', error);
+    return [];
+  }
+  return data;
+}
+
+export async function syncProgressFromServer() {
+  const user = await getUser();
+  if (!user) return;
+
+  const submissions = await fetchUserSubmissions(user.id);
+  for (const sub of submissions) {
+    const day = sub.day;
+    // Mark as completed in localStorage
+    localStorage.setItem(`day${day}_completed`, 'true');
+    // Convert elapsed_ms to formatted time string
+    const ms = sub.elapsed_ms;
+    const totalSeconds = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    let timeStr;
+    if (hours > 0) {
+      timeStr = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    } else {
+      timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+    localStorage.setItem(`day${day}_completedTime`, timeStr);
+  }
+}

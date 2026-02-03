@@ -55,13 +55,28 @@ async function renderAuthHeader(session) {
   }
 }
 
-// Initialize auth header
+// Initialize auth header and sync progress
 (async () => {
   try {
-    const { getSession, onAuthStateChange } = await import('./supabase.js');
+    const { getSession, onAuthStateChange, syncProgressFromServer } = await import('./supabase.js');
     const session = await getSession();
     renderAuthHeader(session);
-    onAuthStateChange((newSession) => renderAuthHeader(newSession));
+
+    // Sync progress from server if logged in
+    if (session) {
+      await syncProgressFromServer();
+      // Re-render current page to reflect synced progress
+      router.resolve();
+    }
+
+    onAuthStateChange(async (newSession) => {
+      renderAuthHeader(newSession);
+      // Sync progress when user logs in
+      if (newSession) {
+        await syncProgressFromServer();
+        router.resolve();
+      }
+    });
   } catch (err) {
     // Supabase unavailable — render header without auth
     renderAuthHeader(null);
