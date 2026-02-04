@@ -13,10 +13,10 @@ export const DAYS = [
     chartUrl: 'https://example.com/charts/day00.tgz',
     osSetup: {
       windows: [
-        { title: '1. Install Docker Desktop', content: 'Download <a href="https://docs.docker.com/desktop/install/windows-install/" target="_blank" rel="noopener">Docker Desktop</a> and enable WSL2 during installation.' },
-        { title: '2. Install kubectl', content: '<code>choco install kubernetes-cli</code> or <code>scoop install kubectl</code>' },
-        { title: '3. Install kind', content: '<code>choco install kind</code> or <code>scoop install kind</code>' },
-        { title: '4. Install Helm', content: '<code>choco install kubernetes-helm</code> or <code>scoop install helm</code>' },
+        { title: '1. Install Docker Desktop', content: 'Download and install <a href="https://docs.docker.com/desktop/install/windows-install/" target="_blank" rel="noopener">Docker Desktop</a>. Enable WSL2 when prompted.' },
+        { title: '2. Install kubectl', content: 'Download <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/" target="_blank" rel="noopener">kubectl.exe</a> and add it to your PATH, or run in PowerShell:<code>winget install Kubernetes.kubectl</code>' },
+        { title: '3. Install kind', content: 'Download from <a href="https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries" target="_blank" rel="noopener">kind releases</a> and add to PATH, or run:<code>winget install Kubernetes.kind</code>' },
+        { title: '4. Install Helm', content: 'Download from <a href="https://helm.sh/docs/intro/install/#from-the-binary-releases" target="_blank" rel="noopener">Helm releases</a> and add to PATH, or run:<code>winget install Helm.Helm</code>' },
       ],
       mac: [
         { title: '1. Install Docker Desktop', content: '<code>brew install --cask docker</code> or download from <a href="https://docs.docker.com/desktop/install/mac-install/" target="_blank" rel="noopener">Docker Desktop</a>' },
