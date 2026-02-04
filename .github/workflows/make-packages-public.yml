@@ -35,11 +35,26 @@ jobs:
           gh api "/orgs/$ORG/packages?package_type=container" --jq '.[] | select(.visibility == "private") | .name'
 
           echo ""
-          echo "=== Step 5: Attempt visibility change with full error ==="
-          # Try one package with verbose output
+          echo "=== Step 5: Check package details (repo linkage) ==="
           TEST_PKG="day05"
-          echo "Testing PATCH on $TEST_PKG..."
+          echo "Package details for $TEST_PKG:"
+          gh api "/orgs/$ORG/packages/container/$TEST_PKG" --jq '{name: .name, visibility: .visibility, repository: .repository, html_url: .html_url}'
 
+          echo ""
+          echo "=== Step 6: Try linking package to repo first ==="
+          REPO_ID=$(gh api "/repos/$ORG/adventofkube" --jq '.id')
+          echo "Repo ID: $REPO_ID"
+
+          echo "Attempting to link package to repo..."
+          curl -s -w "\nHTTP_CODE:%{http_code}" \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/orgs/$ORG/packages/container/$TEST_PKG/versions" || true
+
+          echo ""
+          echo "=== Step 7: Attempt visibility change ==="
           RESPONSE=$(curl -s -w "\nHTTP_CODE:%{http_code}" \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
