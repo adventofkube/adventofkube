@@ -13,31 +13,39 @@ jobs:
     permissions:
       packages: write
     steps:
-      - name: List and make packages public
+      - name: Debug token and make packages public
         env:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           ORG="adventofkube"
 
-          echo "=== Debug: List all packages ==="
-          echo "Trying org packages..."
-          gh api "/orgs/$ORG/packages?package_type=container" || echo "Failed to list org packages"
+          echo "=== Step 1: Verify token identity ==="
+          gh api /user --jq '{login: .login, type: .type}'
 
           echo ""
-          echo "Trying user packages..."
-          gh api "/user/packages?package_type=container" || echo "Failed to list user packages"
+          echo "=== Step 2: Check token scopes ==="
+          curl -sI -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/user | grep -i "x-oauth-scopes"
 
           echo ""
-          echo "=== Attempting visibility changes ==="
-          for pkg in day00 day01 day02 day03 day04 day05 day06 charts/day00 charts/day01 charts/day02 charts/day03 charts/day04 charts/day05 charts/day06; do
-            encoded=$(echo "$pkg" | sed 's/\//%2F/g')
-            echo "Trying: $pkg (encoded: $encoded)"
+          echo "=== Step 3: Check org membership ==="
+          gh api "/orgs/$ORG/memberships/$(gh api /user --jq '.login')" --jq '{role: .role, state: .state}' || echo "Could not get membership"
 
-            # Try org first
-            gh api -X PATCH "/orgs/$ORG/packages/container/$encoded/visibility" -f visibility=public 2>&1 && echo "  ✓ org/$pkg" && continue
+          echo ""
+          echo "=== Step 4: List private packages ==="
+          gh api "/orgs/$ORG/packages?package_type=container" --jq '.[] | select(.visibility == "private") | .name'
 
-            # Try user
-            gh api -X PATCH "/user/packages/container/$encoded/visibility" -f visibility=public 2>&1 && echo "  ✓ user/$pkg" && continue
+          echo ""
+          echo "=== Step 5: Attempt visibility change with full error ==="
+          # Try one package with verbose output
+          TEST_PKG="day05"
+          echo "Testing PATCH on $TEST_PKG..."
 
-            echo "  ✗ $pkg not found"
-          done
+          RESPONSE=$(curl -s -w "\nHTTP_CODE:%{http_code}" \
+            -X PATCH \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/orgs/$ORG/packages/container/$TEST_PKG/visibility" \
+            -d '{"visibility":"public"}')
+
+          echo "$RESPONSE"
