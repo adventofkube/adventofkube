@@ -494,23 +494,33 @@ a:hover {
 
 .os-steps {
   margin-bottom: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
 }
 
+.os-step {
+  margin-bottom: 1rem;
+}
+
+.os-step-title {
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 0.35rem;
+}
+
 .os-step-content {
-  margin: 0.25rem 0 0.75rem;
-  padding-left: 0.5rem;
   color: var(--text);
   font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .os-step-content code {
-  display: inline-block;
+  display: block;
   background: #1e293b;
   color: #e2e8f0;
-  padding: 0.3rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin-top: 0.35rem;
   font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
   font-size: 0.82rem;
 }

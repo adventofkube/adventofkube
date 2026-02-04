@@ -258,8 +258,11 @@ export function renderDay(app, params) {
     function renderOsSteps(os) {
       const steps = dayConfig.osSetup[os] || [];
       osSteps.innerHTML = steps.map(step =>
-        `<strong>${step.title}</strong>\n<p class="os-step-content">${step.content}</p>`
-      ).join('\n');
+        `<div class="os-step">
+          <div class="os-step-title">${step.title}</div>
+          <div class="os-step-content">${step.content}</div>
+        </div>`
+      ).join('');
 
       // Update active button
       osButtons.forEach(btn => {
