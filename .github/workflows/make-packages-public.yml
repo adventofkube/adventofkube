@@ -1,0 +1,33 @@
+name: Make packages public
+
+on:
+  push:
+    paths:
+      - 'images/**'
+      - 'charts/**'
+  workflow_dispatch:
+
+jobs:
+  make-public:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Make all packages public
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ORG="adventofkube"
+
+          echo "Making container images public..."
+          for img in day00 day01 day02 day03 day04 day05 day06; do
+            gh api -X PATCH "/orgs/$ORG/packages/container/$img/visibility" \
+              -f visibility=public 2>/dev/null && echo "  ✓ $img" || echo "  - $img (skipped)"
+          done
+
+          echo ""
+          echo "Making Helm charts public..."
+          for chart in day00 day01 day02 day03 day04 day05 day06; do
+            gh api -X PATCH "/orgs/$ORG/packages/container/charts%2F$chart/visibility" \
+              -f visibility=public 2>/dev/null && echo "  ✓ charts/$chart" || echo "  - charts/$chart (skipped)"
+          done
