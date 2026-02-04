@@ -107,7 +107,18 @@ export function renderDay(app, params) {
       <div id="challenge-area" style="${hasStarted || isCompleted ? '' : 'display:none'}">
         <div class="day-layout">
           <div class="day-left">
-            ${dayConfig.setup ? `
+            ${dayConfig.osSetup ? `
+              <div class="setup-section">
+                <h2>Setup</h2>
+                <div class="os-toggle" id="os-toggle">
+                  <button class="os-btn" data-os="windows">Windows</button>
+                  <button class="os-btn" data-os="mac">Mac</button>
+                  <button class="os-btn" data-os="linux">Linux</button>
+                </div>
+                <div class="setup-steps os-steps" id="os-steps"></div>
+                ${dayConfig.setup ? `<div class="setup-steps">${dayConfig.setup.join('\n')}</div>` : ''}
+              </div>
+            ` : dayConfig.setup ? `
               <div class="setup-section">
                 <h2>Setup</h2>
                 <div class="setup-steps">${dayConfig.setup.join('\n')}</div>
@@ -238,8 +249,64 @@ export function renderDay(app, params) {
     });
   }
 
+  // OS toggle for Day 0 setup
+  if (dayConfig.osSetup) {
+    const osToggle = document.getElementById('os-toggle');
+    const osSteps = document.getElementById('os-steps');
+    const osButtons = osToggle.querySelectorAll('.os-btn');
+
+    function renderOsSteps(os) {
+      const steps = dayConfig.osSetup[os] || [];
+      osSteps.innerHTML = steps.map(step =>
+        `<strong>${step.title}</strong>\n<p class="os-step-content">${step.content}</p>`
+      ).join('\n');
+
+      // Update active button
+      osButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.os === os);
+      });
+
+      // Save preference
+      localStorage.setItem('preferred_os', os);
+
+      // Re-apply copy buttons to new code blocks
+      osSteps.querySelectorAll('code').forEach(block => {
+        const text = block.textContent;
+        const isBlock = text.includes('\n') || text.length > 30;
+        if (!isBlock) {
+          block.classList.add('inline-code');
+          return;
+        }
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block';
+        block.parentNode.insertBefore(wrapper, block);
+        wrapper.appendChild(block);
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+        wrapper.appendChild(btn);
+      });
+    }
+
+    osButtons.forEach(btn => {
+      btn.addEventListener('click', () => renderOsSteps(btn.dataset.os));
+    });
+
+    // Auto-detect or use saved preference
+    const savedOs = localStorage.getItem('preferred_os');
+    const detectedOs = navigator.platform.toLowerCase().includes('win') ? 'windows'
+      : navigator.platform.toLowerCase().includes('mac') ? 'mac' : 'linux';
+    renderOsSteps(savedOs || detectedOs);
+  }
+
   // Add copy buttons to block-level code (commands), skip short inline snippets
-  document.querySelectorAll('.setup-steps code, .hint-item code').forEach(block => {
+  document.querySelectorAll('.setup-steps:not(.os-steps) code, .hint-item code').forEach(block => {
     const text = block.textContent;
     const isBlock = text.includes('\n') || text.length > 30;
     if (!isBlock) {
