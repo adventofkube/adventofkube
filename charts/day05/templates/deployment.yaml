@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quota-app
+  namespace: day05
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quota-app
+  template:
+    metadata:
+      labels:
+        app: quota-app
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/adventofkube/day05:v1
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
