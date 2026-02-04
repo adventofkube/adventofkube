@@ -463,6 +463,28 @@ a:hover {
   white-space: pre;
 }
 
+.setup-steps .os-note {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text);
+  padding-left: 1rem;
+  margin: 0.25rem 0;
+}
+
+.setup-steps .os-note strong {
+  color: var(--primary);
+  font-weight: 600;
+  min-width: 70px;
+  display: inline-block;
+}
+
+.setup-steps .os-note code {
+  display: inline;
+  padding: 0.15rem 0.4rem;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
 .docs-section {
   margin-bottom: 1rem;
   padding: 1rem 1.25rem;
