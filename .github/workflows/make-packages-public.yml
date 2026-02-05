@@ -19,6 +19,10 @@ jobs:
         run: |
           ORG="adventofkube"
 
+          echo "=== Verify PAT scopes ==="
+          curl -sI -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/user | grep -i "x-oauth-scopes"
+
+          echo ""
           echo "=== Finding private packages ==="
           PRIVATE_PKGS=$(gh api "/orgs/$ORG/packages?package_type=container" --jq '.[] | select(.visibility == "private") | .name')
 
