@@ -52,19 +52,15 @@ jobs:
             fi
 
             echo ""
-            echo "  Trying gh api PATCH..."
-            if gh api -X PATCH "/orgs/$ORG/packages/container/$encoded/visibility" -f visibility=public 2>&1; then
-              RESULT="200"
-            else
-              echo "  gh api failed, trying curl..."
-              RESULT=$(curl -s -w "%{http_code}" -o /tmp/response.json \
-                -X PATCH \
-                -H "Accept: application/vnd.github+json" \
-                -H "Authorization: Bearer $GH_TOKEN" \
-                -H "X-GitHub-Api-Version: 2022-11-28" \
-                "$URL" \
-                -d '{"visibility":"public"}')
-            fi
+            echo "  Trying PATCH..."
+            RESULT=$(curl -s -w "%{http_code}" -o /tmp/response.json \
+              -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              -H "Content-Type: application/json" \
+              "$URL" \
+              -d '{"visibility":"public"}')
 
             if [ "$RESULT" = "204" ] || [ "$RESULT" = "200" ]; then
               echo "OK"
