@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Make packages public
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           ORG="adventofkube"
 
