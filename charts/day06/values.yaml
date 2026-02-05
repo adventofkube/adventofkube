@@ -1,5 +1,5 @@
 image:
   repository: ghcr.io/adventofkube/day06
-  tag: v2  # BUG: only v1 exists in the registry
+  tag: v2
 
 appKey: "advent-of-kube-2026"
