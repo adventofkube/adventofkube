@@ -39,20 +39,11 @@ jobs:
           echo "=== Making packages public ==="
           for pkg in $PRIVATE_PKGS; do
             encoded=$(echo "$pkg" | sed 's/\//%2F/g')
+            URL="https://api.github.com/orgs/$ORG/packages/container/$encoded/visibility"
 
-            OWNER=$(gh api "/orgs/$ORG/packages?package_type=container" \
-              --jq ".[] | select(.name==\"$pkg\") | .owner.login")
+            echo "Setting $pkg to public..."
+            echo "  URL: $URL"
 
-            echo -n "Setting $pkg (owner=$OWNER) to public... "
-
-            if [ "$OWNER" = "$ORG" ]; then
-              URL="https://api.github.com/orgs/$ORG/packages/container/$encoded/visibility"
-            else
-              URL="https://api.github.com/user/packages/container/$encoded/visibility"
-            fi
-
-            echo ""
-            echo "  Trying PATCH..."
             RESULT=$(curl -s -w "%{http_code}" -o /tmp/response.json \
               -X PATCH \
               -H "Accept: application/vnd.github+json" \
@@ -63,9 +54,9 @@ jobs:
               -d '{"visibility":"public"}')
 
             if [ "$RESULT" = "204" ] || [ "$RESULT" = "200" ]; then
-              echo "OK"
+              echo "  OK"
             else
-              echo "FAILED ($RESULT)"
+              echo "  FAILED ($RESULT)"
               cat /tmp/response.json
             fi
           done
