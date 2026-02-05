@@ -45,9 +45,9 @@ jobs:
             echo -n "Setting $pkg (owner=$OWNER) to public... "
 
             if [ "$OWNER" = "$ORG" ]; then
-              URL="https://api.github.com/orgs/$ORG/packages/container/$encoded"
+              URL="https://api.github.com/orgs/$ORG/packages/container/$encoded/visibility"
             else
-              URL="https://api.github.com/user/packages/container/$encoded"
+              URL="https://api.github.com/user/packages/container/$encoded/visibility"
             fi
 
             RESULT=$(curl -s -w "%{http_code}" -o /tmp/response.json \
