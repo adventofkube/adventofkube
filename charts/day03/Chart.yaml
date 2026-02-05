@@ -1,5 +1,5 @@
 apiVersion: v2
 name: day03
-description: "Day 3 — Label Mismatch"
-version: 0.1.0
+description: "Day 3 — Services"
+version: 0.2.0
 type: application

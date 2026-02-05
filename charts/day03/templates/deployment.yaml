@@ -7,11 +7,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.podLabel }}
+      app: {{ .Values.appName }}
   template:
     metadata:
       labels:
-        app: {{ .Values.podLabel }}
+        app: {{ .Values.appName }}
     spec:
       containers:
         - name: server

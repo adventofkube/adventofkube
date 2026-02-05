@@ -119,7 +119,7 @@ export const DAYS = [
     chartUrl: 'https://example.com/charts/day03.tgz',
     setup: [
       'Install the chart:',
-      '<code>helm install day03 oci://ghcr.io/adventofkube/charts/day03 --version 0.1.0</code>',
+      '<code>helm install day03 oci://ghcr.io/adventofkube/charts/day03 --version 0.2.0</code>',
       'Check the pod is running:',
       '<code>kubectl get pods -n day03</code>',
       'Try to reach the service (this will fail initially):',
@@ -128,8 +128,8 @@ export const DAYS = [
     ],
     hints: [
       'The pod is running, but the Service can\'t reach it. Check the Service endpoints:<code>kubectl get endpoints -n day03</code>If it shows no endpoints, the Service isn\'t finding any pods.',
-      'Services find pods using label selectors. Compare the Service selector to the Pod labels:<code>kubectl get svc flag-server -n day03 -o jsonpath=\'{.spec.selector}\'</code><code>kubectl get pods -n day03 --show-labels</code>',
-      'The Service selector is <code>app: my-app</code> but the Pod has label <code>app: myapp</code> (no hyphen). Edit the Service to fix the selector:<code>kubectl edit svc flag-server -n day03</code>Change <code>my-app</code> to <code>myapp</code>.',
+      'Services find pods using label selectors. Compare what the Service expects vs what the Pod has:<code>kubectl get svc flag-server -n day03 -o yaml | grep -A5 selector</code><code>kubectl get pods -n day03 --show-labels</code>',
+      'The Service selector expects two labels, but the Pod only has one. Add the missing label to the Deployment:<code>kubectl edit deployment flag-server -n day03</code>Add <code>tier: backend</code> to the pod template labels (under spec.template.metadata.labels).',
     ],
     docs: [
       { title: 'Services', url: 'https://kubernetes.io/docs/concepts/services-networking/service/' },
