@@ -18,7 +18,7 @@ export function renderCalendar(app, navigate) {
   let dayZeroHtml = '';
   if (dayZero) {
     const state = getDayState(0);
-    let statusText = state === 'completed' ? 'COMPLETE' : 'OPEN';
+    let statusText = state === 'completed' ? 'COMPLETE' : '';
     const tag = 'a';
     const href = `href="/day/0" data-link`;
 
@@ -42,7 +42,7 @@ export function renderCalendar(app, navigate) {
     let statusText = '';
     if (state === 'locked') statusText = 'LOCKED';
     else if (state === 'completed') statusText = 'COMPLETE';
-    else statusText = 'OPEN';
+    else statusText = day.title;
 
     const isClickable = state !== 'locked';
     const tag = isClickable ? 'a' : 'div';
