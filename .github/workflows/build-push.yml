@@ -1,0 +1,50 @@
+name: Build and push images
+
+on:
+  push:
+    paths:
+      - 'images/**'
+  workflow_dispatch:
+    inputs:
+      day:
+        description: 'Day to build (e.g., day05), or "all"'
+        required: true
+        default: 'all'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ghcr.io/adventofkube
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push images
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.day }}" != "all" ]; then
+            DIRS="images/${{ inputs.day }}"
+          else
+            DIRS=$(find images -maxdepth 1 -mindepth 1 -type d)
+          fi
+
+          for dir in $DIRS; do
+            if [ -f "$dir/Dockerfile" ]; then
+              name=$(basename $dir)
+              echo "Building $name..."
+              docker build -t ${{ env.IMAGE_PREFIX }}/$name:v1 $dir
+              docker push ${{ env.IMAGE_PREFIX }}/$name:v1
+              echo "Pushed ${{ env.IMAGE_PREFIX }}/$name:v1"
+            fi
+          done
