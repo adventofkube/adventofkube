@@ -50,6 +50,12 @@ jobs:
               URL="https://api.github.com/user/packages/container/$encoded/visibility"
             fi
 
+            echo ""
+            echo "  URL: $URL"
+            echo "  Testing GET first..."
+            curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/orgs/$ORG/packages/container/$encoded" | jq '{name, visibility, repository: .repository.full_name}'
+
             RESULT=$(curl -s -w "%{http_code}" -o /tmp/response.json \
               -X PATCH \
               -H "Accept: application/vnd.github+json" \
