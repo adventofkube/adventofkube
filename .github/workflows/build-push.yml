@@ -32,7 +32,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PAT_TOKEN }}
 
       - name: Build and push images
         run: |
@@ -57,14 +57,8 @@ jobs:
               docker build -t ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1 $dir
               docker push ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1
               echo "Pushed ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1"
-
-              # Make public
-              echo "Making $name public..."
-              gh api -X PATCH /orgs/${{ env.ORG }}/packages/container/$name -f visibility=public || echo "Could not set visibility"
             fi
           done
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   charts:
     runs-on: ubuntu-latest
@@ -82,7 +76,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to GHCR
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.PAT_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
       - name: Package and push charts
         run: |
@@ -109,11 +103,5 @@ jobs:
               helm push $PKG oci://${{ env.REGISTRY }}/${{ env.ORG }}/charts
               rm $PKG
               echo "Pushed $name"
-
-              # Make public (charts are stored as charts%2Fname)
-              echo "Making charts/$name public..."
-              gh api -X PATCH "/orgs/${{ env.ORG }}/packages/container/charts%2F$name" -f visibility=public || echo "Could not set visibility"
             fi
           done
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
