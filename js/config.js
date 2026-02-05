@@ -119,7 +119,7 @@ export const DAYS = [
     chartUrl: 'https://example.com/charts/day03.tgz',
     setup: [
       'Install the chart:',
-      '<code>helm install day03 oci://ghcr.io/adventofkube/charts/day03 --version 0.2.0</code>',
+      '<code>helm install day03 oci://ghcr.io/adventofkube/charts/day03 --version 0.3.0</code>',
       'Check the pod is running:',
       '<code>kubectl get pods -n day03</code>',
       'Try to reach the service (this will fail initially):',
@@ -128,13 +128,13 @@ export const DAYS = [
     ],
     hints: [
       'The pod is running, but the Service can\'t reach it. Check the Service endpoints:<code>kubectl get endpoints -n day03</code>If it shows no endpoints, the Service isn\'t finding any pods.',
-      'Services find pods using label selectors. Compare what the Service expects vs what the Pod has:<code>kubectl get svc flag-server -n day03 -o yaml | grep -A5 selector</code><code>kubectl get pods -n day03 --show-labels</code>',
-      'The Service selector expects two labels, but the Pod only has one. Add the missing label to the Deployment:<code>kubectl edit deployment flag-server -n day03</code>Add <code>tier: backend</code> to the pod template labels (under spec.template.metadata.labels).',
+      'Services find pods using label selectors. Does this Service have a selector?<code>kubectl get svc flag-server -n day03 -o yaml</code>Check what labels the Pod has:<code>kubectl get pods -n day03 --show-labels</code>',
+      'The Service has no selector! You can fix this by editing the Service to add one:<code>kubectl edit svc flag-server -n day03</code>Or delete it and use <code>kubectl expose</code>:<code>kubectl delete svc flag-server -n day03</code><code>kubectl expose deployment flag-server -n day03 --port=80 --target-port=8080</code>',
     ],
     docs: [
       { title: 'Services', url: 'https://kubernetes.io/docs/concepts/services-networking/service/' },
       { title: 'Labels and Selectors', url: 'https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/' },
-      { title: 'kubectl get endpoints', url: 'https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/' },
+      { title: 'kubectl expose', url: 'https://kubernetes.io/docs/reference/kubectl/generated/kubectl_expose/' },
       { title: 'Debugging Services', url: 'https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/' },
     ],
   },

@@ -4,9 +4,7 @@ metadata:
   name: {{ .Values.appName }}
   namespace: {{ .Values.namespace }}
 spec:
-  selector:
-    app: {{ .Values.appName }}
-    tier: backend
+  # selector: ???
   ports:
     - port: 80
       targetPort: 8080
