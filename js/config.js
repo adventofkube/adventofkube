@@ -57,8 +57,8 @@ export const DAYS = [
   {
     day: 1,
     enabled: true,
-    title: 'Broken Pod',
-    description: 'A pod won\'t start. Something looks off about it. Find and fix the issue, then check the logs for the flag.',
+    title: 'Pods',
+    description: 'A pod won\'t start. Investigate the issue, fix it, and retrieve the flag from the logs.',
     flagHash: 'd88ee18014da63147665ad1455bada2141eb3ba3bbb11051053a74ab2e3aa5c7',
     chartUrl: 'https://example.com/charts/day01.tgz',
     setup: [
@@ -84,8 +84,8 @@ export const DAYS = [
   {
     day: 2,
     enabled: true,
-    title: 'Missing ConfigMap',
-    description: 'A pod won\'t start — it\'s stuck in CreateContainerConfigError. Investigate the configuration and fix the issue to reveal the flag.',
+    title: 'ConfigMaps',
+    description: 'A pod is stuck and won\'t start. Something is wrong with its configuration. Find and fix the issue.',
     flagHash: '5b43f80414de6df30a6ae54f681052e5c5e35cb9cfa57cc24f169422fb315003',
     chartUrl: 'https://example.com/charts/day02.tgz',
     setup: [
@@ -113,8 +113,8 @@ export const DAYS = [
   {
     day: 3,
     enabled: true,
-    title: 'Label Mismatch',
-    description: 'A Service exists but can\'t reach its backend pods. Something is off with the wiring. Find the issue and get the flag.',
+    title: 'Services',
+    description: 'A Service can\'t reach its backend. The pod is running, but something is wrong. Debug the connectivity.',
     flagHash: 'bc64f86e6a230e279ff0a5e095a48e52d1e234525b748e64f27c1680913cdf12',
     chartUrl: 'https://example.com/charts/day03.tgz',
     setup: [
@@ -141,8 +141,8 @@ export const DAYS = [
   {
     day: 4,
     enabled: true,
-    title: 'Secret Key Mismatch',
-    description: 'A pod can\'t start because it expects a Secret key that doesn\'t exist. The Secret is there, but the key name is wrong. Find and fix the mismatch.',
+    title: 'Secrets',
+    description: 'A pod won\'t start. It needs a Secret, but something isn\'t configured correctly. Figure out what\'s wrong.',
     flagHash: 'f42b4a89a4b7f81ddd3d30e30746e6d6fca8a5819c7dd3c4309a0c4adf0b310d',
     chartUrl: 'https://example.com/charts/day04.tgz',
     setup: [
@@ -169,8 +169,8 @@ export const DAYS = [
   {
     day: 5,
     enabled: true,
-    title: 'Resource Quota Squeeze',
-    description: 'A Deployment won\'t create any pods. The namespace has a ResourceQuota, and the Deployment exceeds it. Right-size the resources to fit.',
+    title: 'Resource Quotas',
+    description: 'A Deployment exists but no pods are being created. Something is preventing the pods from being scheduled.',
     flagHash: 'db755eb20ac5651ce8080506b9dab20b81b1af45a52112e67cd13a2c755b0a87',
     chartUrl: 'https://example.com/charts/day05.tgz',
     setup: [
