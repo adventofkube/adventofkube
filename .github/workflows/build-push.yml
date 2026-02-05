@@ -1,28 +1,31 @@
-name: Build and push images
+name: Build and push images/charts
 
 on:
   push:
     paths:
       - 'images/**'
+      - 'charts/**'
   workflow_dispatch:
     inputs:
-      day:
-        description: 'Day to build (e.g., day05), or "all"'
+      target:
+        description: 'What to build (e.g., day05, all-images, all-charts, all)'
         required: true
         default: 'all'
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_PREFIX: ghcr.io/adventofkube
+  ORG: adventofkube
 
 jobs:
-  build:
+  images:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Login to GHCR
         uses: docker/login-action@v3
@@ -33,18 +36,70 @@ jobs:
 
       - name: Build and push images
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.day }}" != "all" ]; then
-            DIRS="images/${{ inputs.day }}"
-          else
+          TARGET="${{ inputs.target }}"
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # Find changed image directories
+            DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^images/" | cut -d/ -f1-2 | sort -u)
+          elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-images" ]; then
             DIRS=$(find images -maxdepth 1 -mindepth 1 -type d)
+          elif [[ "$TARGET" == day* ]]; then
+            DIRS="images/$TARGET"
+          else
+            echo "No images to build"
+            exit 0
           fi
 
           for dir in $DIRS; do
             if [ -f "$dir/Dockerfile" ]; then
               name=$(basename $dir)
-              echo "Building $name..."
-              docker build -t ${{ env.IMAGE_PREFIX }}/$name:v1 $dir
-              docker push ${{ env.IMAGE_PREFIX }}/$name:v1
-              echo "Pushed ${{ env.IMAGE_PREFIX }}/$name:v1"
+              echo "=== Building $name ==="
+              docker build -t ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1 $dir
+              docker push ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1
+              echo "Pushed ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1"
+            fi
+          done
+
+  charts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      - name: Login to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+
+      - name: Package and push charts
+        run: |
+          TARGET="${{ inputs.target }}"
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # Find changed chart directories
+            DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^charts/" | cut -d/ -f1-2 | sort -u)
+          elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-charts" ]; then
+            DIRS=$(find charts -maxdepth 1 -mindepth 1 -type d)
+          elif [[ "$TARGET" == day* ]]; then
+            DIRS="charts/$TARGET"
+          else
+            echo "No charts to build"
+            exit 0
+          fi
+
+          for dir in $DIRS; do
+            if [ -f "$dir/Chart.yaml" ]; then
+              name=$(basename $dir)
+              echo "=== Packaging $name ==="
+              helm package $dir
+              PKG=$(ls ${name}-*.tgz)
+              helm push $PKG oci://${{ env.REGISTRY }}/${{ env.ORG }}/charts
+              rm $PKG
+              echo "Pushed $name"
             fi
           done
