@@ -73,7 +73,7 @@ export async function fetchAllSubmissions() {
   const supabase = await init();
   const { data, error } = await supabase
     .from('submissions')
-    .select('day, elapsed_ms, user_id, profiles(github_username, avatar_url)')
+    .select('day, elapsed_ms, submitted_at, user_id, profiles(github_username, avatar_url)')
     .order('elapsed_ms', { ascending: true });
 
   if (error) {

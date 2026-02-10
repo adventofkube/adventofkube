@@ -1046,6 +1046,124 @@ a:hover {
   padding: 0.75rem;
 }
 
+/* === Leaderboard Controls & Toggle === */
+.lb-controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem 0;
+}
+
+.lb-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.lb-toggle-btn {
+  padding: 0.3rem 0.85rem;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.lb-toggle-btn:last-child {
+  border-right: none;
+}
+
+.lb-toggle-btn:hover {
+  color: var(--text-bright);
+  background: rgba(56, 189, 248, 0.06);
+}
+
+.lb-toggle-btn.active {
+  background: var(--primary);
+  color: #0f1923;
+  font-weight: 600;
+}
+
+/* Scoring explanation note */
+.lb-scoring-note {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--text);
+}
+
+.lb-scoring-note summary {
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 0.78rem;
+  list-style: none;
+}
+
+.lb-scoring-note summary::-webkit-details-marker {
+  display: none;
+}
+
+.lb-scoring-note summary::before {
+  content: "\25B6";
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.55rem;
+  transition: transform 0.2s;
+  vertical-align: middle;
+}
+
+.lb-scoring-note[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.lb-scoring-body {
+  padding: 0.5rem 0 0.25rem;
+  line-height: 1.5;
+}
+
+.lb-scoring-body ul {
+  padding-left: 1.25rem;
+  margin: 0.25rem 0;
+}
+
+.lb-scoring-body li {
+  margin-bottom: 0.2rem;
+}
+
+.lb-scoring-body code {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-size: 0.82em;
+}
+
+/* Compact overrides for new elements */
+.lb-compact .lb-controls {
+  padding: 0.35rem 0.75rem 0;
+}
+
+.lb-compact .lb-toggle-btn {
+  padding: 0.2rem 0.65rem;
+  font-size: 0.7rem;
+}
+
+.lb-compact .lb-scoring-note {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.72rem;
+}
+
+.lb-compact .lb-scoring-note summary {
+  font-size: 0.72rem;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
   .landing-layout {
@@ -1074,6 +1192,11 @@ a:hover {
 
   .nav-username {
     display: none;
+  }
+
+  .lb-controls {
+    justify-content: center;
+    padding: 0.4rem 0.75rem 0;
   }
 }
 
