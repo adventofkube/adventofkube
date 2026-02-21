@@ -35,48 +35,50 @@
 | 2 | Missing ConfigMap | ConfigMaps | Done |
 | 3 | Label Mismatch | Labels, Selectors | Done |
 | 4 | Secret Rotation | Secrets | Done |
-| 5 | Resource Squeeze | Resources | Planned |
+| 5 | Resource Squeeze | Resources | Done |
 
 ### Intermediate (Days 6-12) — "I work with Kubernetes"
 | Day | Title | Topic | Status |
 |-----|-------|-------|--------|
-| 6 | Broken Deployment | Deployments | In Progress |
-| 7 | Service Wiring | Services | Planned |
-| 8 | Probe Pitfall | Probes | Planned |
-| 9 | RBAC Lockdown | RBAC | Planned |
-| 10 | NetworkPolicy Firewall | NetworkPolicies | Planned |
-| 11 | PV/PVC Binding | Storage | Planned |
-| 12 | Rolling Update Stuck | Rollouts | Planned |
+| 6 | Broken Deployment | Deployments | Done |
+| 7 | Service Wiring | Services | Ready |
+| 8 | Probe Pitfall | Probes | Ready |
+| 9 | RBAC Lockdown | RBAC | Ready |
+| 10 | NetworkPolicy Firewall | NetworkPolicies | Ready |
+| 11 | PV/PVC Binding | Storage | Ready |
+| 12 | Rolling Update Stuck | Rollouts | Ready |
 
-### Advanced (Days 13-19) — "I run production clusters"
+### Advanced (Days 13-20) — "I run production clusters"
 | Day | Title | Topic | Status |
 |-----|-------|-------|--------|
-| 13 | Metrics Missing | Prometheus | Planned |
-| 14 | Dashboard Down | Grafana | Planned |
-| 15 | Logs Lost | Loki | Planned |
-| 16 | Ingress + TLS | Ingress, cert-manager | Planned |
-| 17 | HPA Not Scaling | Autoscaling | Planned |
-| 18 | Node Affinity | Scheduling | Planned |
-| 19 | Taint Toleration | Scheduling | Planned |
+| 13 | Metrics Missing | Prometheus ServiceMonitor | Ready |
+| 14 | Dashboard Down | Grafana Datasource | Ready |
+| 15 | Alerts Silent | AlertManager Routing | Ready |
+| 16 | Logs Lost | Loki / Promtail Scrape | Ready |
+| 17 | Pipeline Mismatch | Promtail Pipeline | Ready |
+| 18 | Stuck Pending | Node Affinity | Ready |
+| 19 | Ingress + TLS | Ingress, cert-manager | Ready |
+| 20 | HPA Not Scaling | Autoscaling | Ready |
 
-### Expert (Days 20-25) — "I'm an SRE/Platform Engineer"
+### Expert (Days 21-25) — "I'm an SRE/Platform Engineer"
 | Day | Title | Topic | Status |
 |-----|-------|-------|--------|
-| 20 | GitOps Drift | ArgoCD | Planned |
-| 21 | Policy Blocked | Kyverno/OPA | Planned |
-| 22 | Init Container Chain | Init Containers | Planned |
-| 23 | Ephemeral Debug | Debugging | Planned |
-| 24 | Webhook Woes | Admission Webhooks | Planned |
-| 25 | Grand Finale | Everything | Planned |
+| 21 | GitOps Drift | ArgoCD Application | Ready |
+| 22 | Sync Sabotage | ArgoCD Sync Hooks | Ready |
+| 23 | Policy Blocked | Kyverno | Ready |
+| 24 | Webhook Woes | Admission Webhooks | Ready |
+| 25 | Grand Finale | Everything | Ready |
 
 ### Tools by Difficulty
 
 | Days | Tools Required |
 |------|----------------|
 | 0-12 | kind, kubectl, helm |
-| 13-15 | + Prometheus, Grafana, Loki |
-| 16-17 | + cert-manager, metrics-server |
-| 20+ | + ArgoCD, Kyverno |
+| 13-17 | + Prometheus, Grafana, Loki, Promtail |
+| 18-20 | + cert-manager, metrics-server |
+| 21-22 | + ArgoCD |
+| 23 | + Kyverno |
+| 24-25 | + Webhook infrastructure |
 
 ---
 
