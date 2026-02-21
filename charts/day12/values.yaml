@@ -1,0 +1,8 @@
+namespace: day12
+appName: rollout-app
+image:
+  repository: ghcr.io/adventofkube/day12
+  tag: v1
+strategy:
+  maxUnavailable: 0
+  maxSurge: 0          # BUG: deadlock — can't create or remove pods

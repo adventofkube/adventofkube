@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day12
+description: "Day 12: Rolling Update Stuck — fix the deadlocked rollout"
+version: 0.1.0
+type: application
