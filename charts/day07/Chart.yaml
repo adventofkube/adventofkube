@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day07
+description: "Day 7: Service Wiring — fix the broken Service routing"
+version: 0.1.0
+type: application

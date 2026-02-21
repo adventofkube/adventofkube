@@ -1,0 +1,8 @@
+namespace: day07
+appName: flag-server
+image:
+  repository: ghcr.io/adventofkube/day07
+  tag: v1
+service:
+  port: 80
+  targetPort: https    # BUG: pod port is named "web", not "https"
