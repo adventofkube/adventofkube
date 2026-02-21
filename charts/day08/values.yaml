@@ -1,0 +1,14 @@
+namespace: day08
+appName: probe-app
+image:
+  repository: ghcr.io/adventofkube/day08
+  tag: v1
+liveness:
+  path: /healthz         # BUG: app serves health at /health
+  initialDelaySeconds: 0
+  periodSeconds: 5
+readiness:
+  path: /health
+  initialDelaySeconds: 0   # BUG: app takes 3s to start
+  periodSeconds: 1          # BUG: too aggressive
+  failureThreshold: 1       # BUG: fails immediately

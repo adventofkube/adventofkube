@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day08
+description: "Day 8: Probe Pitfall — fix the misconfigured health checks"
+version: 0.1.0
+type: application
