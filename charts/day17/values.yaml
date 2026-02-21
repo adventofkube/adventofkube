@@ -1,0 +1,9 @@
+namespace: day17
+appName: pipeline-app
+image:
+  repository: ghcr.io/adventofkube/day17
+  tag: v1
+promtail:
+  pipeline:
+    # BUG: regex expects "level=INFO msg=..." but app logs JSON: {"level":"info","msg":"..."}
+    regex: "level=(?P<level>\\w+) msg=\"(?P<message>[^\"]+)\""
