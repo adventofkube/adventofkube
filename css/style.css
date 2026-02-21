@@ -41,7 +41,7 @@
 }
 
 body {
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(175deg, var(--bg) 0%, var(--bg-mid) 50%, #0c1220 100%);
   background-attachment: fixed;
   color: var(--text);
@@ -66,7 +66,7 @@ body::after {
   opacity: 0.8;
 }
 
-/* === Starfield / Sparkle Background === */
+/* === Snowflake / Sparkle Background === */
 body::before {
   content: "";
   position: fixed;
@@ -77,38 +77,39 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background-image:
-    /* Cyan-tinted stars */
-    radial-gradient(1.5px 1.5px at 20px 30px, var(--aurora-1), transparent),
-    radial-gradient(1px 1px at 85px 120px, var(--aurora-1), transparent),
-    radial-gradient(1.5px 1.5px at 180px 55px, rgba(74, 234, 220, 0.6), transparent),
-    radial-gradient(1px 1px at 260px 190px, var(--aurora-1), transparent),
-    radial-gradient(2px 2px at 340px 85px, rgba(74, 234, 220, 0.4), transparent),
-    radial-gradient(1px 1px at 420px 145px, var(--aurora-1), transparent),
-    /* Green-tinted stars */
-    radial-gradient(1px 1px at 50px 170px, var(--aurora-2), transparent),
-    radial-gradient(1.5px 1.5px at 150px 210px, rgba(71, 212, 160, 0.5), transparent),
-    radial-gradient(1px 1px at 310px 40px, var(--aurora-2), transparent),
-    radial-gradient(1.5px 1.5px at 470px 110px, rgba(71, 212, 160, 0.4), transparent),
-    /* White / neutral stars */
-    radial-gradient(1px 1px at 110px 80px, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 220px 140px, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(1px 1px at 380px 200px, rgba(255, 255, 255, 0.4), transparent),
-    radial-gradient(2px 2px at 500px 60px, rgba(255, 255, 255, 0.25), transparent),
-    radial-gradient(1px 1px at 440px 230px, rgba(255, 255, 255, 0.35), transparent),
-    /* Blue accent stars */
-    radial-gradient(1px 1px at 70px 240px, var(--aurora-3), transparent),
-    radial-gradient(1.5px 1.5px at 290px 15px, rgba(58, 143, 224, 0.5), transparent),
-    radial-gradient(1px 1px at 400px 170px, rgba(58, 143, 224, 0.35), transparent);
-  background-size: 520px 260px;
-  animation: sparkle-drift 6s ease-in-out infinite alternate;
-  opacity: 0.55;
+    /* Bright snowflakes — larger, more visible */
+    radial-gradient(2.5px 2.5px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 85px 120px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(3px 3px at 180px 55px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(2px 2px at 260px 190px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(2.5px 2.5px at 340px 85px, rgba(255, 255, 255, 0.65), transparent),
+    radial-gradient(2px 2px at 420px 145px, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(3px 3px at 500px 60px, rgba(255, 255, 255, 0.6), transparent),
+    /* Cyan-tinted snowflakes */
+    radial-gradient(2px 2px at 50px 170px, rgba(74, 234, 220, 0.7), transparent),
+    radial-gradient(2.5px 2.5px at 150px 210px, rgba(74, 234, 220, 0.5), transparent),
+    radial-gradient(2px 2px at 310px 40px, rgba(74, 234, 220, 0.6), transparent),
+    radial-gradient(2px 2px at 470px 110px, rgba(74, 234, 220, 0.45), transparent),
+    /* Faint green accent flakes */
+    radial-gradient(1.5px 1.5px at 110px 80px, rgba(71, 212, 160, 0.5), transparent),
+    radial-gradient(2px 2px at 220px 140px, rgba(71, 212, 160, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 380px 200px, rgba(71, 212, 160, 0.45), transparent),
+    /* Small dim stars for depth */
+    radial-gradient(1px 1px at 70px 240px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 290px 15px, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 400px 170px, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 440px 230px, rgba(200, 220, 240, 0.3), transparent),
+    radial-gradient(1px 1px at 130px 250px, rgba(200, 220, 240, 0.25), transparent);
+  background-size: 520px 270px;
+  animation: snowflake-twinkle 5s ease-in-out infinite alternate;
+  opacity: 0.75;
 }
 
-@keyframes sparkle-drift {
-  0% { opacity: 0.45; }
-  33% { opacity: 0.6; }
-  66% { opacity: 0.5; }
-  100% { opacity: 0.55; }
+@keyframes snowflake-twinkle {
+  0% { opacity: 0.6; }
+  33% { opacity: 0.8; }
+  66% { opacity: 0.65; }
+  100% { opacity: 0.75; }
 }
 
 #site-header, #app, .site-footer {
@@ -157,12 +158,12 @@ a:hover {
 }
 
 .landing-hero h1 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.5rem;
   color: var(--text-bright);
   margin-bottom: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .landing-hero .tagline {
@@ -197,11 +198,11 @@ a:hover {
 }
 
 .landing-how h2 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   margin-bottom: 1rem;
   font-size: 1.2rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .landing-how ol {
@@ -250,11 +251,11 @@ a:hover {
 }
 
 .challenges-list h2 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .challenge-row {
@@ -321,10 +322,10 @@ a:hover {
 }
 
 .calendar-header h1 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   font-size: 1.8rem;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .calendar-grid {
@@ -439,10 +440,10 @@ a:hover {
 }
 
 .day-page h1 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   font-size: 1.8rem;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .day-locked-notice {
@@ -506,11 +507,11 @@ a:hover {
 }
 
 .setup-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .setup-steps {
@@ -607,11 +608,11 @@ a:hover {
 }
 
 .docs-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .docs-list {
@@ -638,11 +639,11 @@ a:hover {
 }
 
 .hints-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .hint-item {
@@ -922,8 +923,8 @@ a:hover {
   align-items: center;
   gap: 0.5rem;
   color: var(--text-bright);
-  font-family: "DM Serif Display", Georgia, serif;
-  font-weight: 400;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
   font-size: 1.05rem;
   text-decoration: none;
 }
@@ -995,11 +996,11 @@ a:hover {
 }
 
 .landing-leaderboard h2 {
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .lb-widget {
