@@ -1,0 +1,4 @@
+namespace: day14
+grafana:
+  datasource:
+    url: http://prometheus:9090    # BUG: wrong service name, should be prometheus-server or prometheus-kube-prometheus-prometheus

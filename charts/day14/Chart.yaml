@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day14
+description: "Day 14: Dashboard Down — fix the Grafana datasource configuration"
+version: 0.1.0
+type: application
