@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day20
+description: "Day 20: HPA Not Scaling — fix the autoscaling configuration"
+version: 0.1.0
+type: application

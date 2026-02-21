@@ -1,0 +1,11 @@
+namespace: day20
+appName: scale-app
+image:
+  repository: ghcr.io/adventofkube/day20
+  tag: v1
+hpa:
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPU: 50
+# BUG: deployment has no resource requests — HPA can't calculate CPU %
+resources: {}
