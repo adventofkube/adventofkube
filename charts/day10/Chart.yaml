@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day10
+description: "Day 10: NetworkPolicy Firewall — allow traffic through the policy"
+version: 0.1.0
+type: application

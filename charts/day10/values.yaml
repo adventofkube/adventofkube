@@ -1,0 +1,8 @@
+namespace: day10
+appName: flag-server
+image:
+  repository: ghcr.io/adventofkube/day10
+  tag: v1
+# BUG: default-deny policy with no allow rules
+networkPolicy:
+  denyAll: true
