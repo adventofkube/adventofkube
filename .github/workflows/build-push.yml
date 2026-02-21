@@ -34,6 +34,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PAT_TOKEN }}
 
+      - name: Generate flag files
+        env:
+          FLAG_VALUES: ${{ secrets.FLAG_VALUES }}
+        run: |
+          if [ -n "${FLAG_VALUES:-}" ]; then
+            ./scripts/gen-flags.sh
+          else
+            echo "WARNING: FLAG_VALUES not set, skipping flag generation"
+          fi
+
       - name: Build and push images
         run: |
           TARGET="${{ inputs.target }}"
@@ -44,6 +54,7 @@ jobs:
           elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-images" ]; then
             DIRS=$(find images -maxdepth 1 -mindepth 1 -type d)
           elif [[ "$TARGET" == day* ]]; then
+            # Support both "day07" (builds images/day07) and "day12-v1" (builds images/day12-v1)
             DIRS="images/$TARGET"
           else
             echo "No images to build"
@@ -52,11 +63,23 @@ jobs:
 
           for dir in $DIRS; do
             if [ -f "$dir/Dockerfile" ]; then
-              name=$(basename $dir)
-              echo "=== Building $name ==="
-              docker build -t ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1 $dir
-              docker push ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1
-              echo "Pushed ${{ env.REGISTRY }}/${{ env.ORG }}/$name:v1"
+              dirname=$(basename $dir)
+              # Parse image name and tag from directory name
+              # "day07" -> name=day07, tag=v1
+              # "day12-v1" -> name=day12, tag=v1
+              # "day12-v2" -> name=day12, tag=v2
+              # "day25a" -> name=day25a, tag=v1
+              if [[ "$dirname" =~ ^(day[0-9]+)-(v[0-9]+)$ ]]; then
+                name="${BASH_REMATCH[1]}"
+                tag="${BASH_REMATCH[2]}"
+              else
+                name="$dirname"
+                tag="v1"
+              fi
+              echo "=== Building $name:$tag ==="
+              docker build -t ${{ env.REGISTRY }}/${{ env.ORG }}/$name:$tag $dir
+              docker push ${{ env.REGISTRY }}/${{ env.ORG }}/$name:$tag
+              echo "Pushed ${{ env.REGISTRY }}/${{ env.ORG }}/$name:$tag"
             fi
           done
 

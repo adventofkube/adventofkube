@@ -15,7 +15,7 @@ func main() {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "AOK{d3ploy_and_d3bug}")
+		fmt.Fprintln(w, flag)
 	})
 
 	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {

@@ -8,7 +8,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "AOK{l4bels_and_s3lectors}")
+		fmt.Fprintln(w, flag)
 	})
 
 	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {

@@ -17,5 +17,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println("AOK{s3crets_unl0cked}")
+	fmt.Println(flag)
 }
