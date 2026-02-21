@@ -1,0 +1,11 @@
+namespace: day11
+appName: storage-app
+image:
+  repository: ghcr.io/adventofkube/day11
+  tag: v1
+pv:
+  storageClassName: manual
+  capacity: 1Gi
+pvc:
+  storageClassName: standard   # BUG: doesn't match PV's "manual"
+  request: 2Gi                 # BUG: exceeds PV's 1Gi capacity

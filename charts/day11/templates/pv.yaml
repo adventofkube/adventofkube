@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: day11-pv
+spec:
+  storageClassName: {{ .Values.pv.storageClassName }}
+  capacity:
+    storage: {{ .Values.pv.capacity }}
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /tmp/day11-data

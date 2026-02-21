@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day11
+description: "Day 11: PV/PVC Binding — fix the storage configuration"
+version: 0.1.0
+type: application
