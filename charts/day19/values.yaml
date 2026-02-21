@@ -1,0 +1,10 @@
+namespace: day19
+appName: tls-app
+image:
+  repository: ghcr.io/adventofkube/day19
+  tag: v1
+ingress:
+  host: flag.local
+  tlsSecret: flag-tls
+certificate:
+  issuerRef: letsencrypt-prod    # BUG: issuer is actually "selfsigned-issuer"

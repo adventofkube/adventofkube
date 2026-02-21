@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day19
+description: "Day 19: Ingress + TLS — fix the certificate issuer reference"
+version: 0.1.0
+type: application
