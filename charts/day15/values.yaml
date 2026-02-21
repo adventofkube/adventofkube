@@ -1,0 +1,10 @@
+namespace: day15
+appName: alert-app
+image:
+  repository: ghcr.io/adventofkube/day15
+  tag: v1
+alerting:
+  routeMatch:
+    team: backend       # BUG: alert fires with team=infra, not backend
+  alertLabel:
+    team: infra

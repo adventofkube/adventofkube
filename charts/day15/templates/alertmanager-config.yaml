@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-config
+  namespace: {{ .Values.namespace }}
+type: Opaque
+stringData:
+  alertmanager.yaml: |
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: 'null'
+      group_by: ['alertname']
+      routes:
+        - match:
+            team: {{ .Values.alerting.routeMatch.team }}
+          receiver: 'flag-webhook'
+    receivers:
+      - name: 'null'
+      - name: 'flag-webhook'
+        webhook_configs:
+          - url: 'http://{{ .Values.appName }}.{{ .Values.namespace }}.svc:80/flag'
+            send_resolved: true

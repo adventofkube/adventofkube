@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flag-alert
+  namespace: {{ .Values.namespace }}
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: flag-alerts
+      rules:
+        - alert: FlagReady
+          expr: up{job="alert-app"} == 1
+          for: 0m
+          labels:
+            severity: critical
+            team: {{ .Values.alerting.alertLabel.team }}
+          annotations:
+            summary: "Flag service is up — check the alert-app /flag endpoint"

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day15
+description: "Day 15: Alert Routing — fix the AlertManager routing rules"
+version: 0.1.0
+type: application
