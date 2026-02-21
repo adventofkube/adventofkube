@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secret-reader
+  namespace: {{ .Values.namespace }}
+rules:
+  - apiGroups: [""]
+    resources: {{ .Values.role.resources | toJson }}
+    verbs: {{ .Values.role.verbs | toJson }}

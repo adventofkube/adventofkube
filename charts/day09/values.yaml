@@ -1,0 +1,12 @@
+namespace: day09
+appName: rbac-app
+image:
+  repository: ghcr.io/adventofkube/day09
+  tag: v1
+serviceAccount: flag-reader
+role:
+  verbs:        # BUG: missing "list" — app needs list to find the secret
+    - get
+  resources:
+    - secrets
+secretName: flag-secret

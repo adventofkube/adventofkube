@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day09
+description: "Day 9: RBAC Lockdown — fix the ServiceAccount permissions"
+version: 0.1.0
+type: application

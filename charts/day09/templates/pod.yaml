@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceAccountName: {{ .Values.serviceAccount }}
+  containers:
+    - name: {{ .Values.appName }}
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+  restartPolicy: OnFailure
