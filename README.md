@@ -151,6 +151,45 @@ sequenceDiagram
 
 ---
 
+## Design Decisions
+
+Key architectural choices and the reasoning behind them. Update this section as the project evolves.
+
+### Frontend: Vanilla JS, No Framework
+The UI is mostly static content (challenge descriptions, hints, a flag input). A framework would add build complexity for near-zero benefit. The custom 60-line SPA router handles `/day/:n` patterns, and Cloudflare's `_redirects` serves `index.html` for all paths.
+
+### Hosting: Cloudflare Pages + Functions
+The app has ~90 lines of server-side code total (flag validation + config endpoint). Cloudflare Pages bundles free static hosting with serverless functions in one deploy — no separate backend to maintain or pay for.
+
+### Backend: Supabase as BaaS
+Supabase provides GitHub OAuth, a Postgres database, and auto-generated REST APIs. The browser queries tables directly using the publishable key (filtered by Row-Level Security). The `upsert_submission` RPC lives in Postgres. Trade-off: the DB schema is effectively a public API, and RLS policies aren't version-controlled in the repo.
+
+### Flag Validation: Client Hash + Server Hash
+The browser hashes the flag with SHA-256 for instant UI feedback. The Cloudflare Function re-hashes server-side before recording to the leaderboard. Client-side hashes in `config.js` are technically visible, but the flag space (`AOK{...}`) provides sufficient friction for a learning platform.
+
+### Progress: localStorage-First, Optional Auth
+Completion state lives in `localStorage` so users can track progress without signing in. Auth (GitHub OAuth via Supabase) is only required for the leaderboard. On login, `syncProgressFromServer()` pulls server submissions into localStorage.
+
+### Local Clusters: kind Over Minikube
+`kind` only needs Docker (no VM hypervisor), is lighter weight, and is what the Kubernetes project itself uses for testing. Zero cloud cost per user — everything runs on their machine.
+
+### Chart Distribution: Helm OCI on GHCR
+Charts are pushed to `oci://ghcr.io/adventofkube/charts/dayNN` alongside container images. Avoids maintaining a separate Helm chart repository (`index.yaml` over HTTP). One registry for everything.
+
+### Container Images: Go + Scratch Base
+Static Go binaries in `scratch` (empty) images. No shell means users can't `kubectl exec` into containers — they're forced to debug externally with `kubectl describe`, `logs`, and `get -o yaml`. The constraint is the curriculum.
+
+### Challenge Bugs: In values.yaml, Not Templates
+Helm templates are correct; bugs are injected through `values.yaml` (typos, wrong references, missing selectors). Users debug live Kubernetes objects with `kubectl`, not Helm source. Keeps challenges focused on K8s debugging skills.
+
+### Day Unlocking: Date-Gated Advent Calendar
+`START_DATE` in `config.js` gates day access sequentially. Client-side enforcement only — the real lock is that unpublished days have no Helm charts to deploy. Creates community momentum (everyone solving the same day).
+
+### CI: Diff-Based Builds
+GitHub Actions detects changed `images/` or `charts/` directories via `git diff HEAD~1` and only builds those. Manual `workflow_dispatch` covers rebuilds. Avoids rebuilding all 25 days for a single chart change.
+
+---
+
 ## Contributing
 
 This is a personal project, but if you have ideas for challenges or find bugs, feel free to open an issue.
