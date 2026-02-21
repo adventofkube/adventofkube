@@ -1,4 +1,4 @@
-/* === Base Reset & Theme === */
+/* === Base Reset & Theme — Dark Arctic Night === */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,28 +6,44 @@
 }
 
 :root {
-  --bg: #0f1923;
-  --bg-light: #162231;
-  --text: #b0bec5;
-  --text-bright: #e1e8ed;
-  --primary: #38bdf8;
-  --primary-dark: #0ea5e9;
-  --primary-light: rgba(56, 189, 248, 0.12);
-  --completed: #43a047;
-  --completed-light: rgba(67, 160, 71, 0.12);
-  --locked: #7b919c;
-  --locked-light: rgba(84, 110, 122, 0.1);
-  --link: #38bdf8;
-  --link-hover: #7dd3fc;
-  --border: #263545;
-  --success: #43a047;
-  --error: #ef5350;
-  --snow: #38bdf8;
+  --bg: #0a0e1a;
+  --bg-mid: #0f1a2e;
+  --bg-light: rgba(15, 25, 50, 0.7);
+  --text: #a8b8c8;
+  --text-bright: #eaf0f6;
+  --primary: #4aeadc;
+  --primary-dark: #38c8bc;
+  --primary-light: rgba(74, 234, 220, 0.10);
+  --completed: #47d4a0;
+  --completed-light: rgba(71, 212, 160, 0.10);
+  --locked: #546a7b;
+  --locked-light: rgba(84, 106, 123, 0.08);
+  --accent: #e8a849;
+  --accent-dark: #d4922e;
+  --accent-light: rgba(232, 168, 73, 0.12);
+  --link: #4aeadc;
+  --link-hover: #7df3e8;
+  --border: rgba(74, 234, 220, 0.12);
+  --border-solid: #1a2a40;
+  --success: #47d4a0;
+  --error: #f06060;
+  --aurora-1: #4aeadc;
+  --aurora-2: #47d4a0;
+  --aurora-3: #3a8fe0;
+  --code-bg: #111b2e;
+  --code-text: #d0dce8;
+
+  /* Tier difficulty colors */
+  --tier-beginner: #4aeadc;
+  --tier-intermediate: #3a8fe0;
+  --tier-advanced: #e8a849;
+  --tier-expert: #e06060;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: var(--bg);
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(175deg, var(--bg) 0%, var(--bg-mid) 50%, #0c1220 100%);
+  background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
   display: flex;
@@ -37,7 +53,20 @@ body {
   overflow-x: hidden;
 }
 
-/* === Snowflake Background === */
+/* === Aurora Top Bar === */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--aurora-1) 20%, var(--aurora-2) 50%, var(--aurora-3) 80%, transparent 100%);
+  z-index: 100;
+  opacity: 0.8;
+}
+
+/* === Starfield / Sparkle Background === */
 body::before {
   content: "";
   position: fixed;
@@ -48,29 +77,38 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background-image:
-    radial-gradient(2px 2px at 20px 30px, var(--snow), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1px 1px at 90px 40px, var(--snow), transparent),
-    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.3), transparent),
-    radial-gradient(1px 1px at 160px 120px, var(--snow), transparent),
-    radial-gradient(2px 2px at 200px 50px, rgba(125,211,252,0.5), transparent),
-    radial-gradient(1px 1px at 250px 160px, var(--snow), transparent),
-    radial-gradient(2px 2px at 280px 90px, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1px 1px at 310px 200px, var(--snow), transparent),
-    radial-gradient(2px 2px at 350px 130px, rgba(125,211,252,0.4), transparent),
-    radial-gradient(1px 1px at 380px 60px, rgba(255,255,255,0.5), transparent),
-    radial-gradient(2px 2px at 420px 180px, var(--snow), transparent),
-    radial-gradient(1px 1px at 460px 100px, rgba(255,255,255,0.3), transparent),
-    radial-gradient(2px 2px at 500px 220px, var(--snow), transparent);
-  background-size: 520px 250px;
-  animation: snowflake-twinkle 4s ease-in-out infinite alternate;
-  opacity: 0.6;
+    /* Cyan-tinted stars */
+    radial-gradient(1.5px 1.5px at 20px 30px, var(--aurora-1), transparent),
+    radial-gradient(1px 1px at 85px 120px, var(--aurora-1), transparent),
+    radial-gradient(1.5px 1.5px at 180px 55px, rgba(74, 234, 220, 0.6), transparent),
+    radial-gradient(1px 1px at 260px 190px, var(--aurora-1), transparent),
+    radial-gradient(2px 2px at 340px 85px, rgba(74, 234, 220, 0.4), transparent),
+    radial-gradient(1px 1px at 420px 145px, var(--aurora-1), transparent),
+    /* Green-tinted stars */
+    radial-gradient(1px 1px at 50px 170px, var(--aurora-2), transparent),
+    radial-gradient(1.5px 1.5px at 150px 210px, rgba(71, 212, 160, 0.5), transparent),
+    radial-gradient(1px 1px at 310px 40px, var(--aurora-2), transparent),
+    radial-gradient(1.5px 1.5px at 470px 110px, rgba(71, 212, 160, 0.4), transparent),
+    /* White / neutral stars */
+    radial-gradient(1px 1px at 110px 80px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 220px 140px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 380px 200px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(2px 2px at 500px 60px, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 440px 230px, rgba(255, 255, 255, 0.35), transparent),
+    /* Blue accent stars */
+    radial-gradient(1px 1px at 70px 240px, var(--aurora-3), transparent),
+    radial-gradient(1.5px 1.5px at 290px 15px, rgba(58, 143, 224, 0.5), transparent),
+    radial-gradient(1px 1px at 400px 170px, rgba(58, 143, 224, 0.35), transparent);
+  background-size: 520px 260px;
+  animation: sparkle-drift 6s ease-in-out infinite alternate;
+  opacity: 0.55;
 }
 
-@keyframes snowflake-twinkle {
-  0% { opacity: 0.4; }
-  50% { opacity: 0.7; }
-  100% { opacity: 0.5; }
+@keyframes sparkle-drift {
+  0% { opacity: 0.45; }
+  33% { opacity: 0.6; }
+  66% { opacity: 0.5; }
+  100% { opacity: 0.55; }
 }
 
 #site-header, #app, .site-footer {
@@ -81,6 +119,7 @@ body::before {
 a {
   color: var(--link);
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 a:hover {
@@ -118,10 +157,12 @@ a:hover {
 }
 
 .landing-hero h1 {
-  font-size: 2.2rem;
-  color: var(--primary);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 2.5rem;
+  color: var(--text-bright);
   margin-bottom: 0.5rem;
-  font-weight: 700;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 .landing-hero .tagline {
@@ -151,12 +192,16 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--bg-light);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .landing-how h2 {
+  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   margin-bottom: 1rem;
   font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .landing-how ol {
@@ -173,14 +218,15 @@ a:hover {
   background: var(--primary-light);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
-  font-size: 0.9em;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
+  font-size: 0.85em;
 }
 
 .cta-button {
   display: inline-block;
   padding: 0.75rem 2rem;
-  background: var(--primary);
-  color: var(--text-bright);
+  background: var(--accent);
+  color: var(--bg);
   font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
@@ -188,13 +234,14 @@ a:hover {
   border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 
 .cta-button:hover {
-  background: var(--primary-dark);
-  color: var(--text-bright);
-  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.3);
+  background: var(--accent-dark);
+  color: var(--bg);
+  box-shadow: 0 4px 16px rgba(232, 168, 73, 0.25);
+  transform: translateY(-1px);
 }
 
 /* === Challenges List === */
@@ -203,9 +250,11 @@ a:hover {
 }
 
 .challenges-list h2 {
+  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  font-weight: 400;
 }
 
 .challenge-row {
@@ -217,25 +266,29 @@ a:hover {
   border-radius: 8px;
   margin-bottom: 0.5rem;
   text-decoration: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+  background: var(--bg-light);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .challenge-row.unlocked {
-  border-color: var(--primary);
-  background: var(--primary-light);
+  border-color: rgba(74, 234, 220, 0.25);
+  background: rgba(74, 234, 220, 0.05);
 }
 
 .challenge-row.unlocked:hover {
-  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.15);
+  border-color: rgba(74, 234, 220, 0.4);
+  box-shadow: 0 2px 12px rgba(74, 234, 220, 0.1);
 }
 
 .challenge-row.completed {
-  border-color: var(--completed);
-  background: var(--completed-light);
+  border-color: rgba(71, 212, 160, 0.25);
+  background: rgba(71, 212, 160, 0.05);
 }
 
 .challenge-row.completed:hover {
-  box-shadow: 0 2px 8px rgba(26, 138, 63, 0.15);
+  box-shadow: 0 2px 12px rgba(71, 212, 160, 0.1);
 }
 
 .challenge-day {
@@ -268,8 +321,10 @@ a:hover {
 }
 
 .calendar-header h1 {
-  color: var(--primary);
+  font-family: "DM Serif Display", Georgia, serif;
+  color: var(--text-bright);
   font-size: 1.8rem;
+  font-weight: 400;
 }
 
 .calendar-grid {
@@ -285,13 +340,16 @@ a:hover {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1.5rem;
   font-weight: 600;
   cursor: default;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s, background 0.25s;
   text-decoration: none;
   position: relative;
+  background: var(--bg-light);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .day-tile .day-number {
@@ -316,25 +374,29 @@ a:hover {
 /* Unlocked */
 .day-tile.unlocked {
   color: var(--primary);
-  background: var(--primary-light);
-  border-color: var(--primary);
+  background: rgba(74, 234, 220, 0.06);
+  border-color: rgba(74, 234, 220, 0.2);
   cursor: pointer;
 }
 
 .day-tile.unlocked:hover {
-  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.2);
+  border-color: rgba(74, 234, 220, 0.45);
+  box-shadow: 0 0 20px rgba(74, 234, 220, 0.1), inset 0 0 20px rgba(74, 234, 220, 0.03);
+  transform: translateY(-2px);
 }
 
 /* Completed */
 .day-tile.completed {
   color: var(--completed);
-  background: var(--completed-light);
-  border-color: var(--completed);
+  background: rgba(71, 212, 160, 0.06);
+  border-color: rgba(71, 212, 160, 0.2);
   cursor: pointer;
 }
 
 .day-tile.completed:hover {
-  box-shadow: 0 2px 8px rgba(26, 138, 63, 0.2);
+  border-color: rgba(71, 212, 160, 0.45);
+  box-shadow: 0 0 20px rgba(71, 212, 160, 0.1), inset 0 0 20px rgba(71, 212, 160, 0.03);
+  transform: translateY(-2px);
 }
 
 /* === Day Zero Row === */
@@ -377,8 +439,10 @@ a:hover {
 }
 
 .day-page h1 {
-  color: var(--primary);
+  font-family: "DM Serif Display", Georgia, serif;
+  color: var(--text-bright);
   font-size: 1.8rem;
+  font-weight: 400;
 }
 
 .day-locked-notice {
@@ -417,17 +481,17 @@ a:hover {
   display: inline-block;
   padding: 0.5rem 1.25rem;
   background: var(--primary-light);
-  border: 1px solid var(--primary);
+  border: 1px solid rgba(74, 234, 220, 0.25);
   border-radius: 6px;
   color: var(--primary);
   font-weight: 500;
   margin-bottom: 1.5rem;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
 }
 
 .day-page .chart-link:hover {
   background: var(--primary);
-  color: var(--text-bright);
+  color: var(--bg);
 }
 
 /* === Setup & Hints === */
@@ -437,12 +501,16 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--bg-light);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .setup-section h2 {
+  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
+  font-weight: 400;
 }
 
 .setup-steps {
@@ -452,15 +520,16 @@ a:hover {
 
 .setup-steps code {
   display: block;
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
   margin: 0.25rem 0 0.75rem;
-  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.82rem;
   overflow-x: auto;
   white-space: pre;
+  border: 1px solid rgba(74, 234, 220, 0.06);
 }
 
 .os-toggle {
@@ -477,18 +546,19 @@ a:hover {
   color: var(--text);
   cursor: pointer;
   font-size: 0.85rem;
-  transition: all 0.15s ease;
+  font-family: inherit;
+  transition: all 0.2s ease;
 }
 
 .os-btn:hover {
-  border-color: var(--primary);
+  border-color: rgba(74, 234, 220, 0.3);
   color: var(--text-bright);
 }
 
 .os-btn.active {
   background: var(--primary);
   border-color: var(--primary);
-  color: #0f1923;
+  color: var(--bg);
   font-weight: 600;
 }
 
@@ -516,13 +586,14 @@ a:hover {
 
 .os-step-content code {
   display: block;
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
   margin-top: 0.35rem;
-  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.82rem;
+  border: 1px solid rgba(74, 234, 220, 0.06);
 }
 
 .docs-section {
@@ -531,12 +602,16 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--bg-light);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .docs-section h2 {
+  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
+  font-weight: 400;
 }
 
 .docs-list {
@@ -558,32 +633,42 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--bg-light);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .hints-section h2 {
+  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
+  font-weight: 400;
 }
 
 .hint-item {
   border: 1px solid var(--border);
   border-radius: 6px;
   margin-bottom: 0.5rem;
-  background: var(--bg);
+  background: rgba(10, 14, 26, 0.6);
+  transition: border-color 0.2s;
 }
 
 .hint-item:last-child {
   margin-bottom: 0;
 }
 
+.hint-item:hover {
+  border-color: rgba(74, 234, 220, 0.2);
+}
+
 .hint-item summary {
   padding: 0.5rem 0.75rem;
   cursor: pointer;
-  color: var(--primary);
+  color: var(--accent);
   font-weight: 600;
   font-size: 0.9rem;
   list-style: none;
+  transition: color 0.2s;
 }
 
 .hint-item summary::-webkit-details-marker {
@@ -604,7 +689,7 @@ a:hover {
 }
 
 .hint-item summary:hover {
-  color: var(--primary-dark);
+  color: var(--accent-dark);
 }
 
 .hint-item p {
@@ -614,11 +699,11 @@ a:hover {
 }
 
 .hint-item code {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
-  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.82em;
 }
 
@@ -629,12 +714,13 @@ a:hover {
 
 .stopwatch {
   margin-left: auto;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.85rem;
-  color: var(--primary);
+  color: var(--accent);
   padding: 0.25rem 0.6rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent-light);
   border-radius: 6px;
-  background: var(--bg-light);
+  background: var(--accent-light);
   font-weight: 500;
   white-space: nowrap;
 }
@@ -646,16 +732,17 @@ a:hover {
 
 .code-block code {
   display: block;
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 0.5rem 0.75rem;
   padding-right: 3.5rem;
   border-radius: 6px;
-  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.82rem;
   overflow-x: auto;
   white-space: pre;
   margin: 0;
+  border: 1px solid rgba(74, 234, 220, 0.06);
 }
 
 .copy-btn {
@@ -666,19 +753,20 @@ a:hover {
   font-size: 0.7rem;
   font-family: inherit;
   font-weight: 500;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  background: rgba(74, 234, 220, 0.08);
+  border: 1px solid rgba(74, 234, 220, 0.15);
   border-radius: 4px;
   cursor: pointer;
   transition: color 0.2s, background 0.2s;
 }
 
 .copy-btn:hover {
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-bright);
+  background: rgba(74, 234, 220, 0.15);
 }
 
+/* === Flag Submission === */
 .flag-section {
   margin-top: 1rem;
 }
@@ -701,34 +789,37 @@ a:hover {
   flex: 1;
   min-width: 200px;
   padding: 0.5rem 0.75rem;
-  background: var(--bg);
+  background: rgba(10, 14, 26, 0.8);
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text-bright);
-  font-family: inherit;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .flag-input-row input[type="text"]:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(50, 108, 229, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232, 168, 73, 0.12);
 }
 
 .flag-input-row button {
   padding: 0.5rem 1.25rem;
-  background: var(--primary);
-  color: var(--text-bright);
+  background: var(--accent);
+  color: var(--bg);
   border: none;
   border-radius: 6px;
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 
 .flag-input-row button:hover {
-  background: var(--primary-dark);
+  background: var(--accent-dark);
+  box-shadow: 0 2px 12px rgba(232, 168, 73, 0.2);
+  transform: translateY(-1px);
 }
 
 .flag-result {
@@ -740,20 +831,20 @@ a:hover {
 
 .flag-result.success {
   color: var(--success);
-  border: 1px solid var(--success);
+  border: 1px solid rgba(71, 212, 160, 0.3);
   background: var(--completed-light);
 }
 
 .flag-result.error {
   color: var(--error);
-  border: 1px solid var(--error);
-  background: rgba(239, 83, 80, 0.12);
+  border: 1px solid rgba(240, 96, 96, 0.3);
+  background: rgba(240, 96, 96, 0.08);
 }
 
 .day-completed-banner {
   padding: 1rem;
   margin-bottom: 1.5rem;
-  border: 1px solid var(--completed);
+  border: 1px solid rgba(71, 212, 160, 0.3);
   border-radius: 8px;
   background: var(--completed-light);
   color: var(--completed);
@@ -776,7 +867,7 @@ a:hover {
 
 .back-link:hover {
   color: var(--primary);
-  border-color: var(--primary);
+  border-color: rgba(74, 234, 220, 0.3);
 }
 
 .back-link svg {
@@ -786,8 +877,8 @@ a:hover {
 .start-btn {
   display: inline-block;
   padding: 0.65rem 2rem;
-  background: var(--primary);
-  color: var(--text-bright);
+  background: var(--accent);
+  color: var(--bg);
   border: none;
   border-radius: 6px;
   font-family: inherit;
@@ -795,21 +886,22 @@ a:hover {
   font-weight: 600;
   cursor: pointer;
   margin-bottom: 0.75rem;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
   letter-spacing: 0.02em;
 }
 
 .start-btn:hover {
-  background: var(--primary-dark);
-  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.3);
+  background: var(--accent-dark);
+  box-shadow: 0 4px 16px rgba(232, 168, 73, 0.25);
+  transform: translateY(-1px);
 }
 
 .inline-code {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
-  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.82em;
 }
 
@@ -829,8 +921,9 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--primary);
-  font-weight: 700;
+  color: var(--text-bright);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
   font-size: 1.05rem;
   text-decoration: none;
 }
@@ -870,18 +963,19 @@ a:hover {
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
   border: none;
 }
 
 .nav-login {
-  background: var(--primary);
-  color: var(--text-bright);
+  background: var(--accent);
+  color: var(--bg);
 }
 
 .nav-login:hover {
-  background: var(--primary-dark);
-  box-shadow: 0 2px 8px rgba(50, 108, 229, 0.3);
+  background: var(--accent-dark);
+  box-shadow: 0 2px 12px rgba(232, 168, 73, 0.2);
+  transform: translateY(-1px);
 }
 
 .nav-logout {
@@ -891,7 +985,7 @@ a:hover {
 }
 
 .nav-logout:hover {
-  border-color: var(--error);
+  border-color: rgba(240, 96, 96, 0.4);
   color: var(--error);
 }
 
@@ -901,15 +995,19 @@ a:hover {
 }
 
 .landing-leaderboard h2 {
+  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
+  font-weight: 400;
 }
 
 .lb-widget {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--bg-light);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   overflow: hidden;
 }
 
@@ -975,6 +1073,7 @@ a:hover {
 
 .lb-table tbody tr {
   border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
 }
 
 .lb-table tbody tr:last-child {
@@ -982,7 +1081,7 @@ a:hover {
 }
 
 .lb-table tbody tr:hover {
-  background: rgba(77, 138, 229, 0.05);
+  background: rgba(74, 234, 220, 0.04);
 }
 
 .lb-table .lb-rank {
@@ -1027,7 +1126,7 @@ a:hover {
 
 .lb-login-prompt {
   margin-top: 0.75rem;
-  color: var(--primary);
+  color: var(--accent);
   font-size: 0.88rem;
   font-weight: 500;
 }
@@ -1079,12 +1178,12 @@ a:hover {
 
 .lb-toggle-btn:hover {
   color: var(--text-bright);
-  background: rgba(56, 189, 248, 0.06);
+  background: rgba(74, 234, 220, 0.06);
 }
 
 .lb-toggle-btn.active {
   background: var(--primary);
-  color: #0f1923;
+  color: var(--bg);
   font-weight: 600;
 }
 
@@ -1137,11 +1236,11 @@ a:hover {
 }
 
 .lb-scoring-body code {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 0.1rem 0.35rem;
   border-radius: 3px;
-  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
   font-size: 0.82em;
 }
 
