@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-hint
+  namespace: {{ .Values.namespace }}
+data:
+  hint: "The ArgoCD Application can't find manifests at '{{ .Values.argocd.path }}'. Check the source path."

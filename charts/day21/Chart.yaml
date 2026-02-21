@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day21
+description: "Day 21: GitOps Drift — fix the ArgoCD Application path"
+version: 0.1.0
+type: application
