@@ -1,0 +1,8 @@
+namespace: day23
+appName: policy-app
+image:
+  repository: ghcr.io/adventofkube/day23
+  tag: v1
+# BUG: pod template has no "team" label but policy requires it
+labels:
+  app: policy-app

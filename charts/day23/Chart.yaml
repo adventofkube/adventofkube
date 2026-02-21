@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day23
+description: "Day 23: Policy Blocked — fix the Kyverno policy violation"
+version: 0.1.0
+type: application
