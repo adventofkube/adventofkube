@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceB.appName }}
+  namespace: {{ .Values.namespaces.b }}
+  labels:
+    app: {{ .Values.serviceB.appName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceB.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceB.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.serviceB.appName }}
+          image: "{{ .Values.images.b.repository }}:{{ .Values.images.b.tag }}"
+          ports:
+            - containerPort: 8080
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceB.appName }}
+  namespace: {{ .Values.namespaces.b }}
+spec:
+  selector:
+    app: {{ .Values.serviceB.appName }}
+  ports:
+    - port: 80
+      targetPort: {{ .Values.serviceB.service.targetPort }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: {{ .Values.namespaces.b }}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress

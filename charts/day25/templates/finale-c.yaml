@@ -1,0 +1,88 @@
+{{- if not .Values.serviceC.configMapMissing }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.serviceC.configMapName }}
+  namespace: {{ .Values.namespaces.c }}
+data:
+  enabled: "true"
+---
+{{- end }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.serviceC.appName }}
+  namespace: {{ .Values.namespaces.c }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: configmap-reader
+  namespace: {{ .Values.namespaces.c }}
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-configmaps
+  namespace: {{ .Values.namespaces.c }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceC.appName }}
+    namespace: {{ .Values.namespaces.c }}
+roleRef:
+  kind: Role
+  name: configmap-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceC.appName }}
+  namespace: {{ .Values.namespaces.c }}
+  labels:
+    app: {{ .Values.serviceC.appName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceC.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceC.appName }}
+    spec:
+      serviceAccountName: {{ .Values.serviceC.appName }}
+      containers:
+        - name: {{ .Values.serviceC.appName }}
+          image: "{{ .Values.images.c.repository }}:{{ .Values.images.c.tag }}"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CONFIG_MAP
+              value: {{ .Values.serviceC.configMapName }}
+            - name: NAMESPACE
+              value: {{ .Values.namespaces.c }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.serviceC.liveness.path }}
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.serviceC.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceC.appName }}
+  namespace: {{ .Values.namespaces.c }}
+spec:
+  selector:
+    app: {{ .Values.serviceC.appName }}
+  ports:
+    - port: 80
+      targetPort: 8080

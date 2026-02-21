@@ -1,0 +1,53 @@
+namespaces:
+  a: finale-a
+  b: finale-b
+  c: finale-c
+
+images:
+  a:
+    repository: ghcr.io/adventofkube/day25a
+    tag: v1
+  b:
+    repository: ghcr.io/adventofkube/day25b
+    tag: v1
+  c:
+    repository: ghcr.io/adventofkube/day25c
+    tag: v1
+
+# ---- finale-a bugs ----
+# BUG 1: ServiceAccount missing "get" verb on secrets
+serviceA:
+  appName: fragment-a
+  serviceAccount: reader-sa
+  role:
+    verbs:
+      - list         # BUG: has list but missing "get" — app does Get() by name
+    resources:
+      - secrets
+  secretName: part-a
+  # BUG 2: volume mount path is /secrets but app reads /etc/secrets
+  mountPath: /secrets
+
+# ---- finale-b bugs ----
+# BUG 3: NetworkPolicy blocks all ingress (no allow rule for finale-a)
+# BUG 4: Service targetPort is "https" but container port is named "http"
+serviceB:
+  appName: fragment-b
+  service:
+    targetPort: https        # BUG: container port is named "http"
+
+# ---- finale-c bugs ----
+# BUG 5: Missing ConfigMap that app requires (exits if not found)
+# BUG 6: Liveness probe path /ready but app only serves /healthz
+# BUG 7: Memory limit too low (10Mi) — OOMKilled
+serviceC:
+  appName: fragment-c
+  configMapName: app-config
+  configMapMissing: true     # ConfigMap template is conditioned on this being false
+  liveness:
+    path: /ready             # BUG: app serves /healthz not /ready
+  resources:
+    limits:
+      memory: 10Mi           # BUG: too low, app needs ~20Mi minimum
+    requests:
+      memory: 5Mi

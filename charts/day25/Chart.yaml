@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day25
+description: "Day 25: Grand Finale — debug three broken namespaces to assemble the flag"
+version: 0.1.0
+type: application
