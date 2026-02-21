@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day24
+description: "Day 24: Webhook Woes — fix the ValidatingWebhook rejection"
+version: 0.1.0
+type: application

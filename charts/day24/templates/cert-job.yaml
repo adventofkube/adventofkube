@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: generate-webhook-cert
+  namespace: {{ .Values.namespace }}
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: hook-succeeded
+spec:
+  template:
+    spec:
+      serviceAccountName: cert-generator
+      containers:
+        - name: certgen
+          image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.4.1
+          args:
+            - create
+            - --host=admission-webhook.{{ .Values.namespace }}.svc
+            - --namespace={{ .Values.namespace }}
+            - --secret-name=webhook-tls
+      restartPolicy: Never

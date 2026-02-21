@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: patch-webhook-caBundle
+  namespace: {{ .Values.namespace }}
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-weight: "5"
+    helm.sh/hook-delete-policy: hook-succeeded
+spec:
+  template:
+    spec:
+      serviceAccountName: webhook-patcher
+      containers:
+        - name: patch
+          image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.4.1
+          args:
+            - patch
+            - --webhook-name=day24-approval-check
+            - --namespace={{ .Values.namespace }}
+            - --secret-name=webhook-tls
+            - --patch-failure-policy=Fail
+      restartPolicy: Never

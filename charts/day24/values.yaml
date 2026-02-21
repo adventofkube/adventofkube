@@ -1,0 +1,12 @@
+namespace: day24
+appName: webhook-app
+image:
+  repository: ghcr.io/adventofkube/day24
+  tag: v1
+webhook:
+  image:
+    repository: ghcr.io/adventofkube/day24-webhook
+    tag: v1
+# BUG: deployment pod template missing required annotation
+annotations: {}
+# Should have: approved: "true"
