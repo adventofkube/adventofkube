@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day18
+description: "Day 18: Node Affinity — fix the node scheduling constraint"
+version: 0.1.0
+type: application

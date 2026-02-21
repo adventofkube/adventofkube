@@ -1,0 +1,8 @@
+namespace: day18
+appName: affinity-app
+image:
+  repository: ghcr.io/adventofkube/day18
+  tag: v1
+affinity:
+  requiredLabel: gpu       # BUG: no nodes have label gpu=true
+  requiredValue: "true"
