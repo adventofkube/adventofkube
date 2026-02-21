@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day22
+description: "Day 22: Sync Hooks — fix the failing ArgoCD PreSync hook"
+version: 0.1.0
+type: application

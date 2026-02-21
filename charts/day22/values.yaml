@@ -1,0 +1,7 @@
+namespace: day22
+appName: hook-app
+image:
+  repository: ghcr.io/adventofkube/day22
+  tag: v1
+presync:
+  image: busybox:99.99     # BUG: this tag doesn't exist, PreSync Job fails with ImagePullBackOff
