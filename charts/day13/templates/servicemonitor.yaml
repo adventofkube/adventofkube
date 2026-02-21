@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.appName }}-monitor
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- range $key, $val := .Values.serviceMonitor.matchLabels }}
+      {{ $key }}: {{ $val }}
+      {{- end }}
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

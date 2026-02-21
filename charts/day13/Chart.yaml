@@ -1,0 +1,5 @@
+apiVersion: v2
+name: day13
+description: "Day 13: Metrics Missing — fix the ServiceMonitor selector"
+version: 0.1.0
+type: application

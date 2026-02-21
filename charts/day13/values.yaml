@@ -1,0 +1,11 @@
+namespace: day13
+appName: metrics-app
+image:
+  repository: ghcr.io/adventofkube/day13
+  tag: v1
+service:
+  labels:
+    app: metrics-app
+serviceMonitor:
+  matchLabels:
+    app: metrics-server    # BUG: doesn't match service label "metrics-app"
