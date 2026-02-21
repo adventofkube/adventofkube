@@ -1,0 +1,8 @@
+namespace: day16
+appName: log-app
+image:
+  repository: ghcr.io/adventofkube/day16
+  tag: v1
+promtail:
+  scrape_path: "/var/log/pods/*/*/*.log"    # BUG: missing container dir level
+  # correct: "/var/log/pods/*/*/*/*.log"
