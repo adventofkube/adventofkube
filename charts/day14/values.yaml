@@ -1,4 +1,5 @@
 namespace: day14
+flag: "__FLAG__"
 grafana:
   datasource:
     url: http://prometheus:9090    # BUG: wrong service name, should be prometheus-server or prometheus-kube-prometheus-prometheus

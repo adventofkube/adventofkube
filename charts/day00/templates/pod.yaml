@@ -8,16 +8,3 @@ spec:
   containers:
     - name: setup-check
       image: {{ .Values.image }}
-      command: ["sh", "-c"]
-      args:
-        - |
-          echo "============================================"
-          echo "  Advent of Kube — Setup Verified!"
-          echo "============================================"
-          echo ""
-          echo "Your cluster is working. Here is your flag:"
-          echo ""
-          echo "  AOK{ready_t0_set_sail}"
-          echo ""
-          echo "Submit this flag on the website to complete Day 0."
-          echo "============================================"

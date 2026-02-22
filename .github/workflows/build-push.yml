@@ -101,6 +101,16 @@ jobs:
       - name: Login to GHCR
         run: echo "${{ secrets.PAT_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
+      - name: Inject chart flags
+        env:
+          CHART_FLAG_VALUES: ${{ secrets.CHART_FLAG_VALUES }}
+        run: |
+          if [ -n "${CHART_FLAG_VALUES:-}" ]; then
+            ./scripts/gen-chart-flags.sh
+          else
+            echo "WARNING: CHART_FLAG_VALUES not set, skipping chart flag injection"
+          fi
+
       - name: Package and push charts
         run: |
           TARGET="${{ inputs.target }}"

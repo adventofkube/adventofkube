@@ -23,7 +23,7 @@ data:
           "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
           "id": 1,
           "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-          "title": "The flag is: AOK{d4shboard_l1ve}",
+          "title": "The flag is: {{ .Values.flag }}",
           "type": "stat",
           "targets": [
             {

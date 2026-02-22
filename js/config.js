@@ -9,7 +9,7 @@ export const DAYS = [
     enabled: true,
     title: 'Setup',
     description: 'Set up your local environment, deploy a test chart, and retrieve the flag from the pod logs.',
-    flagHash: '1c015e563e5e30188378f8516b89cfa5c6c14ba00f9efd5a878a570e383e2e03',
+    flagHash: '225840fef30125024efb75a3dee9d054dc23deb7f5cee632a75252337f795e18',
     chartUrl: 'https://example.com/charts/day00.tgz',
     osSetup: {
       windows: [
@@ -37,7 +37,7 @@ export const DAYS = [
       '<strong>6. Create a kind cluster</strong>',
       '<code>kind create cluster --name adventofkube</code>',
       '<strong>7. Install the Day 0 chart</strong>',
-      '<code>helm install day00 oci://ghcr.io/adventofkube/charts/day00 --version 0.1.0</code>',
+      '<code>helm install day00 oci://ghcr.io/adventofkube/charts/day00 --version 0.2.0</code>',
       '<strong>8. Get the flag from the pod logs</strong>',
       '<code>kubectl logs -n day00 setup-check</code>',
     ],
@@ -59,7 +59,7 @@ export const DAYS = [
     enabled: true,
     title: 'Pods',
     description: 'A pod won\'t start. Investigate the issue, fix it, and retrieve the flag from the logs.',
-    flagHash: 'd88ee18014da63147665ad1455bada2141eb3ba3bbb11051053a74ab2e3aa5c7',
+    flagHash: '32c1012bb9a9c6b1dcd21bf9e6e78a05aaa201eda110e958908f5cdecd9b9317',
     chartUrl: 'https://example.com/charts/day01.tgz',
     setup: [
       'Install the chart:',
@@ -86,11 +86,11 @@ export const DAYS = [
     enabled: true,
     title: 'ConfigMaps',
     description: 'A pod is stuck and won\'t start. Something is wrong with its configuration. Find and fix the issue.',
-    flagHash: '5b43f80414de6df30a6ae54f681052e5c5e35cb9cfa57cc24f169422fb315003',
+    flagHash: '0d91a360ae0f4a3e11c28f6db96ff10dc29a7e0e5f8bafaa6a14472b6961a826',
     chartUrl: 'https://example.com/charts/day02.tgz',
     setup: [
       'Install the chart:',
-      '<code>helm install day02 oci://ghcr.io/adventofkube/charts/day02 --version 0.2.0</code>',
+      '<code>helm install day02 oci://ghcr.io/adventofkube/charts/day02 --version 0.3.0</code>',
       'Check the pod status:',
       '<code>kubectl get pods -n day02</code>',
       'The pod is stuck. Investigate why:',
@@ -115,7 +115,7 @@ export const DAYS = [
     enabled: true,
     title: 'Services',
     description: 'A Service can\'t reach its backend. The pod is running, but something is wrong. Debug the connectivity.',
-    flagHash: 'bc64f86e6a230e279ff0a5e095a48e52d1e234525b748e64f27c1680913cdf12',
+    flagHash: 'a0440a763fbd9cc4de34e9245f9ec0840449afd3cfdd9493b988fd4c636c3d8d',
     chartUrl: 'https://example.com/charts/day03.tgz',
     setup: [
       'Install the chart:',
@@ -143,7 +143,7 @@ export const DAYS = [
     enabled: true,
     title: 'Secrets',
     description: 'A pod won\'t start. It needs a Secret, but something isn\'t configured correctly. Figure out what\'s wrong.',
-    flagHash: 'f42b4a89a4b7f81ddd3d30e30746e6d6fca8a5819c7dd3c4309a0c4adf0b310d',
+    flagHash: '54ab235edd9d3c53a882665d54308b0eb90d078f027797a9cee8424fea98143d',
     chartUrl: 'https://example.com/charts/day04.tgz',
     setup: [
       'Install the chart:',
@@ -171,7 +171,7 @@ export const DAYS = [
     enabled: true,
     title: 'Resource Quotas',
     description: 'A Deployment exists but no pods are being created. Something is preventing the pods from being scheduled.',
-    flagHash: 'db755eb20ac5651ce8080506b9dab20b81b1af45a52112e67cd13a2c755b0a87',
+    flagHash: '5629ebc1e04418970d237dd69df2ad81797cdc35087357879d3ed8a433bc0e4e',
     chartUrl: 'https://example.com/charts/day05.tgz',
     setup: [
       'Install the chart:',
@@ -199,7 +199,7 @@ export const DAYS = [
     enabled: true,
     title: 'Deployments',
     description: 'A Deployment is failing to roll out. There are 3 things wrong. Diagnose each issue and fix them to get the flag.',
-    flagHash: '3d9822e477d0414cc8c153847fbb667394143b9301c816e2b9eb0efb8bb737e4',
+    flagHash: '78b10c3f6c1040d28782d9761ab28cf0cb3f240d8c4eb03e8e8ca8b65109a23b',
     chartUrl: 'https://example.com/charts/day06.tgz',
     setup: [
       'Install the chart:',
@@ -228,7 +228,7 @@ export const DAYS = [
     enabled: true,
     title: 'Service Wiring',
     description: 'A Service can\'t route to its pod. The deployment is running but the Service port configuration is wrong. Fix the wiring.',
-    flagHash: '3d3d1fb274ca5d09414bb2b2f9fcf8a663de10cdaffdd880e91980a3d50b817a',
+    flagHash: '85a040e670c7fa404628d5ea8fe7d5fbf582f9dcd501eebc4e3025fc41c28f0b',
     setup: [
       'Install the chart:',
       '<code>helm install day07 oci://ghcr.io/adventofkube/charts/day07 --version 0.1.0</code>',
@@ -250,7 +250,7 @@ export const DAYS = [
     enabled: true,
     title: 'Probe Pitfall',
     description: 'A pod keeps restarting and is never ready. The health checks are misconfigured in multiple ways. Fix them all.',
-    flagHash: 'f3488d3f7b71217101c6d22e81016d4c1fabdacb9b4d7dc4b860656b41dbbbfe',
+    flagHash: '57d08d666f9ccf05e1ec23ef83719b85c27e28c72500bd57ca3eaa9f487f1224',
     setup: [
       'Install the chart:',
       '<code>helm install day08 oci://ghcr.io/adventofkube/charts/day08 --version 0.1.0</code>',
@@ -274,7 +274,7 @@ export const DAYS = [
     enabled: true,
     title: 'RBAC Lockdown',
     description: 'A pod needs to list Secrets but its ServiceAccount doesn\'t have the right permissions. Fix the RBAC configuration.',
-    flagHash: '8cdbc41767786542284d8cb18a5c031ac77e640b1af6dfec3d907dd63d299e47',
+    flagHash: '42107fc241bc8ec3883f137bc3840cae4b1280bdecd677be98fd32d7c2e6c008',
     setup: [
       'Install the chart:',
       '<code>helm install day09 oci://ghcr.io/adventofkube/charts/day09 --version 0.1.0</code>',
@@ -296,7 +296,7 @@ export const DAYS = [
     enabled: true,
     title: 'NetworkPolicy Firewall',
     description: 'A pod has the flag but a NetworkPolicy is blocking all traffic. Fix the policy to allow access.',
-    flagHash: '83ef97ed32bdb69b8d2f89797a61f6033a5b9688f320be047c569f6773973d70',
+    flagHash: '066bc9777974a3af3d9deb1beaf96d43e6b4d184253cb58eaac83c333a531a44',
     setup: [
       'Install the chart:',
       '<code>helm install day10 oci://ghcr.io/adventofkube/charts/day10 --version 0.1.0</code>',
@@ -318,7 +318,7 @@ export const DAYS = [
     enabled: true,
     title: 'PV/PVC Binding',
     description: 'A PersistentVolumeClaim won\'t bind to its PersistentVolume. The pod is stuck waiting for storage. Fix the binding.',
-    flagHash: '2c68f141f69bcd0fcbf0234b732caaf2694ebba03fc7497c8756e5f40ae356f9',
+    flagHash: '49e0035adeb7fdd1d36c4e8183bc38897da95415e5f19418af277607e4d73e24',
     setup: [
       'Install the chart:',
       '<code>helm install day11 oci://ghcr.io/adventofkube/charts/day11 --version 0.1.0</code>',
@@ -342,7 +342,7 @@ export const DAYS = [
     enabled: true,
     title: 'Rolling Update Stuck',
     description: 'A Deployment rollout is deadlocked. Fix the strategy, then update the image to v2 to get the flag.',
-    flagHash: 'bbdb1db158f38fdc413c31ab6a98db402954270f7b251ea8e04d870ccf62ddcd',
+    flagHash: '1463a749773ed54b90300bdeaa97241e537dc84d8f9b3898decaf966122665b2',
     setup: [
       'Install the chart:',
       '<code>helm install day12 oci://ghcr.io/adventofkube/charts/day12 --version 0.1.0</code>',
@@ -365,7 +365,7 @@ export const DAYS = [
     enabled: true,
     title: 'Metrics Missing',
     description: 'Prometheus isn\'t scraping your app\'s metrics. The ServiceMonitor configuration has a mismatch. Fix it to see the flag in the metrics.',
-    flagHash: 'd839e0669baea744e1af3debc51cd808d0138c866552628eda56122c4837acf3',
+    flagHash: 'df2ea19e39166c0ea3fa48ddec702215e2a077245c65301c5904a36cb4daa580',
     setup: [
       'Install Prometheus (if not already):',
       '<code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts\nhelm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace</code>',
@@ -389,7 +389,7 @@ export const DAYS = [
     enabled: true,
     title: 'Dashboard Down',
     description: 'A Grafana dashboard shows "No Data" because the datasource URL is wrong. Fix the configuration to see the flag.',
-    flagHash: 'ad8aa6c10a82462066e4955b63d68b9e43fbb2b17210c92a50a5c41bd188251b',
+    flagHash: 'a96e749b5fa79392ee39c9648dd5dcf054aee9a24ee6437e010bf806f8d32019',
     setup: [
       'Ensure Prometheus is installed (see Day 13).',
       'Install the chart:',
@@ -412,7 +412,7 @@ export const DAYS = [
     enabled: true,
     title: 'Alert Routing',
     description: 'An AlertManager alert fires correctly but the notification never reaches the webhook. The routing rules are misconfigured.',
-    flagHash: '954ade5782c9db31550644dc20b42df2c28a4fe81823204641ba57bbdedea12b',
+    flagHash: '0a99d9a2b405e9512ad171339b454415739bea73de610cb6bddf9b95890de1a2',
     setup: [
       'Ensure Prometheus + AlertManager are installed (see Day 13).',
       'Install the chart:',
@@ -435,7 +435,7 @@ export const DAYS = [
     enabled: true,
     title: 'Logs Lost',
     description: 'Promtail is supposed to collect logs but the scrape path glob is wrong. Fix it to find the flag in the logs.',
-    flagHash: '081e574ceacd017e573eaec933617a78f2c0173a372ea550487421b7b71c5eb0',
+    flagHash: '339b5b9e257354a8cd87302b6905c91cf7c1974d5a95c518f1a957365049e959',
     setup: [
       'Install Loki + Promtail:',
       '<code>helm repo add grafana https://grafana.github.io/helm-charts\nhelm install loki grafana/loki-stack -n monitoring --set promtail.enabled=true</code>',
@@ -457,7 +457,7 @@ export const DAYS = [
     enabled: true,
     title: 'Pipeline Mismatch',
     description: 'Promtail\'s log parsing pipeline expects a different format than the app produces. Fix the pipeline to extract labels and find the flag.',
-    flagHash: '781b090a4553f32ffd039bb8543bd078e89a24755e44654c989b21710a50511a',
+    flagHash: '07461bed4d8f32c1e60d7a34f36f7e1650595440ba819d73248e2e7caed857c5',
     setup: [
       'Ensure Loki + Promtail are installed (see Day 16).',
       'Install the chart:',
@@ -480,7 +480,7 @@ export const DAYS = [
     enabled: true,
     title: 'Node Affinity',
     description: 'A pod is stuck Pending because its node affinity requires a label that no node has. Fix the scheduling constraint.',
-    flagHash: '1929f40692ebcb36dc53e37adfe10f3959c7bfad1d3c0f152d7b4b40d13ebb7b',
+    flagHash: '452c45b3d82f478ca254e331bc1e59083a8a9a5cce38bb51086eba18886ae3d7',
     setup: [
       'Install the chart:',
       '<code>helm install day18 oci://ghcr.io/adventofkube/charts/day18 --version 0.1.0</code>',
@@ -502,7 +502,7 @@ export const DAYS = [
     enabled: true,
     title: 'Ingress + TLS',
     description: 'An Ingress with TLS is configured but the Certificate won\'t issue because the issuer reference is wrong. Fix the cert-manager configuration.',
-    flagHash: '89984116e4c89d895e53166e1f532b8fb2c9c50cc22beb94b04e96e7a6901e5b',
+    flagHash: '074dbad7c7bdaf664992daafd340d3937ae9a3d9a081b38a85c530245cfa4ee0',
     setup: [
       'Install cert-manager:',
       '<code>helm repo add jetstack https://charts.jetstack.io\nhelm install cert-manager jetstack/cert-manager -n cert-manager --create-namespace --set crds.enabled=true</code>',
@@ -526,7 +526,7 @@ export const DAYS = [
     enabled: true,
     title: 'HPA Not Scaling',
     description: 'The HPA can\'t scale the deployment because it can\'t calculate CPU utilization. Fix the resource configuration so the app scales and reveals the flag.',
-    flagHash: '81a405a0379643675e9f9cd857f0d26b68f2ae69620635afefcce5d854ba519e',
+    flagHash: 'd343163ded2d0585daea10cb6226d56e06812537969b4c004e40d19483af5293',
     setup: [
       'Install metrics-server (if not already):',
       '<code>kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml\nkubectl patch -n kube-system deployment metrics-server --type=json -p \'[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]\'</code>',
@@ -550,7 +550,7 @@ export const DAYS = [
     enabled: true,
     title: 'GitOps Drift',
     description: 'An ArgoCD Application can\'t find its manifests because the source path is wrong. Fix the Application to sync successfully.',
-    flagHash: 'ca681497e642ed59dba8f65f00378ed549b27d5ef19504fc19ace3869afb4414',
+    flagHash: 'caef9c654e06a53987e52e1eba02a38ecb543cd10c88d27287460d6c470edd84',
     setup: [
       'Install ArgoCD:',
       '<code>kubectl create namespace argocd\nkubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code>',
@@ -574,7 +574,7 @@ export const DAYS = [
     enabled: true,
     title: 'Sync Hooks',
     description: 'An ArgoCD PreSync hook Job is failing, blocking the entire sync. The main app never deploys. Fix the hook to unblock.',
-    flagHash: '024ffb2f91c842fb20b21b5738ed9f431c5e6810c2268ed0a59a4b47891ac76e',
+    flagHash: '601d72ebe7744ffc429562eb05f585a1b72f65ffef0c3d01cb836b25991221be',
     setup: [
       'Ensure ArgoCD is installed (see Day 21).',
       'Install the chart:',
@@ -597,7 +597,7 @@ export const DAYS = [
     enabled: true,
     title: 'Policy Blocked',
     description: 'A Kyverno policy is blocking pod creation because a required label is missing. Fix the Deployment to comply.',
-    flagHash: '0096ce6bb2184ec0be4da2fb24f8860fb400d25692332762b5d7856403e4eec7',
+    flagHash: 'e888e89997e46deb71c4a61205a2fa03dba6ccda40fd7ce6bf9a2848bf264165',
     setup: [
       'Install Kyverno:',
       '<code>helm repo add kyverno https://kyverno.github.io/kyverno\nhelm install kyverno kyverno/kyverno -n kyverno --create-namespace</code>',
@@ -621,7 +621,7 @@ export const DAYS = [
     enabled: true,
     title: 'Webhook Woes',
     description: 'A ValidatingWebhook is rejecting your app\'s pods. Understand what the webhook requires and fix the Deployment to pass validation.',
-    flagHash: 'b564e0f99af733b4d9f3aa0605521fe2cfce6463a62eb99339272b25cebaf194',
+    flagHash: '3f50ffc39ffdfc130953c5c70a31033ef4ecb34641758b03933f2931f5a758d7',
     setup: [
       'Install the chart:',
       '<code>helm install day24 oci://ghcr.io/adventofkube/charts/day24 --version 0.1.0</code>',
@@ -643,7 +643,7 @@ export const DAYS = [
     enabled: true,
     title: 'Grand Finale',
     description: 'Three namespaces, seven bugs, one flag. RBAC is wrong, NetworkPolicies block everything, pods are misconfigured. Fix all three services and combine their fragments.',
-    flagHash: '7e73dc6fbc809d72f6146c97c110d425a0fca511dac070ece2946d5df868651f',
+    flagHash: '5f3ed1402387d339eabcea9fe4b8d8745e5b74db497ad1669e45bea59bc7df20',
     setup: [
       'Install the chart:',
       '<code>helm install day25 oci://ghcr.io/adventofkube/charts/day25 --version 0.1.0</code>',
