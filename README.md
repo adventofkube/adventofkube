@@ -164,8 +164,8 @@ The app has ~90 lines of server-side code total (flag validation + config endpoi
 ### Backend: Supabase as BaaS
 Supabase provides GitHub OAuth, a Postgres database, and auto-generated REST APIs. The browser queries tables directly using the publishable key (filtered by Row-Level Security). The `upsert_submission` RPC lives in Postgres. Trade-off: the DB schema is effectively a public API, and RLS policies aren't version-controlled in the repo.
 
-### Flag Validation: Client Hash + Server Hash
-The browser hashes the flag with SHA-256 for instant UI feedback. The Cloudflare Function re-hashes server-side before recording to the leaderboard. Client-side hashes in `config.js` are technically visible, but the flag space (`AOK{...}`) provides sufficient friction for a learning platform.
+### Flag System: Inject at Build, Verify at Submit
+Each Go binary reads its flag from an environment variable (`FLAG`) set in the Helm chart's `values.yaml`. The flag follows the format `AOK{...}` and is printed to stdout (or served via HTTP) when the pod runs correctly. Flag hashes (SHA-256) are stored in `config.js` and `functions/submit-flag.js` — the browser hashes the user's input for instant UI feedback, then the Cloudflare Function re-hashes server-side before recording to the leaderboard. The hashes are technically visible in source, but reversing SHA-256 isn't practical and the flag space provides sufficient friction for a learning platform.
 
 ### Progress: localStorage-First, Optional Auth
 Completion state lives in `localStorage` so users can track progress without signing in. Auth (GitHub OAuth via Supabase) is only required for the leaderboard. On login, `syncProgressFromServer()` pulls server submissions into localStorage.
@@ -181,9 +181,6 @@ Static Go binaries in `scratch` (empty) images. No shell means users can't `kube
 
 ### Challenge Bugs: In values.yaml, Not Templates
 Helm templates are correct; bugs are injected through `values.yaml` (typos, wrong references, missing selectors). Users debug live Kubernetes objects with `kubectl`, not Helm source. Keeps challenges focused on K8s debugging skills.
-
-### Day Unlocking: Date-Gated Advent Calendar
-`START_DATE` in `config.js` gates day access sequentially. Client-side enforcement only — the real lock is that unpublished days have no Helm charts to deploy. Creates community momentum (everyone solving the same day).
 
 ### CI: Diff-Based Builds
 GitHub Actions detects changed `images/` or `charts/` directories via `git diff HEAD~1` and only builds those. Manual `workflow_dispatch` covers rebuilds. Avoids rebuilding all 25 days for a single chart change.
