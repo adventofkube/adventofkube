@@ -196,7 +196,7 @@ export async function renderLeaderboardWidget(container, options = {}) {
     return;
   }
 
-  const enabledDays = DAYS.filter(d => d.enabled).map(d => d.day);
+  const enabledDays = DAYS.filter(d => d.enabled && d.day > 0).map(d => d.day);
   const toolbarEl = container.querySelector('#lb-toolbar');
   const contentEl = container.querySelector('#lb-content');
   const footerEl = container.querySelector('#lb-footer');
