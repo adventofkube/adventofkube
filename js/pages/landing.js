@@ -69,7 +69,6 @@ export function renderLanding(app) {
     <div class="landing-layout">
       <div class="landing-left">
         <section class="landing-leaderboard">
-          <h2>Leaderboard</h2>
           <div id="landing-lb"></div>
         </section>
       </div>
