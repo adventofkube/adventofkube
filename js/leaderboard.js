@@ -176,8 +176,7 @@ export async function renderLeaderboardWidget(container, options = {}) {
   const compact = options.compact ?? false;
 
   container.innerHTML = `<div class="lb-widget${compact ? ' lb-compact' : ''}">
-    <div class="lb-tabs" id="lb-tabs"></div>
-    <div class="lb-controls" id="lb-controls"></div>
+    <div class="lb-toolbar" id="lb-toolbar"></div>
     <div class="lb-content" id="lb-content"><p class="lb-loading">Loading leaderboard...</p></div>
     <div class="lb-footer" id="lb-footer"></div>
   </div>`;
@@ -198,39 +197,42 @@ export async function renderLeaderboardWidget(container, options = {}) {
   }
 
   const enabledDays = DAYS.filter(d => d.enabled).map(d => d.day);
-  const tabs = ['Overall', ...enabledDays.map(d => `Day ${d}`)];
-  const tabsEl = container.querySelector('#lb-tabs');
-  const controlsEl = container.querySelector('#lb-controls');
+  const toolbarEl = container.querySelector('#lb-toolbar');
   const contentEl = container.querySelector('#lb-content');
   const footerEl = container.querySelector('#lb-footer');
 
   let activeTabIndex = 0;
   let activeMode = 'score';
+  let dayGridOpen = false;
 
-  function renderTabs() {
-    const dayOptions = enabledDays.map((d, i) => {
-      const idx = i + 1;
-      return `<option value="${idx}"${idx === activeTabIndex ? ' selected' : ''}>Day ${d}</option>`;
-    }).join('');
-
-    tabsEl.innerHTML = `
-      <button class="lb-tab${activeTabIndex === 0 ? ' active' : ''}" data-index="0">Overall</button>
-      <select class="lb-day-select${activeTabIndex > 0 ? ' active' : ''}" data-role="day-select">
-        <option value="" disabled${activeTabIndex === 0 ? ' selected' : ''}>Per day</option>
-        ${dayOptions}
-      </select>
-    `;
-  }
-
-  function renderToggle() {
+  function renderToolbar() {
     const modes = [
       { key: 'score', label: 'Score' },
       { key: 'speed', label: 'Speed' },
       { key: 'order', label: 'Order' },
     ];
-    controlsEl.innerHTML = `<div class="lb-toggle">${modes.map(m =>
-      `<button class="lb-toggle-btn${m.key === activeMode ? ' active' : ''}" data-mode="${m.key}">${m.label}</button>`
-    ).join('')}</div>`;
+
+    const dayLabel = activeTabIndex > 0 ? `Day ${enabledDays[activeTabIndex - 1]}` : 'Per day';
+
+    const dayCells = enabledDays.map((d, i) => {
+      const idx = i + 1;
+      return `<button class="lb-day-cell${idx === activeTabIndex ? ' active' : ''}" data-index="${idx}">${d}</button>`;
+    }).join('');
+
+    toolbarEl.innerHTML = `
+      <div class="lb-toolbar-left">
+        <button class="lb-tab${activeTabIndex === 0 ? ' active' : ''}" data-index="0">Overall</button>
+        <div class="lb-day-picker">
+          <button class="lb-day-trigger${activeTabIndex > 0 ? ' active' : ''}${dayGridOpen ? ' open' : ''}" data-role="day-trigger">${dayLabel} <span class="lb-caret">&#9662;</span></button>
+          ${dayGridOpen ? `<div class="lb-day-grid">${dayCells}</div>` : ''}
+        </div>
+      </div>
+      <div class="lb-toolbar-right">
+        <div class="lb-toggle">${modes.map(m =>
+          `<button class="lb-toggle-btn${m.key === activeMode ? ' active' : ''}" data-mode="${m.key}">${m.label}</button>`
+        ).join('')}</div>
+      </div>
+    `;
   }
 
   function renderScoringNote() {
@@ -249,8 +251,7 @@ export async function renderLeaderboardWidget(container, options = {}) {
   }
 
   function showContent() {
-    renderTabs();
-    renderToggle();
+    renderToolbar();
     renderScoringNote();
 
     if (activeTabIndex === 0) {
@@ -264,25 +265,40 @@ export async function renderLeaderboardWidget(container, options = {}) {
     }
   }
 
-  tabsEl.addEventListener('click', (e) => {
-    const btn = e.target.closest('.lb-tab');
-    if (!btn) return;
-    activeTabIndex = parseInt(btn.dataset.index, 10);
-    showContent();
-  });
+  toolbarEl.addEventListener('click', (e) => {
+    // Overall button
+    const tab = e.target.closest('.lb-tab');
+    if (tab) {
+      activeTabIndex = 0;
+      dayGridOpen = false;
+      showContent();
+      return;
+    }
 
-  tabsEl.addEventListener('change', (e) => {
-    const sel = e.target.closest('.lb-day-select');
-    if (!sel) return;
-    activeTabIndex = parseInt(sel.value, 10);
-    showContent();
-  });
+    // Day picker trigger
+    const trigger = e.target.closest('.lb-day-trigger');
+    if (trigger) {
+      dayGridOpen = !dayGridOpen;
+      renderToolbar();
+      return;
+    }
 
-  controlsEl.addEventListener('click', (e) => {
-    const btn = e.target.closest('.lb-toggle-btn');
-    if (!btn) return;
-    activeMode = btn.dataset.mode;
-    showContent();
+    // Day cell in grid
+    const cell = e.target.closest('.lb-day-cell');
+    if (cell) {
+      activeTabIndex = parseInt(cell.dataset.index, 10);
+      dayGridOpen = false;
+      showContent();
+      return;
+    }
+
+    // Mode toggle
+    const modeBtn = e.target.closest('.lb-toggle-btn');
+    if (modeBtn) {
+      activeMode = modeBtn.dataset.mode;
+      showContent();
+      return;
+    }
   });
 
   showContent();

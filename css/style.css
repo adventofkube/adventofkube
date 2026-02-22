@@ -1001,22 +1001,34 @@ a:hover {
   overflow: hidden;
 }
 
-.lb-tabs {
+/* === Leaderboard Toolbar === */
+.lb-toolbar {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--border);
 }
 
+.lb-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.lb-toolbar-right {
+  display: flex;
+  align-items: center;
+}
+
 .lb-tab {
-  padding: 0.35rem 0.85rem;
+  padding: 0.3rem 0.7rem;
   background: transparent;
   border: 1px solid var(--border);
   border-radius: 5px;
   color: var(--text);
   font-family: inherit;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
@@ -1034,28 +1046,83 @@ a:hover {
   border-color: rgba(74, 234, 220, 0.3);
 }
 
-.lb-day-select {
-  padding: 0.35rem 0.6rem;
-  background: var(--bg);
+/* Day picker dropdown */
+.lb-day-picker {
+  position: relative;
+}
+
+.lb-day-trigger {
+  padding: 0.3rem 0.7rem;
+  background: transparent;
   border: 1px solid var(--border);
   border-radius: 5px;
   color: var(--text);
   font-family: inherit;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  appearance: auto;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
 }
 
-.lb-day-select:hover,
-.lb-day-select:focus {
-  border-color: rgba(74, 234, 220, 0.3);
+.lb-day-trigger:hover {
   color: var(--text-bright);
-  outline: none;
+  border-color: rgba(74, 234, 220, 0.3);
 }
 
-.lb-day-select.active {
+.lb-day-trigger.active {
+  color: var(--primary);
+  background: var(--primary-light);
+  border-color: rgba(74, 234, 220, 0.3);
+}
+
+.lb-day-trigger.open {
+  border-color: rgba(74, 234, 220, 0.3);
+}
+
+.lb-caret {
+  font-size: 0.6rem;
+  margin-left: 0.2rem;
+  opacity: 0.6;
+}
+
+.lb-day-grid {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+  padding: 0.4rem;
+  background: var(--bg-mid);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  z-index: 10;
+  min-width: 140px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.lb-day-cell {
+  padding: 0.3rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.lb-day-cell:hover {
+  background: rgba(74, 234, 220, 0.08);
+  color: var(--text-bright);
+  border-color: rgba(74, 234, 220, 0.2);
+}
+
+.lb-day-cell.active {
+  background: var(--primary-light);
   color: var(--primary);
   border-color: rgba(74, 234, 220, 0.3);
 }
@@ -1155,9 +1222,14 @@ a:hover {
 }
 
 .lb-compact .lb-tab,
-.lb-compact .lb-day-select {
-  padding: 0.3rem 0.65rem;
-  font-size: 0.72rem;
+.lb-compact .lb-day-trigger {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.7rem;
+}
+
+.lb-compact .lb-day-cell {
+  font-size: 0.65rem;
+  padding: 0.25rem;
 }
 
 .lb-compact .lb-content {
@@ -1165,11 +1237,6 @@ a:hover {
 }
 
 /* === Leaderboard Controls & Toggle === */
-.lb-controls {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.5rem 1rem 0;
-}
 
 .lb-toggle {
   display: inline-flex;
@@ -1264,10 +1331,6 @@ a:hover {
 }
 
 /* Compact overrides for new elements */
-.lb-compact .lb-controls {
-  padding: 0.35rem 0.75rem 0;
-}
-
 .lb-compact .lb-toggle-btn {
   padding: 0.2rem 0.65rem;
   font-size: 0.7rem;
@@ -1312,10 +1375,6 @@ a:hover {
     display: none;
   }
 
-  .lb-controls {
-    justify-content: center;
-    padding: 0.4rem 0.75rem 0;
-  }
 }
 
 @media (max-width: 600px) {
