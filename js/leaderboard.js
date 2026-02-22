@@ -208,9 +208,18 @@ export async function renderLeaderboardWidget(container, options = {}) {
   let activeMode = 'score';
 
   function renderTabs() {
-    tabsEl.innerHTML = tabs
-      .map((t, i) => `<button class="lb-tab${i === activeTabIndex ? ' active' : ''}" data-index="${i}">${t}</button>`)
-      .join('');
+    const dayOptions = enabledDays.map((d, i) => {
+      const idx = i + 1;
+      return `<option value="${idx}"${idx === activeTabIndex ? ' selected' : ''}>Day ${d}</option>`;
+    }).join('');
+
+    tabsEl.innerHTML = `
+      <button class="lb-tab${activeTabIndex === 0 ? ' active' : ''}" data-index="0">Overall</button>
+      <select class="lb-day-select${activeTabIndex > 0 ? ' active' : ''}" data-role="day-select">
+        <option value="" disabled${activeTabIndex === 0 ? ' selected' : ''}>Per day</option>
+        ${dayOptions}
+      </select>
+    `;
   }
 
   function renderToggle() {
@@ -259,6 +268,13 @@ export async function renderLeaderboardWidget(container, options = {}) {
     const btn = e.target.closest('.lb-tab');
     if (!btn) return;
     activeTabIndex = parseInt(btn.dataset.index, 10);
+    showContent();
+  });
+
+  tabsEl.addEventListener('change', (e) => {
+    const sel = e.target.closest('.lb-day-select');
+    if (!sel) return;
+    activeTabIndex = parseInt(sel.value, 10);
     showContent();
   });
 

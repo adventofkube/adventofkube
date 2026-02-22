@@ -1003,33 +1003,61 @@ a:hover {
 
 .lb-tabs {
   display: flex;
-  gap: 0;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--border);
-  overflow-x: auto;
-  scrollbar-width: thin;
 }
 
 .lb-tab {
-  padding: 0.6rem 1.1rem;
+  padding: 0.35rem 0.85rem;
   background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
+  border: 1px solid var(--border);
+  border-radius: 5px;
   color: var(--text);
   font-family: inherit;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
 }
 
 .lb-tab:hover {
   color: var(--text-bright);
+  border-color: rgba(74, 234, 220, 0.3);
 }
 
 .lb-tab.active {
   color: var(--primary);
-  border-bottom-color: var(--primary);
+  background: var(--primary-light);
+  border-color: rgba(74, 234, 220, 0.3);
+}
+
+.lb-day-select {
+  padding: 0.35rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  appearance: auto;
+}
+
+.lb-day-select:hover,
+.lb-day-select:focus {
+  border-color: rgba(74, 234, 220, 0.3);
+  color: var(--text-bright);
+  outline: none;
+}
+
+.lb-day-select.active {
+  color: var(--primary);
+  border-color: rgba(74, 234, 220, 0.3);
 }
 
 .lb-content {
@@ -1126,9 +1154,10 @@ a:hover {
   font-size: 0.82rem;
 }
 
-.lb-compact .lb-tab {
-  padding: 0.45rem 0.85rem;
-  font-size: 0.78rem;
+.lb-compact .lb-tab,
+.lb-compact .lb-day-select {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.72rem;
 }
 
 .lb-compact .lb-content {
