@@ -17,15 +17,76 @@ env:
   ORG: adventofkube
 
 jobs:
-  images:
+  detect:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    outputs:
+      images: ${{ steps.detect.outputs.images }}
+      charts: ${{ steps.detect.outputs.charts }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
+
+      - name: Detect targets
+        id: detect
+        run: |
+          TARGET="${{ inputs.target }}"
+
+          # --- Images ---
+          if [ "${{ github.event_name }}" = "push" ]; then
+            IMAGE_DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^images/" | cut -d/ -f1-2 | sort -u || true)
+          elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-images" ]; then
+            IMAGE_DIRS=$(find images -maxdepth 1 -mindepth 1 -type d)
+          elif [[ "$TARGET" == day* ]]; then
+            IMAGE_DIRS="images/$TARGET"
+          else
+            IMAGE_DIRS=""
+          fi
+
+          # Build JSON array of image dirs that have a Dockerfile
+          IMAGES="[]"
+          for dir in $IMAGE_DIRS; do
+            if [ -f "$dir/Dockerfile" ]; then
+              IMAGES=$(echo "$IMAGES" | jq -c --arg d "$dir" '. + [$d]')
+            fi
+          done
+          echo "images=$IMAGES" >> "$GITHUB_OUTPUT"
+
+          # --- Charts ---
+          if [ "${{ github.event_name }}" = "push" ]; then
+            CHART_DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^charts/" | cut -d/ -f1-2 | sort -u || true)
+          elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-charts" ]; then
+            CHART_DIRS=$(find charts -maxdepth 1 -mindepth 1 -type d)
+          elif [[ "$TARGET" == day* ]]; then
+            CHART_DIRS="charts/$TARGET"
+          else
+            CHART_DIRS=""
+          fi
+
+          CHARTS="[]"
+          for dir in $CHART_DIRS; do
+            if [ -f "$dir/Chart.yaml" ]; then
+              CHARTS=$(echo "$CHARTS" | jq -c --arg d "$dir" '. + [$d]')
+            fi
+          done
+          echo "charts=$CHARTS" >> "$GITHUB_OUTPUT"
+
+          echo "Images to build: $IMAGES"
+          echo "Charts to build: $CHARTS"
+
+  build-image:
+    needs: detect
+    if: needs.detect.outputs.images != '[]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ${{ fromJson(needs.detect.outputs.images) }}
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Login to GHCR
         uses: docker/login-action@v3
@@ -34,64 +95,60 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PAT_TOKEN }}
 
-      - name: Generate flag files
+      - name: Generate flag file
         env:
           FLAG_VALUES: ${{ secrets.FLAG_VALUES }}
         run: |
-          if [ -n "${FLAG_VALUES:-}" ]; then
-            ./scripts/gen-flags.sh
-          else
+          if [ -z "${FLAG_VALUES:-}" ]; then
             echo "WARNING: FLAG_VALUES not set, skipping flag generation"
-          fi
-
-      - name: Build and push images
-        run: |
-          TARGET="${{ inputs.target }}"
-
-          if [ "${{ github.event_name }}" = "push" ]; then
-            # Find changed image directories
-            DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^images/" | cut -d/ -f1-2 | sort -u)
-          elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-images" ]; then
-            DIRS=$(find images -maxdepth 1 -mindepth 1 -type d)
-          elif [[ "$TARGET" == day* ]]; then
-            # Support both "day07" (builds images/day07) and "day12-v1" (builds images/day12-v1)
-            DIRS="images/$TARGET"
-          else
-            echo "No images to build"
             exit 0
           fi
+          DAY=$(basename "${{ matrix.dir }}")
+          FLAGVAL=$(echo "$FLAG_VALUES" | jq -r --arg d "$DAY" '.[$d] // empty')
+          if [ -n "$FLAGVAL" ]; then
+            cat > "${{ matrix.dir }}/flag.go" <<GOEOF
+          package main
 
-          for dir in $DIRS; do
-            if [ -f "$dir/Dockerfile" ]; then
-              dirname=$(basename $dir)
-              # Parse image name and tag from directory name
-              # "day07" -> name=day07, tag=v1
-              # "day12-v1" -> name=day12, tag=v1
-              # "day12-v2" -> name=day12, tag=v2
-              # "day25a" -> name=day25a, tag=v1
-              if [[ "$dirname" =~ ^(day[0-9]+)-(v[0-9]+)$ ]]; then
-                name="${BASH_REMATCH[1]}"
-                tag="${BASH_REMATCH[2]}"
-              else
-                name="$dirname"
-                tag="v1"
-              fi
-              echo "=== Building $name:$tag ==="
-              docker build -t ${{ env.REGISTRY }}/${{ env.ORG }}/$name:$tag $dir
-              docker push ${{ env.REGISTRY }}/${{ env.ORG }}/$name:$tag
-              echo "Pushed ${{ env.REGISTRY }}/${{ env.ORG }}/$name:$tag"
-            fi
-          done
+          const flag = "$FLAGVAL"
+          GOEOF
+            echo "Generated ${{ matrix.dir }}/flag.go"
+          fi
 
-  charts:
+      - name: Build and push
+        run: |
+          DIR="${{ matrix.dir }}"
+          DIRNAME=$(basename "$DIR")
+
+          # Parse image name and tag from directory name
+          # "day07" -> name=day07, tag=v1
+          # "day12-v1" -> name=day12, tag=v1
+          # "day12-v2" -> name=day12, tag=v2
+          if [[ "$DIRNAME" =~ ^(day[0-9]+)-(v[0-9]+)$ ]]; then
+            NAME="${BASH_REMATCH[1]}"
+            TAG="${BASH_REMATCH[2]}"
+          else
+            NAME="$DIRNAME"
+            TAG="v1"
+          fi
+
+          echo "=== Building $NAME:$TAG ==="
+          docker build -t ${{ env.REGISTRY }}/${{ env.ORG }}/$NAME:$TAG $DIR
+          docker push ${{ env.REGISTRY }}/${{ env.ORG }}/$NAME:$TAG
+          echo "Pushed ${{ env.REGISTRY }}/${{ env.ORG }}/$NAME:$TAG"
+
+  build-chart:
+    needs: detect
+    if: needs.detect.outputs.charts != '[]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ${{ fromJson(needs.detect.outputs.charts) }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: Install Helm
         uses: azure/setup-helm@v3
@@ -101,40 +158,28 @@ jobs:
       - name: Login to GHCR
         run: echo "${{ secrets.PAT_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
-      - name: Inject chart flags
+      - name: Inject chart flag
         env:
           CHART_FLAG_VALUES: ${{ secrets.CHART_FLAG_VALUES }}
         run: |
-          if [ -n "${CHART_FLAG_VALUES:-}" ]; then
-            ./scripts/gen-chart-flags.sh
-          else
-            echo "WARNING: CHART_FLAG_VALUES not set, skipping chart flag injection"
-          fi
-
-      - name: Package and push charts
-        run: |
-          TARGET="${{ inputs.target }}"
-
-          if [ "${{ github.event_name }}" = "push" ]; then
-            # Find changed chart directories
-            DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^charts/" | cut -d/ -f1-2 | sort -u)
-          elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-charts" ]; then
-            DIRS=$(find charts -maxdepth 1 -mindepth 1 -type d)
-          elif [[ "$TARGET" == day* ]]; then
-            DIRS="charts/$TARGET"
-          else
-            echo "No charts to build"
+          if [ -z "${CHART_FLAG_VALUES:-}" ]; then
+            echo "No CHART_FLAG_VALUES set, skipping"
             exit 0
           fi
+          DAY=$(basename "${{ matrix.dir }}")
+          FLAGVAL=$(echo "$CHART_FLAG_VALUES" | jq -r --arg d "$DAY" '.[$d] // empty')
+          if [ -n "$FLAGVAL" ]; then
+            sed -i "s|__FLAG__|$FLAGVAL|g" "${{ matrix.dir }}/values.yaml"
+            echo "Injected flag into ${{ matrix.dir }}/values.yaml"
+          fi
 
-          for dir in $DIRS; do
-            if [ -f "$dir/Chart.yaml" ]; then
-              name=$(basename $dir)
-              echo "=== Packaging $name ==="
-              helm package $dir
-              PKG=$(ls ${name}-*.tgz)
-              helm push $PKG oci://${{ env.REGISTRY }}/${{ env.ORG }}/charts
-              rm $PKG
-              echo "Pushed $name"
-            fi
-          done
+      - name: Package and push
+        run: |
+          DIR="${{ matrix.dir }}"
+          NAME=$(basename "$DIR")
+          echo "=== Packaging $NAME ==="
+          helm package "$DIR"
+          PKG=$(ls ${NAME}-*.tgz)
+          helm push $PKG oci://${{ env.REGISTRY }}/${{ env.ORG }}/charts
+          rm $PKG
+          echo "Pushed $NAME"
