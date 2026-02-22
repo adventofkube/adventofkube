@@ -41,7 +41,7 @@
 }
 
 body {
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(175deg, var(--bg) 0%, var(--bg-mid) 50%, #0c1220 100%);
   background-attachment: fixed;
   color: var(--text);
@@ -157,11 +157,10 @@ a:hover {
 }
 
 .landing-hero h1 {
-  font-family: "DM Serif Display", Georgia, serif;
   font-size: 2.5rem;
   color: var(--text-bright);
   margin-bottom: 0.5rem;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.02em;
 }
 
@@ -197,11 +196,10 @@ a:hover {
 }
 
 .landing-how h2 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   margin-bottom: 1rem;
   font-size: 1.2rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .landing-how ol {
@@ -250,11 +248,10 @@ a:hover {
 }
 
 .challenges-list h2 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .challenge-row {
@@ -321,10 +318,9 @@ a:hover {
 }
 
 .calendar-header h1 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.8rem;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .calendar-grid {
@@ -439,10 +435,9 @@ a:hover {
 }
 
 .day-page h1 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.8rem;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .day-locked-notice {
@@ -506,11 +501,10 @@ a:hover {
 }
 
 .setup-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .setup-steps {
@@ -607,11 +601,10 @@ a:hover {
 }
 
 .docs-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .docs-list {
@@ -638,11 +631,10 @@ a:hover {
 }
 
 .hints-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .hint-item {
@@ -922,8 +914,7 @@ a:hover {
   align-items: center;
   gap: 0.5rem;
   color: var(--text-bright);
-  font-family: "DM Serif Display", Georgia, serif;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1.05rem;
   text-decoration: none;
 }
@@ -995,11 +986,10 @@ a:hover {
 }
 
 .landing-leaderboard h2 {
-  font-family: "DM Serif Display", Georgia, serif;
   color: var(--text-bright);
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .lb-widget {
