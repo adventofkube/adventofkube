@@ -225,7 +225,7 @@ export const DAYS = [
   },
   {
     day: 7,
-    enabled: false,
+    enabled: true,
     title: 'Service Wiring',
     description: 'A Service can\'t route to its pod. The deployment is running but the Service port configuration is wrong. Fix the wiring.',
     flagHash: '3d3d1fb274ca5d09414bb2b2f9fcf8a663de10cdaffdd880e91980a3d50b817a',
@@ -247,7 +247,7 @@ export const DAYS = [
   },
   {
     day: 8,
-    enabled: false,
+    enabled: true,
     title: 'Probe Pitfall',
     description: 'A pod keeps restarting and is never ready. The health checks are misconfigured in multiple ways. Fix them all.',
     flagHash: 'f3488d3f7b71217101c6d22e81016d4c1fabdacb9b4d7dc4b860656b41dbbbfe',
@@ -271,7 +271,7 @@ export const DAYS = [
   },
   {
     day: 9,
-    enabled: false,
+    enabled: true,
     title: 'RBAC Lockdown',
     description: 'A pod needs to list Secrets but its ServiceAccount doesn\'t have the right permissions. Fix the RBAC configuration.',
     flagHash: '8cdbc41767786542284d8cb18a5c031ac77e640b1af6dfec3d907dd63d299e47',
@@ -293,7 +293,7 @@ export const DAYS = [
   },
   {
     day: 10,
-    enabled: false,
+    enabled: true,
     title: 'NetworkPolicy Firewall',
     description: 'A pod has the flag but a NetworkPolicy is blocking all traffic. Fix the policy to allow access.',
     flagHash: '83ef97ed32bdb69b8d2f89797a61f6033a5b9688f320be047c569f6773973d70',
@@ -315,7 +315,7 @@ export const DAYS = [
   },
   {
     day: 11,
-    enabled: false,
+    enabled: true,
     title: 'PV/PVC Binding',
     description: 'A PersistentVolumeClaim won\'t bind to its PersistentVolume. The pod is stuck waiting for storage. Fix the binding.',
     flagHash: '2c68f141f69bcd0fcbf0234b732caaf2694ebba03fc7497c8756e5f40ae356f9',
@@ -339,7 +339,7 @@ export const DAYS = [
   },
   {
     day: 12,
-    enabled: false,
+    enabled: true,
     title: 'Rolling Update Stuck',
     description: 'A Deployment rollout is deadlocked. Fix the strategy, then update the image to v2 to get the flag.',
     flagHash: 'bbdb1db158f38fdc413c31ab6a98db402954270f7b251ea8e04d870ccf62ddcd',
@@ -362,7 +362,7 @@ export const DAYS = [
   },
   {
     day: 13,
-    enabled: false,
+    enabled: true,
     title: 'Metrics Missing',
     description: 'Prometheus isn\'t scraping your app\'s metrics. The ServiceMonitor configuration has a mismatch. Fix it to see the flag in the metrics.',
     flagHash: 'd839e0669baea744e1af3debc51cd808d0138c866552628eda56122c4837acf3',
@@ -386,7 +386,7 @@ export const DAYS = [
   },
   {
     day: 14,
-    enabled: false,
+    enabled: true,
     title: 'Dashboard Down',
     description: 'A Grafana dashboard shows "No Data" because the datasource URL is wrong. Fix the configuration to see the flag.',
     flagHash: 'ad8aa6c10a82462066e4955b63d68b9e43fbb2b17210c92a50a5c41bd188251b',
@@ -409,7 +409,7 @@ export const DAYS = [
   },
   {
     day: 15,
-    enabled: false,
+    enabled: true,
     title: 'Alert Routing',
     description: 'An AlertManager alert fires correctly but the notification never reaches the webhook. The routing rules are misconfigured.',
     flagHash: '954ade5782c9db31550644dc20b42df2c28a4fe81823204641ba57bbdedea12b',
@@ -432,7 +432,7 @@ export const DAYS = [
   },
   {
     day: 16,
-    enabled: false,
+    enabled: true,
     title: 'Logs Lost',
     description: 'Promtail is supposed to collect logs but the scrape path glob is wrong. Fix it to find the flag in the logs.',
     flagHash: '081e574ceacd017e573eaec933617a78f2c0173a372ea550487421b7b71c5eb0',
@@ -454,7 +454,7 @@ export const DAYS = [
   },
   {
     day: 17,
-    enabled: false,
+    enabled: true,
     title: 'Pipeline Mismatch',
     description: 'Promtail\'s log parsing pipeline expects a different format than the app produces. Fix the pipeline to extract labels and find the flag.',
     flagHash: '781b090a4553f32ffd039bb8543bd078e89a24755e44654c989b21710a50511a',
@@ -477,7 +477,7 @@ export const DAYS = [
   },
   {
     day: 18,
-    enabled: false,
+    enabled: true,
     title: 'Node Affinity',
     description: 'A pod is stuck Pending because its node affinity requires a label that no node has. Fix the scheduling constraint.',
     flagHash: '1929f40692ebcb36dc53e37adfe10f3959c7bfad1d3c0f152d7b4b40d13ebb7b',
@@ -499,7 +499,7 @@ export const DAYS = [
   },
   {
     day: 19,
-    enabled: false,
+    enabled: true,
     title: 'Ingress + TLS',
     description: 'An Ingress with TLS is configured but the Certificate won\'t issue because the issuer reference is wrong. Fix the cert-manager configuration.',
     flagHash: '89984116e4c89d895e53166e1f532b8fb2c9c50cc22beb94b04e96e7a6901e5b',
@@ -523,7 +523,7 @@ export const DAYS = [
   },
   {
     day: 20,
-    enabled: false,
+    enabled: true,
     title: 'HPA Not Scaling',
     description: 'The HPA can\'t scale the deployment because it can\'t calculate CPU utilization. Fix the resource configuration so the app scales and reveals the flag.',
     flagHash: '81a405a0379643675e9f9cd857f0d26b68f2ae69620635afefcce5d854ba519e',
@@ -547,7 +547,7 @@ export const DAYS = [
   },
   {
     day: 21,
-    enabled: false,
+    enabled: true,
     title: 'GitOps Drift',
     description: 'An ArgoCD Application can\'t find its manifests because the source path is wrong. Fix the Application to sync successfully.',
     flagHash: 'ca681497e642ed59dba8f65f00378ed549b27d5ef19504fc19ace3869afb4414',
@@ -571,7 +571,7 @@ export const DAYS = [
   },
   {
     day: 22,
-    enabled: false,
+    enabled: true,
     title: 'Sync Hooks',
     description: 'An ArgoCD PreSync hook Job is failing, blocking the entire sync. The main app never deploys. Fix the hook to unblock.',
     flagHash: '024ffb2f91c842fb20b21b5738ed9f431c5e6810c2268ed0a59a4b47891ac76e',
@@ -594,7 +594,7 @@ export const DAYS = [
   },
   {
     day: 23,
-    enabled: false,
+    enabled: true,
     title: 'Policy Blocked',
     description: 'A Kyverno policy is blocking pod creation because a required label is missing. Fix the Deployment to comply.',
     flagHash: '0096ce6bb2184ec0be4da2fb24f8860fb400d25692332762b5d7856403e4eec7',
@@ -618,7 +618,7 @@ export const DAYS = [
   },
   {
     day: 24,
-    enabled: false,
+    enabled: true,
     title: 'Webhook Woes',
     description: 'A ValidatingWebhook is rejecting your app\'s pods. Understand what the webhook requires and fix the Deployment to pass validation.',
     flagHash: 'b564e0f99af733b4d9f3aa0605521fe2cfce6463a62eb99339272b25cebaf194',
@@ -640,7 +640,7 @@ export const DAYS = [
   },
   {
     day: 25,
-    enabled: false,
+    enabled: true,
     title: 'Grand Finale',
     description: 'Three namespaces, seven bugs, one flag. RBAC is wrong, NetworkPolicies block everything, pods are misconfigured. Fix all three services and combine their fragments.',
     flagHash: '7e73dc6fbc809d72f6146c97c110d425a0fca511dac070ece2946d5df868651f',
