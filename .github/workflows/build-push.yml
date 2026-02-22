@@ -34,7 +34,7 @@ jobs:
 
           # --- Images ---
           if [ "${{ github.event_name }}" = "push" ]; then
-            IMAGE_DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^images/" | cut -d/ -f1-2 | sort -u || true)
+            IMAGE_DIRS=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep "^images/" | cut -d/ -f1-2 | sort -u) || true
           elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-images" ]; then
             IMAGE_DIRS=$(find images -maxdepth 1 -mindepth 1 -type d)
           elif [[ "$TARGET" == day* ]]; then
@@ -54,7 +54,7 @@ jobs:
 
           # --- Charts ---
           if [ "${{ github.event_name }}" = "push" ]; then
-            CHART_DIRS=$(git diff --name-only HEAD~1 HEAD | grep "^charts/" | cut -d/ -f1-2 | sort -u || true)
+            CHART_DIRS=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep "^charts/" | cut -d/ -f1-2 | sort -u) || true
           elif [ "$TARGET" = "all" ] || [ "$TARGET" = "all-charts" ]; then
             CHART_DIRS=$(find charts -maxdepth 1 -mindepth 1 -type d)
           elif [[ "$TARGET" == day* ]]; then
@@ -107,10 +107,10 @@ jobs:
           FLAGVAL=$(echo "$FLAG_VALUES" | jq -r --arg d "$DAY" '.[$d] // empty')
           if [ -n "$FLAGVAL" ]; then
             cat > "${{ matrix.dir }}/flag.go" <<GOEOF
-          package main
+package main
 
-          const flag = "$FLAGVAL"
-          GOEOF
+const flag = "$FLAGVAL"
+GOEOF
             echo "Generated ${{ matrix.dir }}/flag.go"
           fi
 
@@ -132,7 +132,9 @@ jobs:
           fi
 
           echo "=== Building $NAME:$TAG ==="
-          docker build -t ${{ env.REGISTRY }}/${{ env.ORG }}/$NAME:$TAG $DIR
+          docker build \
+            --label "org.opencontainers.image.source=https://github.com/${{ github.repository }}" \
+            -t ${{ env.REGISTRY }}/${{ env.ORG }}/$NAME:$TAG $DIR
           docker push ${{ env.REGISTRY }}/${{ env.ORG }}/$NAME:$TAG
           echo "Pushed ${{ env.REGISTRY }}/${{ env.ORG }}/$NAME:$TAG"
 
@@ -169,7 +171,8 @@ jobs:
           DAY=$(basename "${{ matrix.dir }}")
           FLAGVAL=$(echo "$CHART_FLAG_VALUES" | jq -r --arg d "$DAY" '.[$d] // empty')
           if [ -n "$FLAGVAL" ]; then
-            sed -i "s|__FLAG__|$FLAGVAL|g" "${{ matrix.dir }}/values.yaml"
+            ESCAPED_FLAGVAL=$(printf '%s\n' "$FLAGVAL" | sed 's/[|&/\]/\\&/g')
+            sed -i "s|__FLAG__|$ESCAPED_FLAGVAL|g" "${{ matrix.dir }}/values.yaml"
             echo "Injected flag into ${{ matrix.dir }}/values.yaml"
           fi
 

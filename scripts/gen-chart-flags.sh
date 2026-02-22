@@ -11,7 +11,8 @@ fi
 echo "$CHART_FLAG_VALUES" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r day flagval; do
   valuesfile="charts/$day/values.yaml"
   if [ -f "$valuesfile" ]; then
-    sed -i "s|__FLAG__|$flagval|g" "$valuesfile"
+    escaped=$(printf '%s\n' "$flagval" | sed 's/[|&/\]/\\&/g')
+    sed -i "s|__FLAG__|$escaped|g" "$valuesfile"
     echo "Injected flag into $valuesfile"
   fi
 done
