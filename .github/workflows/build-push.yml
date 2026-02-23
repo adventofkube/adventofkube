@@ -106,11 +106,7 @@ jobs:
           DAY=$(basename "${{ matrix.dir }}")
           FLAGVAL=$(echo "$FLAG_VALUES" | jq -r --arg d "$DAY" '.[$d] // empty')
           if [ -n "$FLAGVAL" ]; then
-            cat > "${{ matrix.dir }}/flag.go" <<GOEOF
-package main
-
-const flag = "$FLAGVAL"
-GOEOF
+            printf 'package main\n\nconst flag = "%s"\n' "$FLAGVAL" > "${{ matrix.dir }}/flag.go"
             echo "Generated ${{ matrix.dir }}/flag.go"
           fi
 
