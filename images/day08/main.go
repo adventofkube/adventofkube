@@ -18,6 +18,10 @@ func main() {
 	}()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
 		if !ready {
 			http.Error(w, "not ready", http.StatusServiceUnavailable)
 			return
