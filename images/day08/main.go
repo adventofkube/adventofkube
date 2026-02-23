@@ -12,7 +12,7 @@ var ready = false
 func main() {
 	// Simulate slow startup
 	go func() {
-		time.Sleep(3 * time.Second)
+		time.Sleep(5 * time.Second)
 		ready = true
 		log.Println("Application ready")
 	}()

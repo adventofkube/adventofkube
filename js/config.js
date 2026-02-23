@@ -261,10 +261,11 @@ export const DAYS = [
     ],
     hints: [
       'The pod keeps restarting. Check events:<code>kubectl describe pod -n day08 -l app=probe-app</code>The liveness probe is failing — what path does it check?',
-      'The liveness probe checks /healthz but the app only serves /health. Fix the liveness path. But there are more issues...',
-      'The readiness probe fires immediately (0s delay) but the app takes 3 seconds to start. Also, periodSeconds=1 and failureThreshold=1 are too aggressive. Fix all three: liveness path, readiness initialDelay, and readiness threshold.',
+      'Both probes point to /healthz, but does the app actually serve that path? Check the application source code to find the correct health endpoint.',
+      'The app serves /health, not /healthz. Fix both probe paths. But there are more issues — the app takes 5 seconds to start, and the readiness probe has no initialDelay, an aggressive periodSeconds, and a failureThreshold of 1.',
     ],
     docs: [
+      { title: 'day08 — Application Code', url: 'https://github.com/adventofkube/adventofkube/tree/main/images/day08' },
       { title: 'Configure Liveness & Readiness Probes', url: 'https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/' },
       { title: 'Pod Lifecycle', url: 'https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/' },
     ],
