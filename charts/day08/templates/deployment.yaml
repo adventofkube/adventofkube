@@ -26,10 +26,10 @@ spec:
               port: 8080
             initialDelaySeconds: {{ .Values.liveness.initialDelaySeconds }}
             periodSeconds: {{ .Values.liveness.periodSeconds }}
+            failureThreshold: {{ .Values.liveness.failureThreshold }}
           readinessProbe:
             httpGet:
               path: {{ .Values.readiness.path }}
               port: 8080
             initialDelaySeconds: {{ .Values.readiness.initialDelaySeconds }}
             periodSeconds: {{ .Values.readiness.periodSeconds }}
-            failureThreshold: {{ .Values.readiness.failureThreshold }}

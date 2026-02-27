@@ -4,11 +4,11 @@ image:
   repository: ghcr.io/adventofkube/day08
   tag: v1
 liveness:
-  path: /healthz        
+  path: /healthz
   initialDelaySeconds: 0
   periodSeconds: 3
+  failureThreshold: 2
 readiness:
   path: /healthz
-  initialDelaySeconds: 0   
-  periodSeconds: 1         
-  failureThreshold: 1       
+  initialDelaySeconds: 0
+  periodSeconds: 3
