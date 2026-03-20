@@ -1,11 +1,8 @@
 namespace: day21
 appName: gitops-app
-image:
-  repository: ghcr.io/adventofkube/day21
-  tag: v1
 argocd:
   repoURL: https://github.com/adventofkube/adventofkube.git
-  path: deploy/manifests     # BUG: actual path is "manifests/"
+  path: deploy/day21/apps     # BUG: actual path is "manifests/day21/apps"
   targetRevision: HEAD
   destination:
-    namespace: day21
+    namespace: argocd

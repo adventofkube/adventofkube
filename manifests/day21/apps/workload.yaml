@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: day21-workload
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/adventofkube/adventofkube.git
+    targetRevision: HEAD
+    path: manifests/day21/workload
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: day21
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false

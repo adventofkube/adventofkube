@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-app
+  namespace: day21
+  labels:
+    app: gitops-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitops-app
+  template:
+    metadata:
+      labels:
+        app: gitops-app
+    spec:
+      containers:
+        - name: gitops-app
+          image: ghcr.io/adventofkube/day21:v1
+          ports:
+            - containerPort: 8080
