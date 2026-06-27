@@ -219,9 +219,9 @@ export function renderDay(app, params) {
 
         // Submit to leaderboard if logged in
         try {
-          const { getSession, submitFlag } = await import('../supabase.js');
-          const session = await getSession();
-          if (session) {
+          const { getUser, submitFlag } = await import('../api.js');
+          const user = await getUser();
+          if (user) {
             const lbResult = await submitFlag(dayNumber, flag, elapsed);
             if (lbResult.recorded) {
               resultEl.textContent += lbResult.improved === false

@@ -1,0 +1,7 @@
+# Copy to `.dev.vars` (gitignored) for local `wrangler pages dev`.
+# In production these are set as Cloudflare Pages secrets, not from this file.
+
+GITHUB_CLIENT_ID=your_github_oauth_app_client_id
+GITHUB_CLIENT_SECRET=your_github_oauth_app_client_secret
+# Generate with: openssl rand -hex 32
+SESSION_SECRET=replace_with_a_long_random_string

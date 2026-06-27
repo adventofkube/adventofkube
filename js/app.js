@@ -6,15 +6,13 @@ import { renderDay } from './pages/day.js';
 const app = document.getElementById('app');
 const header = document.getElementById('site-header');
 
-// Auth header rendering
-async function renderAuthHeader(session) {
+// Auth header rendering. `user` is { id, username, avatar } or null.
+function renderAuthHeader(user) {
   if (!header) return;
-  const user = session?.user;
-  const meta = user?.user_metadata;
 
-  if (user && meta) {
-    const avatar = meta.avatar_url || '';
-    const username = meta.user_name || meta.preferred_username || 'User';
+  if (user) {
+    const avatar = user.avatar || '';
+    const username = user.username || 'User';
     header.innerHTML = `<nav class="site-nav">
       <a href="/" class="nav-brand" data-link>
         <img src="/logo.svg" alt="" class="nav-logo" />
@@ -28,7 +26,7 @@ async function renderAuthHeader(session) {
     </nav>`;
     document.getElementById('nav-logout')?.addEventListener('click', async () => {
       try {
-        const { signOut } = await import('./supabase.js');
+        const { signOut } = await import('./api.js');
         await signOut();
       } catch (err) {
         console.error('Sign out error:', err);
@@ -46,8 +44,8 @@ async function renderAuthHeader(session) {
     </nav>`;
     document.getElementById('nav-login')?.addEventListener('click', async () => {
       try {
-        const { signInWithGitHub } = await import('./supabase.js');
-        await signInWithGitHub();
+        const { signInWithGitHub } = await import('./api.js');
+        signInWithGitHub();
       } catch (err) {
         console.error('Sign in error:', err);
       }
@@ -55,30 +53,21 @@ async function renderAuthHeader(session) {
   }
 }
 
-// Initialize auth header and sync progress
+// Initialize auth header and sync progress.
 (async () => {
   try {
-    const { getSession, onAuthStateChange, syncProgressFromServer } = await import('./supabase.js');
-    const session = await getSession();
-    renderAuthHeader(session);
+    const { getUser, syncProgressFromServer } = await import('./api.js');
+    const user = await getUser();
+    renderAuthHeader(user);
 
-    // Sync progress from server if logged in
-    if (session) {
+    // Sync progress from server if logged in.
+    if (user) {
       await syncProgressFromServer();
-      // Re-render current page to reflect synced progress
+      // Re-render current page to reflect synced progress.
       router.resolve();
     }
-
-    onAuthStateChange(async (newSession) => {
-      renderAuthHeader(newSession);
-      // Sync progress when user logs in
-      if (newSession) {
-        await syncProgressFromServer();
-        router.resolve();
-      }
-    });
   } catch (err) {
-    // Supabase unavailable — render header without auth
+    // Backend unavailable — render header without auth.
     renderAuthHeader(null);
   }
 })();
@@ -109,7 +98,7 @@ window.resetDay = async (n) => {
 
   // Also delete server-side submission if logged in
   try {
-    const { deleteSubmission } = await import('./supabase.js');
+    const { deleteSubmission } = await import('./api.js');
     const result = await deleteSubmission(n);
     if (result.deleted) {
       console.log(`Day ${n} reset (local + server). Refresh the page.`);

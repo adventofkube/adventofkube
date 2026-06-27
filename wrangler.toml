@@ -1,0 +1,10 @@
+name = "adventofkube"
+pages_build_output_dir = "."
+compatibility_date = "2025-06-01"
+
+# Cloudflare D1 — bound to Pages Functions as `env.DB`.
+# Created via `wrangler d1 create adventofkube`.
+[[d1_databases]]
+binding = "DB"
+database_name = "adventofkube"
+database_id = "af7f3263-d562-420d-a873-467d8bc6ec26"

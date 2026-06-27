@@ -1,4 +1,8 @@
-// SHA-256 hashes of valid flags, keyed by day number
+// Validate a submitted flag server-side and record the user's fastest time in D1.
+import { verifySession } from './_lib/session.js';
+import { upsertFasterSubmission } from './_lib/db.js';
+
+// SHA-256 hashes of valid flags, keyed by day number.
 const FLAG_HASHES = {
   0: '225840fef30125024efb75a3dee9d054dc23deb7f5cee632a75252337f795e18',
   1: '32c1012bb9a9c6b1dcd21bf9e6e78a05aaa201eda110e958908f5cdecd9b9317',
@@ -29,25 +33,29 @@ const FLAG_HASHES = {
 };
 
 async function hashFlag(flag) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(flag);
+  const data = new TextEncoder().encode(flag);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 export async function onRequestPost(context) {
-  const SUPABASE_URL = context.env.SUPABASE_URL;
-  const SUPABASE_SECRET_KEY = context.env.SUPABASE_SECRET_KEY;
+  const { request, env } = context;
+
+  const session = await verifySession(request, env);
+  if (!session) {
+    return Response.json({ error: 'Not logged in' }, { status: 401 });
+  }
 
   let body;
   try {
-    body = await context.request.json();
+    body = await request.json();
   } catch {
     return Response.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { day, flag, elapsed_ms, access_token } = body;
+  const { day, flag, elapsed_ms } = body;
 
   if (typeof day !== 'number' || day < 0 || day > 25) {
     return Response.json({ error: 'Invalid day' }, { status: 400 });
@@ -58,53 +66,18 @@ export async function onRequestPost(context) {
   if (typeof elapsed_ms !== 'number' || elapsed_ms <= 0) {
     return Response.json({ error: 'Invalid elapsed_ms' }, { status: 400 });
   }
-  if (typeof access_token !== 'string' || !access_token) {
-    return Response.json({ error: 'Missing access_token' }, { status: 400 });
-  }
 
-  // Verify the flag
-  const hash = await hashFlag(flag);
+  // Verify the flag.
   const expectedHash = FLAG_HASHES[day];
-  if (!expectedHash || hash !== expectedHash) {
+  if (!expectedHash || (await hashFlag(flag)) !== expectedHash) {
     return Response.json({ error: 'Invalid flag' }, { status: 400 });
   }
 
-  // Verify the JWT with Supabase to get user ID
-  const userRes = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-      apikey: SUPABASE_SECRET_KEY,
-    },
+  const result = await upsertFasterSubmission(env.DB, {
+    userId: session.uid,
+    day,
+    elapsedMs: elapsed_ms,
   });
 
-  if (!userRes.ok) {
-    return Response.json({ error: 'Invalid or expired token' }, { status: 401 });
-  }
-
-  const user = await userRes.json();
-  const userId = user.id;
-
-  // Call the upsert_submission RPC (secret key in apikey header only, not Authorization)
-  const rpcRes = await fetch(`${SUPABASE_URL}/rest/v1/rpc/upsert_submission`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      apikey: SUPABASE_SECRET_KEY,
-      Prefer: 'return=representation',
-    },
-    body: JSON.stringify({
-      p_user_id: userId,
-      p_day: day,
-      p_elapsed_ms: elapsed_ms,
-    }),
-  });
-
-  if (!rpcRes.ok) {
-    const err = await rpcRes.text();
-    console.error('upsert_submission failed:', err);
-    return Response.json({ error: 'Failed to record submission' }, { status: 500 });
-  }
-
-  const result = await rpcRes.json();
-  return Response.json({ recorded: true, ...result });
+  return Response.json(result);
 }

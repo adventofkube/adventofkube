@@ -1,0 +1,14 @@
+{
+  "name": "adventofkube",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kubernetes debugging challenge platform — static SPA + Cloudflare Pages Functions + D1.",
+  "scripts": {
+    "dev": "wrangler pages dev .",
+    "migrate:local": "wrangler d1 migrations apply adventofkube --local",
+    "migrate:remote": "wrangler d1 migrations apply adventofkube --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.105.0"
+  }
+}

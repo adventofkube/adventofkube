@@ -1,3 +1,8 @@
 .worktrees/
 images/*/flag.go
 docs/plans/
+
+# Node / Cloudflare tooling
+node_modules/
+.wrangler/
+.dev.vars

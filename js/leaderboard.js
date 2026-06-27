@@ -185,7 +185,7 @@ export async function renderLeaderboardWidget(container, options = {}) {
   let currentUserId = null;
 
   try {
-    const { fetchAllSubmissions, getUser } = await import('./supabase.js');
+    const { fetchAllSubmissions, getUser } = await import('./api.js');
     const [subs, user] = await Promise.all([fetchAllSubmissions(), getUser()]);
     allSubmissions = subs;
     currentUserId = user?.id ?? null;

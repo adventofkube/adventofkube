@@ -5,9 +5,23 @@ Kubernetes debugging challenge platform — 25 progressive days of broken cluste
 ## Stack
 
 - Frontend: Vanilla JS SPA (no build step), Cloudflare Pages
-- Backend: Cloudflare Pages Functions, Supabase (auth + DB)
+- Backend: Cloudflare Pages Functions + D1 (SQLite), self-hosted GitHub OAuth
 - Challenges: Helm charts (`charts/dayNN/`) + Go container images (`images/dayNN/`)
 - CI/CD: GitHub Actions → GHCR (images + OCI Helm charts)
+
+## Backend Architecture
+
+Auth and the leaderboard are entirely on Cloudflare (no third-party service to pause).
+
+- **Auth**: GitHub OAuth implemented in Pages Functions (`functions/auth/{login,callback,logout,me}.js`)
+  with a signed session cookie (HMAC-SHA256, `functions/_lib/session.js`, `SESSION_SECRET`).
+- **DB**: Cloudflare D1, bound as `env.DB` (`wrangler.toml`). Schema in `migrations/`.
+  Tables: `profiles` (GitHub identity), `submissions` (fastest time per user/day).
+- **Endpoints**: `POST /submit-flag` (verifies flag hash + session, upserts fastest time),
+  `GET /api/leaderboard`, `GET /api/me/submissions`, `DELETE /api/submissions/:day`.
+- **Client**: `js/api.js` talks to those endpoints (cookie-based; replaced the old Supabase client).
+- **Env vars** (Pages): `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `SESSION_SECRET`. Local dev uses
+  `.dev.vars` + `wrangler pages dev`; D1 migrations via `npm run migrate:local|remote`.
 
 ## Challenge Structure
 
@@ -34,7 +48,7 @@ helm install dayNN oci://ghcr.io/adventofkube/charts/dayNN --version 0.2.0
 ## Project Conventions & Preferences
 
 This project relies on testing each chart manually to validate that it breaks as expected, and can be fixed as expected.
-The project backend currently maps connections between user-ids and completion time through an SQL db hosted on supabase. This is pretty brittle and is expected to likely change if the usage picks up significantly
+The project backend maps GitHub user-ids to completion times in a Cloudflare D1 database (migrated off Supabase, which kept pausing on the free tier). See the Backend Architecture section above.
 Each commit should have a bulleted list of updates being made.
 Ideally, the average user should take about 5-10 minutes to find the issue for lower level problems, while later puzzles should increase the scope of complexity to maybe 30-45 minutes.
 

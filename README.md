@@ -87,33 +87,31 @@
 ```mermaid
 sequenceDiagram
     participant Browser
-    participant CF as Cloudflare Pages
-    participant Supabase
+    participant CF as Cloudflare Pages Functions
+    participant GH as GitHub OAuth
+    participant D1 as Cloudflare D1
 
-    Note over Browser,Supabase: Initial Page Load
-    Browser->>CF: GET /api/config
-    CF-->>Browser: {supabaseUrl, supabasePublishableKey}
-    Browser->>Supabase: Initialize client with publishable key
+    Note over Browser,D1: GitHub OAuth Login
+    Browser->>CF: GET /auth/login
+    CF-->>Browser: Redirect to GitHub (state cookie set)
+    Browser->>GH: Authorize
+    GH-->>Browser: Redirect to /auth/callback?code,state
+    Browser->>CF: GET /auth/callback
+    CF->>GH: Exchange code for token, fetch /user
+    CF->>D1: Upsert profile
+    CF-->>Browser: Signed session cookie, redirect home
 
-    Note over Browser,Supabase: GitHub OAuth Login
-    Browser->>Supabase: signInWithOAuth({provider: 'github'})
-    Supabase-->>Browser: Redirect to GitHub
-    Browser->>Supabase: GitHub callback with code
-    Supabase-->>Browser: Session (access_token JWT)
-
-    Note over Browser,Supabase: Flag Submission (logged in)
+    Note over Browser,D1: Flag Submission (logged in)
     Browser->>Browser: Hash flag, verify locally
-    Browser->>CF: POST /submit-flag {day, flag, elapsed_ms, access_token}
-    CF->>CF: Hash flag, compare to FLAG_HASHES
-    CF->>Supabase: GET /auth/v1/user (apikey: secret, Bearer: access_token)
-    Supabase-->>CF: {id: user_id}
-    CF->>Supabase: POST /rest/v1/rpc/upsert_submission (apikey: secret)
-    Supabase-->>CF: {elapsed_ms, improved}
+    Browser->>CF: POST /submit-flag {day, flag, elapsed_ms} (session cookie)
+    CF->>CF: Verify session cookie + flag hash
+    CF->>D1: Upsert fastest submission
     CF-->>Browser: {recorded: true, improved}
 
-    Note over Browser,Supabase: Leaderboard Read
-    Browser->>Supabase: SELECT from submissions + profiles (publishable key)
-    Supabase-->>Browser: Leaderboard data (RLS: public read)
+    Note over Browser,D1: Leaderboard Read
+    Browser->>CF: GET /api/leaderboard
+    CF->>D1: SELECT submissions JOIN profiles
+    CF-->>Browser: Leaderboard JSON
 ```
 
 ---
@@ -122,7 +120,7 @@ sequenceDiagram
 
 - **Frontend**: Vanilla JS (no build step), CSS
 - **Hosting**: Cloudflare Pages + Functions
-- **Auth & Database**: Supabase (Postgres + GitHub OAuth)
+- **Auth & Database**: Cloudflare D1 + self-hosted GitHub OAuth (signed session cookies)
 - **Challenges**: Helm charts + custom container images on GHCR
 
 ### Project Structure
@@ -134,15 +132,19 @@ sequenceDiagram
 │   ├── app.js              # Router + auth header
 │   ├── router.js           # SPA router (History API)
 │   ├── config.js           # Day definitions + flag hashes
-│   ├── supabase.js         # Supabase client + auth helpers
+│   ├── api.js              # Cloudflare backend client (auth + leaderboard)
 │   ├── leaderboard.js      # Leaderboard widget
 │   └── pages/
 │       ├── landing.js      # Home page + calendar
 │       ├── calendar.js     # Standalone calendar
 │       └── day.js          # Challenge page
 ├── functions/              # Cloudflare Pages Functions
-│   ├── api/config.js       # Serves public Supabase config
-│   └── submit-flag.js      # Server-side flag validation
+│   ├── _lib/               # Shared helpers (session cookie, D1 access)
+│   ├── auth/               # GitHub OAuth: login, callback, logout, me
+│   ├── api/                # leaderboard, me/submissions, submissions/[day]
+│   └── submit-flag.js      # Server-side flag validation + record
+├── migrations/             # D1 schema migrations
+├── wrangler.toml           # Pages + D1 binding config
 ├── charts/                 # Helm charts for each day
 │   └── day00/, day01/, ...
 └── images/                 # Container image sources
