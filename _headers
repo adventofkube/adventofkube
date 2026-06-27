@@ -1,0 +1,15 @@
+# Always revalidate the app shell, scripts, and styles so a new deploy takes
+# effect immediately (the no-build JS filenames aren't fingerprinted).
+# `no-cache` still allows 304s via ETag, so it's cheap.
+/
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/js/*
+  Cache-Control: no-cache
+/css/*
+  Cache-Control: no-cache
+/day/*
+  Cache-Control: no-cache
+/calendar
+  Cache-Control: no-cache
