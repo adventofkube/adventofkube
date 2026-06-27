@@ -13,10 +13,10 @@ export const DAYS = [
     chartUrl: 'https://example.com/charts/day00.tgz',
     osSetup: {
       windows: [
-        { title: '1. Install Docker Desktop', content: 'Download and install <a href="https://docs.docker.com/desktop/install/windows-install/" target="_blank" rel="noopener">Docker Desktop</a>. Enable WSL2 when prompted.' },
-        { title: '2. Install kubectl', content: 'Download <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/" target="_blank" rel="noopener">kubectl.exe</a> and add it to your PATH, or run in PowerShell:<code>winget install Kubernetes.kubectl</code>' },
-        { title: '3. Install kind', content: 'Download from <a href="https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries" target="_blank" rel="noopener">kind releases</a> and add to PATH, or run:<code>winget install Kubernetes.kind</code>' },
-        { title: '4. Install Helm', content: 'Download from <a href="https://helm.sh/docs/intro/install/#from-the-binary-releases" target="_blank" rel="noopener">Helm releases</a> and add to PATH, or run:<code>winget install Helm.Helm</code>' },
+        { title: '1. Install Docker Desktop', content: 'Install <a href="https://docs.docker.com/desktop/install/windows-install/" target="_blank" rel="noopener">Docker Desktop</a> (enable WSL2 when prompted), then reboot and launch it so the engine is running:<code>winget install -e --id Docker.DockerDesktop</code>' },
+        { title: '2. Install Scoop', content: 'Scoop is a user-level package manager that installs CLI tools and adds them to your PATH automatically — no admin required. Run in PowerShell:<code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force\nInvoke-RestMethod https://get.scoop.sh | Invoke-Expression</code>' },
+        { title: '3. Install kind, kubectl & helm', content: 'One command installs all three and puts them on your PATH:<code>scoop install kind kubectl helm</code>' },
+        { title: '4. Open a new terminal', content: 'Close and reopen PowerShell so the updated PATH is picked up, then run the verification commands below.' },
       ],
       mac: [
         { title: '1. Install Docker Desktop', content: '<code>brew install --cask docker</code> or download from <a href="https://docs.docker.com/desktop/install/mac-install/" target="_blank" rel="noopener">Docker Desktop</a>' },
